@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE and operating system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local reports and raw customer documents
+data/raw/*
+!data/raw/.gitkeep
+
+# Redacted intermediate documents
+data/redacted/*
+!data/redacted/.gitkeep
+
+# Generated normalized data
+data/normalized/*
+!data/normalized/.gitkeep
+
+# Generated dataset artifacts
+data/dataset/*
+!data/dataset/.gitkeep
+
+# Model adapters and checkpoints
+artifacts/adapters/*
+!artifacts/adapters/.gitkeep
+
+# Vector indexes
+artifacts/indexes/*
+!artifacts/indexes/.gitkeep
+
+# Generated metrics
+artifacts/metrics/*
+!artifacts/metrics/.gitkeep
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+temp/
+tmp/

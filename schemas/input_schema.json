@@ -1,0 +1,486 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://internal.evvo.local/schemas/input_schema.json",
+  "title": "Normalized VAPT Finding Input",
+  "description": "General input schema for one normalized VAPT finding. The schema must not depend on a specific customer, report template, section number, assessment type, or vulnerability category.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "finding_id",
+    "title",
+    "severity",
+    "affected_targets",
+    "affected_user_roles",
+    "cwe_id",
+    "cvss",
+    "impact",
+    "observation",
+    "evidence",
+    "recommendation",
+    "retest",
+    "references",
+    "source",
+    "governance"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.2"
+    },
+    "finding_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^FND-[0-9]{6}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "severity": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low",
+        "informational",
+        "unknown",
+        null
+      ]
+    },
+    "affected_targets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/affectedTarget"
+      }
+    },
+    "affected_user_roles": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "cwe_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^CWE-[0-9]+$"
+    },
+    "cvss": {
+      "$ref": "#/$defs/cvss"
+    },
+    "impact": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "observation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidenceItem"
+      }
+    },
+    "recommendation": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "retest": {
+      "$ref": "#/$defs/retest"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reference"
+      }
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "governance": {
+      "$ref": "#/$defs/governance"
+    }
+  },
+  "$defs": {
+    "affectedTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_type",
+        "value"
+      ],
+      "properties": {
+        "target_type": {
+          "type": "string",
+          "enum": [
+            "web_application",
+            "api",
+            "android_application",
+            "ios_application",
+            "network",
+            "cloud_resource",
+            "desktop_application",
+            "iot_device",
+            "identity_system",
+            "cryptographic_component",
+            "other",
+            "unknown"
+          ]
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "cvss": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "score",
+        "vector"
+      ],
+      "properties": {
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "2.0",
+            "3.0",
+            "3.1",
+            "4.0",
+            "unknown",
+            null
+          ]
+        },
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 10
+        },
+        "vector": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "evidenceItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "evidence_type",
+        "description",
+        "content",
+        "availability"
+      ],
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_type": {
+          "type": "string",
+          "enum": [
+            "http_request",
+            "http_response",
+            "request_response_pair",
+            "screenshot",
+            "command",
+            "command_output",
+            "source_code",
+            "configuration",
+            "scanner_output",
+            "manual_observation",
+            "reproduction_steps",
+            "other",
+            "unknown"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "availability": {
+          "type": "string",
+          "enum": [
+            "full_content",
+            "description_only",
+            "referenced_but_unavailable",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "retest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applicable",
+        "status",
+        "verification_result",
+        "evidence"
+      ],
+      "properties": {
+        "applicable": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "status": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "fixed",
+            "partially_fixed",
+            "not_fixed",
+            "accepted_risk",
+            "not_retested",
+            "not_applicable",
+            "unknown",
+            null
+          ]
+        },
+        "verification_result": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceItem"
+          }
+        }
+      }
+    },
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reference_type",
+        "value"
+      ],
+      "properties": {
+        "reference_type": {
+          "type": "string",
+          "enum": [
+            "cwe",
+            "owasp",
+            "cve",
+            "vendor_advisory",
+            "standard",
+            "internal_rule",
+            "other"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document_id",
+        "document_type",
+        "location",
+        "source_reference"
+      ],
+      "properties": {
+        "document_id": {
+          "type": "string",
+          "pattern": "^DOC-[0-9]{6}$"
+        },
+        "document_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "initial_assessment",
+            "retest_report",
+            "combined_assessment_retest",
+            "final_report",
+            "finding_export",
+            "unknown",
+            null
+          ]
+        },
+        "location": {
+          "$ref": "#/$defs/sourceLocation"
+        },
+        "source_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "sourceLocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "section_title",
+        "section_number",
+        "finding_number",
+        "page_start",
+        "page_end"
+      ],
+      "properties": {
+        "section_title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "section_number": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "finding_number": {
+          "type": [
+            "integer",
+            "string",
+            "null"
+          ]
+        },
+        "page_start": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "page_end": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_type",
+        "data_classification",
+        "redaction_status",
+        "usage_approved",
+        "usage_scope",
+        "training_environment",
+        "dataset_version"
+      ],
+      "properties": {
+        "source_type": {
+          "type": "string",
+          "enum": [
+            "company_provided",
+            "intern_created",
+            "ai_generated",
+            "external"
+          ]
+        },
+        "data_classification": {
+          "type": "string",
+          "enum": [
+            "public",
+            "internal",
+            "confidential",
+            "restricted",
+            "unknown"
+          ]
+        },
+        "redaction_status": {
+          "type": "string",
+          "enum": [
+            "provider_preprocessed",
+            "automated_check_passed",
+            "manual_check_passed",
+            "needs_review",
+            "redaction_required",
+            "not_applicable"
+          ]
+        },
+        "usage_approved": {
+          "type": "boolean"
+        },
+        "usage_scope": {
+          "type": "string",
+          "enum": [
+            "internal",
+            "evaluation_only",
+            "restricted",
+            "unknown"
+          ]
+        },
+        "training_environment": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "google_colab",
+            "local",
+            "company_infrastructure",
+            "other",
+            null
+          ]
+        },
+        "dataset_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

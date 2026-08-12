@@ -1,0 +1,642 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://internal.evvo.local/schemas/output_schema.json",
+  "title": "VAPT Finding Review Output",
+  "description": "Structured output schema for reviewing one normalized VAPT finding.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "review_id",
+    "finding_id",
+    "review_status",
+    "classification",
+    "completeness_review",
+    "evidence_review",
+    "severity_review",
+    "cvss_review",
+    "cwe_review",
+    "impact_review",
+    "recommendation_review",
+    "consistency_review",
+    "retest_review",
+    "review_comments",
+    "confidence",
+    "human_escalation",
+    "traceability"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.1"
+    },
+    "review_id": {
+      "type": "string",
+      "pattern": "^REV-[0-9]{6}$"
+    },
+    "finding_id": {
+      "type": "string",
+      "pattern": "^FND-[0-9]{6}$"
+    },
+    "review_status": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "needs_revision",
+        "human_review"
+      ]
+    },
+    "classification": {
+      "$ref": "#/$defs/classification"
+    },
+    "completeness_review": {
+      "$ref": "#/$defs/completenessReview"
+    },
+    "evidence_review": {
+      "$ref": "#/$defs/evidenceReview"
+    },
+    "severity_review": {
+      "$ref": "#/$defs/severityReview"
+    },
+    "cvss_review": {
+      "$ref": "#/$defs/cvssReview"
+    },
+    "cwe_review": {
+      "$ref": "#/$defs/cweReview"
+    },
+    "impact_review": {
+      "$ref": "#/$defs/impactReview"
+    },
+    "recommendation_review": {
+      "$ref": "#/$defs/recommendationReview"
+    },
+    "consistency_review": {
+      "$ref": "#/$defs/consistencyReview"
+    },
+    "retest_review": {
+      "$ref": "#/$defs/retestReview"
+    },
+    "review_comments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reviewComment"
+      }
+    },
+    "confidence": {
+      "$ref": "#/$defs/confidence"
+    },
+    "human_escalation": {
+      "$ref": "#/$defs/humanEscalation"
+    },
+    "traceability": {
+      "$ref": "#/$defs/traceability"
+    }
+  },
+  "$defs": {
+    "nullableBoolean": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "nullableSeverity": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low",
+        "informational",
+        "unknown",
+        null
+      ]
+    },
+    "classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "rationale",
+        "supported_by_evidence"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "enum": [
+            "confirmed_vulnerability",
+            "potential_issue",
+            "informational",
+            "false_positive",
+            "undetermined"
+          ]
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "supported_by_evidence": {
+          "$ref": "#/$defs/nullableBoolean"
+        }
+      }
+    },
+    "completenessReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "is_complete",
+        "missing_required_fields",
+        "missing_conditional_fields",
+        "comments"
+      ],
+      "properties": {
+        "is_complete": {
+          "$ref": "#/$defs/nullableBoolean"
+        },
+        "missing_required_fields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "missing_conditional_fields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "comments": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "evidenceReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "is_sufficient",
+        "evidence_items_reviewed",
+        "supported_claims",
+        "unsupported_claims",
+        "missing_evidence",
+        "comments"
+      ],
+      "properties": {
+        "is_sufficient": {
+          "$ref": "#/$defs/nullableBoolean"
+        },
+        "evidence_items_reviewed": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "supported_claims": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "unsupported_claims": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "missing_evidence": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "comments": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "severityReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reported_severity",
+        "suggested_severity",
+        "is_consistent",
+        "change_recommended",
+        "rationale"
+      ],
+      "properties": {
+        "reported_severity": {
+          "$ref": "#/$defs/nullableSeverity"
+        },
+        "suggested_severity": {
+          "$ref": "#/$defs/nullableSeverity"
+        },
+        "is_consistent": {
+          "$ref": "#/$defs/nullableBoolean"
+        },
+        "change_recommended": {
+          "type": "boolean"
+        },
+        "rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "cvssReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reported_version",
+        "reported_score",
+        "reported_vector",
+        "vector_is_valid",
+        "score_matches_vector",
+        "severity_matches_score",
+        "requires_manual_recalculation",
+        "comments"
+      ],
+      "properties": {
+        "reported_version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "2.0",
+            "3.0",
+            "3.1",
+            "4.0",
+            "unknown",
+            null
+          ]
+        },
+        "reported_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 10
+        },
+        "reported_vector": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vector_is_valid": {
+          "$ref": "#/$defs/nullableBoolean"
+        },
+        "score_matches_vector": {
+          "$ref": "#/$defs/nullableBoolean"
+        },
+        "severity_matches_score": {
+          "$ref": "#/$defs/nullableBoolean"
+        },
+        "requires_manual_recalculation": {
+          "type": "boolean"
+        },
+        "comments": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "cweReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reported_cwe",
+        "is_relevant",
+        "suggested_cwe",
+        "rationale"
+      ],
+      "properties": {
+        "reported_cwe": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "is_relevant": {
+          "$ref": "#/$defs/nullableBoolean"
+        },
+        "suggested_cwe": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "impactReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "is_supported_by_evidence",
+        "is_proportionate",
+        "unsupported_impact_claims",
+        "comments"
+      ],
+      "properties": {
+        "is_supported_by_evidence": {
+          "$ref": "#/$defs/nullableBoolean"
+        },
+        "is_proportionate": {
+          "$ref": "#/$defs/nullableBoolean"
+        },
+        "unsupported_impact_claims": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "comments": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "recommendationReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "addresses_root_cause",
+        "is_actionable",
+        "is_technically_relevant",
+        "missing_recommendations",
+        "comments"
+      ],
+      "properties": {
+        "addresses_root_cause": {
+          "$ref": "#/$defs/nullableBoolean"
+        },
+        "is_actionable": {
+          "$ref": "#/$defs/nullableBoolean"
+        },
+        "is_technically_relevant": {
+          "$ref": "#/$defs/nullableBoolean"
+        },
+        "missing_recommendations": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "comments": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "consistencyReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "is_consistent",
+        "issues"
+      ],
+      "properties": {
+        "is_consistent": {
+          "$ref": "#/$defs/nullableBoolean"
+        },
+        "issues": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "retestReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applicable",
+        "reported_status",
+        "status_supported_by_evidence",
+        "missing_retest_evidence",
+        "comments"
+      ],
+      "properties": {
+        "applicable": {
+          "$ref": "#/$defs/nullableBoolean"
+        },
+        "reported_status": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "fixed",
+            "partially_fixed",
+            "not_fixed",
+            "accepted_risk",
+            "not_retested",
+            "not_applicable",
+            "unknown",
+            null
+          ]
+        },
+        "status_supported_by_evidence": {
+          "$ref": "#/$defs/nullableBoolean"
+        },
+        "missing_retest_evidence": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "comments": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "reviewComment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "comment_id",
+        "taxonomy_code",
+        "category",
+        "severity",
+        "field",
+        "message",
+        "evidence_reference",
+        "suggested_action"
+      ],
+      "properties": {
+        "comment_id": {
+          "type": "string",
+          "pattern": "^RC-[0-9]{3,}$"
+        },
+        "taxonomy_code": {
+          "type": "string",
+          "pattern": "^(COMP|EVID|CLASS|SEV|CVSS|CWE|IMPACT|DESC|REPRO|REMD|CONS|RETEST|WRITE|GOV)-[0-9]{3}$"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "completeness",
+            "evidence",
+            "classification",
+            "severity",
+            "cvss",
+            "cwe",
+            "impact",
+            "description",
+            "reproduction",
+            "recommendation",
+            "consistency",
+            "retest",
+            "writing",
+            "governance"
+          ]
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "error",
+            "warning",
+            "suggestion"
+          ]
+        },
+        "field": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "suggested_action": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "overall_score",
+        "level",
+        "basis",
+        "limitations"
+      ],
+      "properties": {
+        "overall_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "level": {
+          "type": "string",
+          "enum": [
+            "high",
+            "medium",
+            "low",
+            "not_calculated"
+          ]
+        },
+        "basis": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "limitations": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "humanEscalation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "reasons",
+        "recommended_reviewer"
+      ],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "reasons": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "recommended_reviewer": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "technical_reviewer",
+            "senior_pentester",
+            "report_reviewer",
+            "project_manager",
+            "data_owner",
+            "security_governance",
+            "other",
+            null
+          ]
+        }
+      }
+    },
+    "traceability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_document_id",
+        "source_location",
+        "input_schema_version",
+        "output_schema_version",
+        "model_version",
+        "knowledge_base_version",
+        "ruleset_version",
+        "reviewed_at"
+      ],
+      "properties": {
+        "source_document_id": {
+          "type": "string",
+          "pattern": "^DOC-[0-9]{6}$"
+        },
+        "source_location": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "input_schema_version": {
+          "type": "string",
+          "const": "0.2"
+        },
+        "output_schema_version": {
+          "type": "string",
+          "const": "0.1"
+        },
+        "model_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "knowledge_base_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ruleset_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reviewed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}
