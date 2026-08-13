@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "generated_date": "2026-08-05",
+  "documents": [
+    {
+      "document_id": "DOC-000001",
+      "source_filename": "DOC-000001.docx",
+      "source_original_name": "BRIGHTREE VAPT.docx",
+      "file_hash_sha256": "6317b2a665d7584fc2921da08bc9eba08375890aa3c0312515b89e0fe285ae94",
+      "file_size_bytes": null,
+      "finding_count": 5,
+      "paragraph_count": 343,
+      "table_count": 24,
+      "finding_title_style": "EvvoH2",
+      "client": "GlobalSign.In Pte Ltd",
+      "vapt_team": {
+        "project_manager": "Phuong Cao (Fang)",
+        "report_author": "Tung Phan (Kai)",
+        "pentesters": ["Nguyen Trong Dao (OSCP)", "Quyen Hong Son (OSCP)"],
+        "review_by": "Dung Bui (Andrew)",
+        "approved_by": "Vince Chew"
+      },
+      "testing_period": {
+        "start": "2025-10-21",
+        "end": "2026-03-28"
+      },
+      "report_version": "V 1.4",
+      "report_date": "2026-03-31",
+      "processing_status": "normalized",
+      "redaction_status": "pending",
+      "usage_approval": "company_provided",
+      "data_classification": "confidential",
+      "training_environment": "google_colab",
+      "schema_version_used": "0.2",
+      "artifacts": {
+        "raw_extraction": "data/redacted/DOC-000001-findings-raw.json",
+        "metadata": "data/normalized/DOC-000001-metadata.json",
+        "sections": "data/normalized/DOC-000001-sections.json",
+        "normalized_json": "data/normalized/DOC-000001-findings-normalized.json",
+        "normalized_jsonl": "data/normalized/DOC-000001-findings-normalized.jsonl",
+        "quality_metrics": "artifacts/metrics/DOC-000001-normalized-quality.json"
+      },
+      "quality_summary": {
+        "errors": 0,
+        "warnings": 8,
+        "blocked": 0,
+        "needs_review": 5,
+        "passed": 0
+      }
+    }
+  ]
+}

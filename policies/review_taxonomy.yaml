@@ -1,0 +1,233 @@
+# Review Taxonomy — EVVO SLM / Harness
+# Version: 1.0 | Date: 2026-08-05
+# These codes are used in output_schema.json → review_comments[].code
+# and in self-validation / confidence scoring logic.
+
+taxonomy_version: "1.0"
+effective_date: "2026-08-05"
+
+categories:
+
+  # ── COMPLETENESS ──
+  - code: COMP
+    name: Completeness Review
+    description: >
+      Checks whether all required fields and sections are present and populated
+      with meaningful content. A finding missing Observation, Exploitation, or
+      Recommendation is incomplete and cannot be reliably reviewed.
+    severity_level: warning
+    triggers:
+      - Missing Observation section
+      - Missing Exploitation section
+      - Missing Recommendation/Remediation section
+      - Empty or placeholder text in required fields
+    slm_action: Flag as needs_revision with specific missing sections
+    human_action: Review and provide missing content
+
+  # ── EVIDENCE ──
+  - code: EVID
+    name: Evidence Review
+    description: >
+      Assesses whether the exploitation evidence sufficiently supports the
+      vulnerability claim. Distinguishes between confirmed exploitation,
+      inconclusive testing, and absence of evidence.
+    severity_level: critical
+    triggers:
+      - Exploitation section empty or generic
+      - No reproduction steps provided
+      - Evidence does not prove the claimed vulnerability
+      - Only scanner output without manual verification
+    sub_codes:
+      - code: EVID_SUFF
+        name: Evidence Sufficient
+        description: Evidence supports the vulnerability claim
+      - code: EVID_INSUFF
+        name: Evidence Insufficient
+        description: Evidence does not fully support the vulnerability claim
+      - code: EVID_NONE
+        name: No Evidence
+        description: No exploitation evidence provided
+      - code: EVID_SCANNER_ONLY
+        name: Scanner Output Only
+        description: Only automated scanner output, no manual confirmation
+    slm_action: >
+      If EVID_SUFF → classification can be Confirmed Vulnerability.
+      If EVID_INSUFF → classification must be Potential Issue.
+      If EVID_NONE or EVID_SCANNER_ONLY → classification must be Potential Issue
+      and human escalation is required.
+    human_action: Confirm or provide additional evidence
+
+  # ── CLASSIFICATION ──
+  - code: CLASS
+    name: Classification Review
+    description: >
+      Determines the correct decision label for the finding based on
+      evidence strength and verification status.
+    severity_level: critical
+    valid_labels:
+      - Confirmed Vulnerability
+      - Potential Issue
+      - Informational Finding
+      - False Positive
+    classification_rules:
+      - label: Confirmed Vulnerability
+        condition: >
+          Exploitation demonstrated AND evidence supports claim AND
+          manual verification performed
+      - label: Potential Issue
+        condition: >
+          Vulnerability likely but exploitation not fully demonstrated OR
+          evidence is insufficient to confirm
+      - label: Informational Finding
+        condition: >
+          No direct vulnerability; information disclosure or best-practice
+          observation only
+      - label: False Positive
+        condition: >
+          Reported vulnerability cannot be reproduced OR evidence contradicts
+          the claim
+    slm_action: Assign classification based on evidence; never upgrade to Confirmed without sufficient evidence
+    human_action: Override classification if SLM is uncertain (confidence < 0.7)
+
+  # ── SEVERITY ──
+  - code: SEV
+    name: Severity Review
+    description: >
+      Compares reported severity against CVSS score, evidence impact,
+      and organizational context. Flags mismatches without auto-correcting.
+    severity_level: warning
+    triggers:
+      - Reported severity does not match CVSS score range
+      - Impact description does not align with severity level
+      - Severity escalated without corresponding evidence
+    cvss_ranges:
+      critical: "9.0 - 10.0"
+      high: "7.0 - 8.9"
+      medium: "4.0 - 6.9"
+      low: "0.1 - 3.9"
+      informational: "0.0"
+    slm_action: >
+      Flag mismatch as warning. Do NOT auto-correct severity.
+      Report both reported value and CVSS-implied value.
+    human_action: Decide final severity
+
+  # ── CVSS ──
+  - code: CVSS
+    name: CVSS Review
+    description: >
+      Validates CVSS vector structure, metric values, and score calculation.
+      Ensures the vector is parseable and the score matches the metrics.
+    severity_level: warning
+    triggers:
+      - Malformed CVSS vector string
+      - CVSS score does not match vector calculation
+      - Missing CVSS score or vector
+      - Unsupported CVSS version
+    supported_versions:
+      - "3.1"
+    slm_action: Validate format; flag parsing errors; do not recalculate score
+    human_action: Correct CVSS if malformed
+
+  # ── CWE ──
+  - code: CWE
+    name: CWE Review
+    description: >
+      Validates CWE ID format and checks whether the CWE aligns with
+      the finding title and description.
+    severity_level: info
+    triggers:
+      - CWE ID format invalid (not CWE-NNN)
+      - CWE does not match vulnerability category
+      - Missing CWE ID
+    slm_action: Validate format; flag if CWE seems mismatched with title
+    human_action: Assign correct CWE if missing or wrong
+
+  # ── IMPACT ──
+  - code: IMP
+    name: Impact Review
+    description: >
+      Evaluates whether the impact description accurately reflects
+      the potential consequences of the vulnerability.
+    severity_level: warning
+    triggers:
+      - Impact description is generic or template-like
+      - Impact does not match evidence or severity
+      - Missing impact description
+    slm_action: Flag weak or missing impact; do not generate impact text
+    human_action: Write or correct impact description
+
+  # ── RECOMMENDATION ──
+  - code: REC
+    name: Recommendation Review
+    description: >
+      Assesses whether the recommendation/remediation addresses the root
+      cause and provides actionable steps. Flags generic advice.
+    severity_level: warning
+    triggers:
+      - Recommendation is generic (e.g., "update to latest version")
+      - Recommendation does not address root cause
+      - Missing recommendation
+    slm_action: Flag weak/generic recommendation; do not generate new recommendation
+    human_action: Write specific remediation guidance
+
+  # ── RETEST ──
+  - code: RET
+    name: Retest Review
+    description: >
+      Checks retest status and verification result. Findings without
+      retest are flagged for follow-up but not blocked.
+    severity_level: info
+    triggers:
+      - Retest status is empty or not_tested
+      - Retest verification result is missing
+      - Finding marked as remediated but no retest evidence
+    slm_action: Flag missing retest; do not auto-fill retest status
+    human_action: Schedule retest or provide retest result
+
+  # ── CONFIDENCE ──
+  - code: CONF
+    name: Confidence Scoring
+    description: >
+      Computes a confidence score based on evidence completeness,
+      classification certainty, and consistency checks.
+    severity_level: info
+    factors:
+      - name: evidence_completeness
+        weight: 0.35
+        description: Whether exploitation evidence is present and supports the claim
+      - name: classification_certainty
+        weight: 0.25
+        description: Whether the finding can be clearly classified
+      - name: cvss_severity_consistency
+        weight: 0.15
+        description: Whether CVSS score aligns with reported severity
+      - name: section_completeness
+        weight: 0.15
+        description: Whether all required sections are present
+      - name: retest_availability
+        weight: 0.10
+        description: Whether retest has been performed
+    escalation_threshold: 0.7
+    escalation_rule: >
+      If confidence < 0.7, escalate to human review.
+      If evidence_completeness < 0.5, always escalate regardless of total score.
+
+# ── Cross-field consistency rules ──
+consistency_rules:
+  - rule: severity_cvss_alignment
+    description: Reported severity should align with CVSS score range
+    action: flag_mismatch_on_review
+
+  - rule: evidence_classification_alignment
+    description: >
+      Classification must not be "Confirmed Vulnerability" if
+      exploitation is not demonstrated or evidence is insufficient
+    action: override_to_potential_issue
+
+  - rule: title_content_alignment
+    description: Finding title should reflect the described vulnerability
+    action: flag_on_review
+
+  - rule: recommendation_root_cause
+    description: Recommendation should address the root cause, not just symptoms
+    action: flag_on_review

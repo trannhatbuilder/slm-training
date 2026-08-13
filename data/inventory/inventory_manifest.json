@@ -1,0 +1,66 @@
+{
+  "manifest_version": "1.0",
+  "generated_date": "2026-08-05",
+  "generated_by": "manual_step_22",
+  "summary": {
+    "total_documents": 1,
+    "total_findings": 5,
+    "documents_normalized": 1,
+    "documents_pending_redaction": 1,
+    "documents_ready_for_dataset": 0
+  },
+  "severity_distribution": {
+    "critical": 1,
+    "high": 0,
+    "medium": 1,
+    "low": 3,
+    "informational": 0
+  },
+  "quality_summary": {
+    "total_errors": 0,
+    "total_warnings": 8,
+    "total_blocked": 0,
+    "total_needs_review": 5,
+    "total_passed": 0,
+    "warning_breakdown": {
+      "missing_retest_status": 5,
+      "cvss_severity_mismatch": 3
+    }
+  },
+  "redaction_summary": {
+    "findings_requiring_redaction": 2,
+    "findings_redaction_complete": 0,
+    "redaction_pending_fields": ["hostname", "username", "password", "apk_name", "domain", "url"]
+  },
+  "exploitation_summary": {
+    "confirmed_vulnerability": 4,
+    "potential_issue": 1,
+    "informational_finding": 0,
+    "false_positive": 0
+  },
+  "eligible_tasks_summary": {
+    "finding_review": 5,
+    "severity_review": 2,
+    "evidence_check": 5,
+    "remediation_review": 4,
+    "client_qa": 5,
+    "hard_negative_potential_issue": 1
+  },
+  "documents": [
+    {
+      "document_id": "DOC-000001",
+      "finding_count": 5,
+      "processing_status": "normalized",
+      "redaction_status": "pending",
+      "quality_status": "needs_review"
+    }
+  ],
+  "checks": {
+    "all_findings_have_schema_validation": true,
+    "all_findings_have_source_traceability": true,
+    "no_exact_duplicates": true,
+    "no_blocked_findings": true,
+    "redaction_not_yet_applied": true,
+    "train_val_test_split_not_yet_done": true
+  }
+}

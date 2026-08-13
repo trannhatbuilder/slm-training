@@ -1,0 +1,157 @@
+# Data Protection Rules — EVVO SLM / Harness
+# Version: 1.0 | Date: 2026-08-05
+# Defines redaction rules, forbidden fields, and data protection requirements.
+# This file is consumed by the redaction pipeline before data enters training environment.
+
+rules_version: "1.0"
+effective_date: "2026-08-05"
+
+# ── PII Detection Patterns ──
+pii_patterns:
+  credentials:
+    - name: rabbitmq_credentials
+      pattern_type: contextual
+      description: "RabbitMQ hostname, username, password in exploitation text"
+      context_keywords: ["rabbit", "rabbitmq", "amqp"]
+      capture_patterns:
+        - "hostname.*=.*"
+        - "username.*=.*"
+        - "password.*=.*"
+        - "amqp://[^\\s]+"
+      replacement: "[REDACTED_CREDENTIAL]"
+      finding_context: "FND-000001"
+
+    - name: generic_password
+      pattern_type: regex
+      pattern: '(?i)(password|passwd|pwd|secret|token|api_key|apikey)\s*[=:]\s*["\']?[\S]{4,}'
+      replacement: "[REDACTED_CREDENTIAL]"
+
+    - name: connection_string
+      pattern_type: regex
+      pattern: '(?i)(amqp|mongodb|mysql|postgres|redis)://[^\s]+'
+      replacement: "[REDACTED_CREDENTIAL]"
+
+  person_identifiable:
+    - name: email_address
+      pattern_type: regex
+      pattern: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+      replacement: "[REDACTED_EMAIL]"
+      exception: "Do not redact example/test emails (e.g., user@example.com)"
+
+    - name: person_name
+      pattern_type: contextual
+      description: "Names of client contacts, pentesters, reviewers from engagement table"
+      context_keywords: ["contact", "manager", "author", "pentester", "reviewer", "approver"]
+      replacement: "[REDACTED_NAME]"
+      note: "Apply to engagement info, not to finding narrative where names may not appear"
+
+    - name: phone_number
+      pattern_type: regex
+      pattern: '(\+?\d{1,3}[-.\s]?)?\(?\d{2,4}\)?[-.\s]?\d{3,4}[-.\s]?\d{3,4}'
+      replacement: "[REDACTED_PHONE]"
+
+  infrastructure:
+    - name: internal_hostname
+      pattern_type: contextual
+      description: "Internal hostnames referenced in evidence or exploitation"
+      context_keywords: ["host", "server", "broker", "endpoint"]
+      replacement: "[REDACTED_HOST]"
+
+    - name: private_ip
+      pattern_type: regex
+      pattern: '(10\.\d{1,3}\.\d{1,3}\.\d{1,3}|172\.(1[6-9]|2[0-9]|3[01])\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3})'
+      replacement: "[REDACTED_IP]"
+
+    - name: client_url
+      pattern_type: regex
+      pattern: 'https?://[a-zA-Z0-9.-]+\.(com|com\.sg|io|net|org)[^\s]*'
+      replacement: "[REDACTED_URL]"
+      exception: "Public OWASP/PortSwigger URLs may be kept"
+
+    - name: apk_name
+      pattern_type: regex
+      pattern: '(?i)[\w-]+\.apk'
+      replacement: "[REDACTED_APK]"
+
+# ── Field-Level Protection ──
+field_protection:
+  always_redact:
+    - field: "evidence.raw_request"
+      reason: "May contain credentials or session tokens"
+    - field: "evidence.raw_response"
+      reason: "May contain PII or internal data"
+    - field: "affected_targets.url"
+      reason: "Client application URL"
+    - field: "exploitation.commands_with_credentials"
+      reason: "Commands that include passwords or keys"
+
+  preserve_after_redaction:
+    - field: "finding_id"
+      reason: "Needed for traceability"
+    - field: "severity"
+      reason: "Core classification data"
+    - field: "cwe_id"
+      reason: "Standardized vulnerability reference"
+    - field: "cvss.vector"
+      reason: "Metric structure has no PII"
+    - field: "source.document_id"
+      reason: "Internal reference, not client-identifying"
+
+# ── Forbidden Actions ──
+forbidden:
+  - rule: no_raw_report_to_colab
+    description: "Never upload raw client report (DOCX) to Google Colab"
+    enforcement: "manual_check + .gitignore"
+
+  - rule: no_unredacted_training_data
+    description: "All data entering training environment must pass redaction pipeline"
+    enforcement: "redaction_check_before_upload"
+
+  - rule: no_credential_in_prompt
+    description: "SLM prompt must never contain real credentials, even after training"
+    enforcement: "prompt_sanitization"
+
+  - rule: no_client_identity_in_output
+    description: "SLM output must not reveal client identity"
+    enforcement: "output_filter"
+
+  - rule: no_test_data_in_train
+    description: "Test set must be frozen before training begins and never used in train"
+    enforcement: "split_verification"
+
+# ── Redaction Verification ──
+verification:
+  post_redaction_checks:
+    - check: no_credentials_remaining
+      method: "regex scan for credential patterns"
+    - check: no_urls_remaining
+      method: "regex scan for client URLs"
+    - check: no_names_remaining
+      method: "compare against known name list from engagement table"
+    - check: redaction_tag_consistency
+      method: "all [REDACTED_*] tags are well-formed"
+    - check: traceability_preserved
+      method: "document_id and finding_id still present after redaction"
+
+  redaction_log:
+    path: "data/redacted/redaction_log.json"
+    fields: ["document_id", "finding_id", "field", "original_pattern", "replacement", "timestamp"]
+
+# ── Environment-Specific Rules ──
+environments:
+  local_development:
+    redaction_required: false
+    note: "Raw data can be processed locally but must not leave the machine"
+
+  google_colab:
+    redaction_required: true
+    note: "ALL data uploaded to Colab must be redacted first"
+    upload_checklist:
+      - "Redaction pipeline completed"
+      - "Verification checks passed"
+      - "No raw DOCX files in upload directory"
+      - "Redaction log exists and is complete"
+
+  production:
+    redaction_required: true
+    additional: "Client-facing output must also pass output filter"

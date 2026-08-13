@@ -1,0 +1,153 @@
+# Data Usage Policy — EVVO SLM / Harness
+# Version: 1.0 | Date: 2026-08-05
+# Defines what data can be used for training, under what conditions,
+# and what preprocessing is required before use.
+
+policy_version: "1.0"
+effective_date: "2026-08-05"
+policy_owner: "Nhat Tran (EVVO Labs Intern)"
+approved_by: "pending"
+
+# ── Data Sources ──
+approved_sources:
+  - source_type: pentest_report
+    provider: evvolabs_client_provided
+    description: >
+      VAPT reports provided by EVVO Labs clients with explicit permission
+      for internal use. These are the primary training data source.
+    usage: training_and_evaluation
+    requirements:
+      - Must have client permission (usage_approval: approved)
+      - Must be redacted before upload to training environment
+      - Must preserve source traceability after redaction
+      - Must not be shared outside EVVO Labs
+
+  - source_type: evvo_sop
+    provider: evvolabs_internal
+    description: >
+      EVVO Labs standard operating procedures, severity logic,
+      validation checklists, report style guides, and remediation templates.
+    usage: knowledge_base_and_rag
+    requirements:
+      - Internal use only
+      - Can be used without redaction (no client data)
+      - Must be versioned
+
+  - source_type: finding_review
+    provider: evvolabs_human_reviewer
+    description: >
+      Human review decisions on findings (severity changes, classification
+      overrides, retest results). Used as gold labels.
+    usage: evaluation_gold_standard
+    requirements:
+      - Must be from authorized EVVO Labs reviewer
+      - Must not be AI-generated without human verification
+      - Must include reviewer identity and timestamp
+
+forbidden_sources:
+  - source_type: raw_client_report_without_permission
+    reason: No usage approval documented
+  - source_type: third_party_vulnerability_database
+    reason: Not yet approved for training; may be used for RAG only
+  - source_type: ai_generated_review_without_human_review
+    reason: AI-generated reviews must not be used as gold labels
+
+# ── Training Data Requirements ──
+training_data:
+  preprocessing_order:
+    - step: 1
+      action: redaction
+      description: Remove all PII, credentials, and client-identifiable information
+      required_before: upload_to_colab
+
+    - step: 2
+      action: normalization
+      description: Normalize to Input Schema v0.2 format
+      required_before: schema_validation
+
+    - step: 3
+      action: schema_validation
+      description: Validate all records against input_schema.json
+      required_before: quality_check
+
+    - step: 4
+      action: quality_check
+      description: Run deterministic quality checks
+      required_before: labeling
+
+    - step: 5
+      action: labeling
+      description: Assign task types and create instruction examples
+      required_before: train_split
+
+    - step: 6
+      action: split
+      description: Split into train/validation/test by document family
+      required_before: training
+
+  must_have_before_training:
+    - Redaction applied and verified
+    - Schema validation passed
+    - Quality check completed (0 errors)
+    - Gold labels reviewed by human (at least spot-check)
+    - Train/validation/test split by document family (no leakage)
+    - Hard-negative examples included
+
+  must_not_do:
+    - Train on data that has not been redacted
+    - Use test data as training data
+    - Evaluate only on training loss
+    - Use AI-generated labels without human review
+    - Split by finding (must split by document/engagement to prevent leakage)
+
+# ── Redaction Requirements ──
+redaction:
+  mandatory_before_colab:
+    - field_type: credential
+      patterns: ["password", "secret", "api_key", "token_value", "private_key"]
+      replacement: "[REDACTED_CREDENTIAL]"
+      applies_to: [observation, exploitation, recommendation, evidence]
+
+    - field_type: pii_person
+      patterns: ["person_name", "email_address", "phone_number"]
+      replacement: "[REDACTED_PII]"
+      applies_to: [all_fields]
+
+    - field_type: hostname
+      patterns: ["internal_hostname", "ip_address_private", "domain_client"]
+      replacement: "[REDACTED_HOST]"
+      applies_to: [affected_targets, observation, exploitation, evidence]
+
+    - field_type: url_client
+      patterns: ["client_application_url"]
+      replacement: "[REDACTED_URL]"
+      applies_to: [affected_targets, evidence]
+
+  optional:
+    - field_type: apk_name
+      replacement: "[REDACTED_APK]"
+      note: May pseudonymize rather than fully redact
+
+# ── Dataset Versioning ──
+versioning:
+  convention: "v{major}.{minor} (e.g., v1.0, v1.1)"
+  increment_minor_on: "new findings added, redaction update"
+  increment_major_on: "schema change, task type change, split change"
+  current_version: "v1.0-draft"
+  status: "draft — not yet ready for training"
+
+# ── Data Card ──
+data_card:
+  dataset_name: "evvo-slm-finding-review-v1"
+  description: "VAPT finding review dataset for SLM fine-tuning"
+  size: "5 findings from 1 document family"
+  languages: ["en"]
+  license: "internal — EVVO Labs only"
+  creator: "Nhat Tran"
+  creation_date: "2026-08-05"
+  update_frequency: "per engagement"
+  limitations:
+    - "Only 1 document family — insufficient for train/val/test split"
+    - "Only 5 findings — very small dataset"
+    - "Only English VAPT reports"
+    - "Only mobile and web application findings represented"
