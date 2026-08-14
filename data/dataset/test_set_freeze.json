@@ -1,0 +1,28 @@
+{
+  "freeze_version": "v0.1-draft",
+  "freeze_date": "2026-08-14T14:15:42.963418",
+  "status": "NOT_FROZEN",
+  "reason": "Test set cannot be frozen because dataset has only 1 engagement. Freeze will be applied when 2+ engagements are available and split is performed.",
+  "freeze_policy": {
+    "condition": "2+ engagements from different clients/assessments available",
+    "min_test_examples": 10,
+    "min_task_type_coverage": "At least 1 example per task type in test set",
+    "engagement_exclusivity": "An engagement appears in EXACTLY ONE of train/validation/test",
+    "once_frozen": "Test set content and labels MUST NOT change — only append if new engagements added"
+  },
+  "current_test_set": {
+    "examples": [],
+    "engagements": [],
+    "task_types_covered": []
+  },
+  "future_test_set_plan": {
+    "target_engagements": "Next 1-2 engagements added to dataset",
+    "expected_examples": "8-15 examples covering all 8 task types",
+    "selection_criteria": [
+      "Must include at least 1 hard-negative example",
+      "Must include at least 1 severity mismatch example",
+      "Must include at least 1 finding_review example",
+      "Must represent different vulnerability categories (CWE)"
+    ]
+  }
+}

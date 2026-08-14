@@ -31,32 +31,32 @@ Thumbs.db
 desktop.ini
 
 # Local reports and raw customer documents
-data/raw/*
-!data/raw/.gitkeep
+# data/raw/*
+# !data/raw/.gitkeep
 
 # Redacted intermediate documents
-data/redacted/*
-!data/redacted/.gitkeep
+# data/redacted/*
+# !data/redacted/.gitkeep
 
 # Generated normalized data
-data/normalized/*
-!data/normalized/.gitkeep
+# data/normalized/*
+# !data/normalized/.gitkeep
 
 # Generated dataset artifacts
-data/dataset/*
-!data/dataset/.gitkeep
+# data/dataset/*
+# !data/dataset/.gitkeep
 
 # Model adapters and checkpoints
-artifacts/adapters/*
-!artifacts/adapters/.gitkeep
+# artifacts/adapters/*
+# !artifacts/adapters/.gitkeep
 
 # Vector indexes
-artifacts/indexes/*
-!artifacts/indexes/.gitkeep
+# artifacts/indexes/*
+# !artifacts/indexes/.gitkeep
 
 # Generated metrics
-artifacts/metrics/*
-!artifacts/metrics/.gitkeep
+# artifacts/metrics/*
+# !artifacts/metrics/.gitkeep
 
 # Logs and temporary files
 *.log

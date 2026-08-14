@@ -1,0 +1,143 @@
+{
+  "summary": {
+    "document_id": "DOC-000001",
+    "quality_check_version": "0.1",
+    "finding_count": 5,
+    "status_counts": {
+      "needs_review": 5
+    },
+    "issue_counts": {
+      "error": 0,
+      "warning": 8,
+      "suggestion": 0
+    },
+    "exact_duplicate_groups": []
+  },
+  "finding_results": [
+    {
+      "finding_id": "FND-000001",
+      "title": "Hardcoded RabbitMQ Credentials in Mobile Application",
+      "quality_status": "needs_review",
+      "issue_counts": {
+        "error": 0,
+        "warning": 1,
+        "suggestion": 0
+      },
+      "issues": [
+        {
+          "check_id": "QC-RETEST-001",
+          "category": "retest",
+          "severity": "warning",
+          "field": "retest",
+          "message": "Retest status and verification result are not available in the extracted finding."
+        }
+      ]
+    },
+    {
+      "finding_id": "FND-000002",
+      "title": "Use of Symmetric JWT Signing Algorithm (HS256)",
+      "quality_status": "needs_review",
+      "issue_counts": {
+        "error": 0,
+        "warning": 1,
+        "suggestion": 0
+      },
+      "issues": [
+        {
+          "check_id": "QC-RETEST-001",
+          "category": "retest",
+          "severity": "warning",
+          "field": "retest",
+          "message": "Retest status and verification result are not available in the extracted finding."
+        }
+      ]
+    },
+    {
+      "finding_id": "FND-000003",
+      "title": "Root Detection Not Implemented",
+      "quality_status": "needs_review",
+      "issue_counts": {
+        "error": 0,
+        "warning": 2,
+        "suggestion": 0
+      },
+      "issues": [
+        {
+          "check_id": "QC-CVSS-001",
+          "category": "cvss",
+          "severity": "warning",
+          "field": "severity",
+          "message": "Reported severity 'low' does not match the CVSS score range for score 6.5. Expected range: 'medium'.",
+          "reported_severity": "low",
+          "cvss_score": 6.5,
+          "expected_severity": "medium"
+        },
+        {
+          "check_id": "QC-RETEST-001",
+          "category": "retest",
+          "severity": "warning",
+          "field": "retest",
+          "message": "Retest status and verification result are not available in the extracted finding."
+        }
+      ]
+    },
+    {
+      "finding_id": "FND-000004",
+      "title": "Weak SSL Pinning Implementation",
+      "quality_status": "needs_review",
+      "issue_counts": {
+        "error": 0,
+        "warning": 2,
+        "suggestion": 0
+      },
+      "issues": [
+        {
+          "check_id": "QC-CVSS-001",
+          "category": "cvss",
+          "severity": "warning",
+          "field": "severity",
+          "message": "Reported severity 'low' does not match the CVSS score range for score 6.5. Expected range: 'medium'.",
+          "reported_severity": "low",
+          "cvss_score": 6.5,
+          "expected_severity": "medium"
+        },
+        {
+          "check_id": "QC-RETEST-001",
+          "category": "retest",
+          "severity": "warning",
+          "field": "retest",
+          "message": "Retest status and verification result are not available in the extracted finding."
+        }
+      ]
+    },
+    {
+      "finding_id": "FND-000005",
+      "title": "Email Enumeration Possible During User Registration",
+      "quality_status": "needs_review",
+      "issue_counts": {
+        "error": 0,
+        "warning": 2,
+        "suggestion": 0
+      },
+      "issues": [
+        {
+          "check_id": "QC-CVSS-001",
+          "category": "cvss",
+          "severity": "warning",
+          "field": "severity",
+          "message": "Reported severity 'low' does not match the CVSS score range for score 5.3. Expected range: 'medium'.",
+          "reported_severity": "low",
+          "cvss_score": 5.3,
+          "expected_severity": "medium"
+        },
+        {
+          "check_id": "QC-RETEST-001",
+          "category": "retest",
+          "severity": "warning",
+          "field": "retest",
+          "message": "Retest status and verification result are not available in the extracted finding."
+        }
+      ]
+    }
+  ]
+}

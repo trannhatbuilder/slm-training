@@ -1,0 +1,51 @@
+{
+  "description": "Escalation Standard Operating Procedure — procedure for handling human escalations. Sourced from system_responsibility.md.",
+  "version": "1.0",
+  "entries": [
+    {
+      "kb_id": "KB-SOP-ESC-001",
+      "category": "sop",
+      "subcategory": "escalation_handling",
+      "title": "Automatic escalation: route immediately with full context",
+      "description": "When an automatic escalation trigger fires, the harness must immediately route the finding to the appropriate human reviewer with full context: the original finding, all review results, the specific trigger reason, and the recommended action.",
+      "conditions": ["automatic escalation trigger fired"],
+      "action": "1. Set human_escalation.required = true. 2. Include all review results as context. 3. Specify trigger reason. 4. Assign recommended_reviewer based on trigger type. 5. In v1: synchronous notification (log + mark for review).",
+      "references": ["system_responsibility.md → Automatic Escalation"],
+      "severity": "critical",
+      "applicable_to": ["all"],
+      "version": "1.0",
+      "source": "system_responsibility.md",
+      "tags": ["sop", "escalation", "automatic", "routing"]
+    },
+    {
+      "kb_id": "KB-SOP-ESC-002",
+      "category": "sop",
+      "subcategory": "escalation_handling",
+      "title": "Conditional escalation: evaluate threshold before routing",
+      "description": "Conditional escalations are evaluated after all checks complete. If the confidence score or individual factor scores fall below their thresholds, escalate. Otherwise, the review can complete autonomously.",
+      "conditions": ["conditional escalation threshold not met"],
+      "action": "1. Evaluate all conditional thresholds. 2. If any threshold breached: route to human. 3. If all thresholds met: complete review autonomously. 4. Log escalation decision for audit.",
+      "references": ["system_responsibility.md → Conditional Escalation"],
+      "severity": "warning",
+      "applicable_to": ["all"],
+      "version": "1.0",
+      "source": "system_responsibility.md",
+      "tags": ["sop", "escalation", "conditional", "threshold"]
+    },
+    {
+      "kb_id": "KB-SOP-ESC-003",
+      "category": "sop",
+      "subcategory": "escalation_handling",
+      "title": "Reviewer assignment by escalation type",
+      "description": "Different escalation types require different reviewer expertise. Evidence issues → technical_reviewer. Severity/CVSS issues → senior_pentester. Data protection issues → data_owner. Client-facing issues → project_manager.",
+      "conditions": ["escalation required"],
+      "action": "Assign recommended_reviewer based on trigger: evidence insufficient → technical_reviewer; severity-confidence mismatch → senior_pentester; data protection → data_owner; model disagreement → technical_reviewer; classification uncertain → technical_reviewer.",
+      "references": ["system_responsibility.md → Escalation Rules"],
+      "severity": "info",
+      "applicable_to": ["all"],
+      "version": "1.0",
+      "source": "system_responsibility.md",
+      "tags": ["sop", "escalation", "assignment", "routing"]
+    }
+  ]
+}

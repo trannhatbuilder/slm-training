@@ -1,0 +1,66 @@
+{
+  "description": "Writing quality guidelines — rules for evaluating the writing quality of finding sections. Sourced from EVVO SOPs and report style guides.",
+  "version": "1.0",
+  "entries": [
+    {
+      "kb_id": "KB-WRITE-001",
+      "category": "writing_guidelines",
+      "subcategory": "observation_clarity",
+      "title": "Observation must describe the vulnerability clearly and specifically",
+      "description": "The observation section should clearly describe what the vulnerability is, where it was found, and how it manifests. Vague or template-like observations reduce the finding's usefulness for remediation.",
+      "conditions": ["observation is vague or generic", "observation uses template language", "observation does not describe specific behavior"],
+      "action": "Flag as unclear observation. Suggest human rewrite with specific technical details.",
+      "references": [],
+      "severity": "warning",
+      "applicable_to": ["all"],
+      "version": "1.0",
+      "source": "EVVO SOP (internal)",
+      "tags": ["writing", "observation", "clarity", "quality"]
+    },
+    {
+      "kb_id": "KB-WRITE-002",
+      "category": "writing_guidelines",
+      "subcategory": "evidence_presentation",
+      "title": "Evidence must be presented with clear request/response pairs",
+      "description": "Exploitation evidence should include clear HTTP request/response pairs, commands with output, or screenshots with annotations. Raw dumps without context are flagged as poorly presented evidence.",
+      "conditions": ["evidence is raw dump without context", "no clear request/response structure", "evidence lacks annotations or explanation"],
+      "action": "Flag as poorly presented evidence. This affects evidence_completeness but does not change classification by itself.",
+      "references": [],
+      "severity": "warning",
+      "applicable_to": ["web_application", "api"],
+      "version": "1.0",
+      "source": "EVVO SOP (internal)",
+      "tags": ["writing", "evidence", "presentation", "quality"]
+    },
+    {
+      "kb_id": "KB-WRITE-003",
+      "category": "writing_guidelines",
+      "subcategory": "impact_specificity",
+      "title": "Impact must describe specific consequences, not generic statements",
+      "description": "The impact section should describe what an attacker could specifically achieve (e.g., 'read arbitrary files from the server filesystem') rather than generic statements (e.g., 'could lead to unauthorized access').",
+      "conditions": ["impact is generic", "impact uses template language like 'could lead to unauthorized access'", "impact does not describe specific attacker capability"],
+      "action": "Flag as generic impact. Reduce confidence. Do not auto-generate specific impact text.",
+      "references": [],
+      "severity": "warning",
+      "applicable_to": ["all"],
+      "version": "1.0",
+      "source": "EVVO SOP (internal)",
+      "tags": ["writing", "impact", "specificity", "quality"]
+    },
+    {
+      "kb_id": "KB-WRITE-004",
+      "category": "writing_guidelines",
+      "subcategory": "no_placeholder_text",
+      "title": "No placeholder or boilerplate text in any section",
+      "description": "Sections should not contain placeholder text (e.g., 'TBD', 'N/A', 'To be completed') or boilerplate that hasn't been customized for the specific finding. These indicate incomplete report writing.",
+      "conditions": ["text contains 'TBD', 'TODO', 'To be completed'", "text is boilerplate not customized for this finding"],
+      "action": "Flag as placeholder/boilerplate text. Mark section as incomplete. Escalate for human completion.",
+      "references": [],
+      "severity": "warning",
+      "applicable_to": ["all"],
+      "version": "1.0",
+      "source": "EVVO SOP (internal)",
+      "tags": ["writing", "placeholder", "boilerplate", "completeness"]
+    }
+  ]
+}

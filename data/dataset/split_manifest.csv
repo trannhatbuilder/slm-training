@@ -1,0 +1,6 @@
+example_index,task_type,finding_id,document_id,engagement_id,bucket,difficulty,is_hard_negative,content_hash
+0,finding_review,FND-000001,DOC-000001,DOC-000001,draft,easy,False,bbc022b134d9366e
+1,finding_review,FND-000002,DOC-000001,DOC-000001,draft,hard,False,9b3abe5edea920a1
+2,finding_review,FND-000003,DOC-000001,DOC-000001,draft,medium,False,b05530df44b74ed7
+3,finding_review,FND-000004,DOC-000001,DOC-000001,draft,medium,False,7aece2157c3ee87b
+4,finding_review,FND-000005,DOC-000001,DOC-000001,draft,medium,False,611c33f8d418e350

@@ -1,0 +1,156 @@
+{
+  "manifest_version": "1.0",
+  "created_at": "2026-08-14T00:00:00+07:00",
+  "updated_at": "2026-08-14T00:00:00+07:00",
+  "knowledge_base_version": "1.0",
+  "description": "EVVO Knowledge Base — stores review rules, SOPs, severity guidance, validation requirements, writing guidance, remediation guidance, schemas, and taxonomy definitions. Provides RAG retrieval for Harness step 5.",
+  "source_policies": [
+    {
+      "file": "policies/review_taxonomy.yaml",
+      "version": "1.0",
+      "purpose": "Taxonomy codes, consistency rules, confidence weights"
+    },
+    {
+      "file": "policies/data_usage_policy.yaml",
+      "version": "1.0",
+      "purpose": "Approved data sources, redaction requirements, training data rules"
+    },
+    {
+      "file": "policies/data_protection_rules.yaml",
+      "version": "1.0",
+      "purpose": "PII patterns, field-level protection, forbidden actions"
+    },
+    {
+      "file": "policies/system_responsibility.md",
+      "version": "1.0",
+      "purpose": "Decision authority matrix, escalation rules, SLM guarantees"
+    }
+  ],
+  "directories": {
+    "rules": {
+      "path": "data/kb/rules/",
+      "description": "Rule files — one JSON file per KB category",
+      "files": [
+        {
+          "filename": "severity_guidance.json",
+          "category": "severity_guidance",
+          "description": "CVSS-to-severity mapping and alignment rules"
+        },
+        {
+          "filename": "evidence_standards.json",
+          "category": "evidence_standards",
+          "description": "Evidence sufficiency and classification rules"
+        },
+        {
+          "filename": "classification_criteria.json",
+          "category": "classification_criteria",
+          "description": "Vulnerability classification decision criteria"
+        },
+        {
+          "filename": "remediation_templates.json",
+          "category": "remediation_guidance",
+          "description": "Remediation quality and template rules"
+        },
+        {
+          "filename": "writing_guidelines.json",
+          "category": "writing_guidelines",
+          "description": "Writing quality and style rules"
+        },
+        {
+          "filename": "validation_requirements.json",
+          "category": "validation_requirements",
+          "description": "Schema and structural validation rules"
+        },
+        {
+          "filename": "escalation_rules.json",
+          "category": "escalation_rules",
+          "description": "Human escalation triggers and thresholds"
+        },
+        {
+          "filename": "consistency_rules.json",
+          "category": "consistency_rules",
+          "description": "Cross-field consistency rules"
+        },
+        {
+          "filename": "governance_rules.json",
+          "category": "governance_rules",
+          "description": "Data governance and protection rules"
+        }
+      ]
+    },
+    "sops": {
+      "path": "data/kb/sops/",
+      "description": "Standard operating procedures",
+      "files": [
+        {
+          "filename": "review_sop.json",
+          "category": "sop",
+          "description": "12-step review pipeline procedure"
+        },
+        {
+          "filename": "escalation_sop.json",
+          "category": "sop",
+          "description": "Escalation handling procedure"
+        }
+      ]
+    },
+    "schemas": {
+      "path": "data/kb/schemas/",
+      "description": "Schema and taxonomy registry",
+      "files": [
+        {
+          "filename": "schema_registry.json",
+          "category": "taxonomy_definitions",
+          "description": "Index of all schemas and their versions"
+        }
+      ]
+    }
+  },
+  "code_modules": {
+    "kb_package": "src/harness/kb/",
+    "modules": [
+      {
+        "file": "src/harness/kb/__init__.py",
+        "description": "KB package init and version"
+      },
+      {
+        "file": "src/harness/kb/schema.py",
+        "description": "KB entry schema, type definitions, KBEntry dataclass"
+      },
+      {
+        "file": "src/harness/kb/loader.py",
+        "description": "KB loader — reads JSON files, validates entries"
+      },
+      {
+        "file": "src/harness/kb/retriever.py",
+        "description": "KB retriever — RAG-style retrieval for Harness step 5"
+      }
+    ]
+  },
+  "entry_counts": {
+    "severity_guidance": 7,
+    "evidence_standards": 6,
+    "classification_criteria": 6,
+    "remediation_guidance": 6,
+    "writing_guidelines": 4,
+    "validation_requirements": 6,
+    "escalation_rules": 6,
+    "consistency_rules": 4,
+    "governance_rules": 4,
+    "sop": 11,
+    "taxonomy_definitions": 4,
+    "total": 64
+  },
+  "retrieval_strategies": [
+    "taxonomy-based: retrieve rules matching review taxonomy codes",
+    "domain-based: retrieve rules matching the finding's domain",
+    "tag-based: retrieve rules matching specific tags",
+    "combined: intersection of taxonomy + domain + tag filters"
+  ],
+  "integration_points": {
+    "harness_step_5": "KBRetriever.retrieve_for_review() called after deterministic checks",
+    "prompt_building": "RetrievalResult.get_rules_text() for SLM context (future)",
+    "escalation_module": "KBRetriever.retrieve_escalation_rules()",
+    "consistency_module": "KBRetriever.retrieve_consistency_rules()"
+  }
+}

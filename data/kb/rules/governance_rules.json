@@ -1,0 +1,66 @@
+{
+  "description": "Data governance and protection rules — rules for ensuring data usage compliance. Sourced from data_usage_policy.yaml and data_protection_rules.yaml.",
+  "version": "1.0",
+  "entries": [
+    {
+      "kb_id": "KB-GOV-001",
+      "category": "governance_rules",
+      "subcategory": "usage_approval",
+      "title": "Finding must have usage approval before processing",
+      "description": "A finding must have governance.usage_approved = true before it can be reviewed. Findings without explicit usage approval are blocked from the review pipeline to prevent unauthorized data processing.",
+      "conditions": ["governance.usage_approved is false"],
+      "action": "Block review. Return error with reason: 'usage not approved'. Do not process finding.",
+      "references": ["data_usage_policy.yaml → approved_sources"],
+      "severity": "critical",
+      "applicable_to": ["all"],
+      "version": "1.0",
+      "source": "data_usage_policy.yaml",
+      "tags": ["governance", "usage_approval", "blocking"]
+    },
+    {
+      "kb_id": "KB-GOV-002",
+      "category": "governance_rules",
+      "subcategory": "redaction_verification",
+      "title": "Data must be redacted before training environment upload",
+      "description": "All data uploaded to Google Colab or any training environment must have redaction applied and verified. The redaction_status must be one of: provider_preprocessed, automated_check_passed, manual_check_passed, or not_applicable.",
+      "conditions": ["training_environment is google_colab", "redaction_status is needs_review or redaction_required"],
+      "action": "Block upload. Require redaction pipeline completion and verification before any data enters training environment.",
+      "references": ["data_usage_policy.yaml → redaction", "data_protection_rules.yaml → forbidden"],
+      "severity": "critical",
+      "applicable_to": ["all"],
+      "version": "1.0",
+      "source": "data_usage_policy.yaml + data_protection_rules.yaml",
+      "tags": ["governance", "redaction", "training", "blocking"]
+    },
+    {
+      "kb_id": "KB-GOV-003",
+      "category": "governance_rules",
+      "subcategory": "pii_protection",
+      "title": "PII must not appear in SLM prompts or outputs",
+      "description": "No personally identifiable information (PII) including credentials, email addresses, phone numbers, internal hostnames, or client URLs may appear in SLM prompts or outputs. The redaction pipeline must remove these before processing.",
+      "conditions": ["PII patterns detected in finding text", "credentials in evidence/observation", "client URLs in affected_targets"],
+      "action": "Apply redaction replacements. Verify no PII remains after redaction. If PII detected in prompt: sanitize before SLM call. If PII in output: filter before returning.",
+      "references": ["data_protection_rules.yaml → pii_patterns", "data_protection_rules.yaml → forbidden"],
+      "severity": "critical",
+      "applicable_to": ["all"],
+      "version": "1.0",
+      "source": "data_protection_rules.yaml",
+      "tags": ["governance", "pii", "credentials", "redaction", "safety"]
+    },
+    {
+      "kb_id": "KB-GOV-004",
+      "category": "governance_rules",
+      "subcategory": "train_test_separation",
+      "title": "Test set must be frozen before training and never used in train",
+      "description": "The test set must be frozen (split by document/engagement, not by finding) before training begins. Training data must never include test set examples. This prevents train-test leakage that would invalidate evaluation results.",
+      "conditions": ["test set not frozen", "test data found in training set", "split not by document/engagement"],
+      "action": "Block training until test set is frozen and verified. Split must be by document/engagement family. Log split verification.",
+      "references": ["data_usage_policy.yaml → must_not_do", "split_report.md"],
+      "severity": "critical",
+      "applicable_to": ["all"],
+      "version": "1.0",
+      "source": "data_usage_policy.yaml + split_report.md",
+      "tags": ["governance", "train_test", "leakage", "split", "blocking"]
+    }
+  ]
+}

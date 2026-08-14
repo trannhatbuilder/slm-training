@@ -1,0 +1,433 @@
+{
+  "parser_version": "0.1",
+  "document_id": "DOC-000001",
+  "source_extraction_version": "0.1",
+  "finding_count": 5,
+  "technical_content_reviewed": false,
+  "findings": [
+    {
+      "finding_id": "FND-000001",
+      "document_id": "DOC-000001",
+      "title": "Hardcoded RabbitMQ Credentials in Mobile Application",
+      "source_table_number": 20,
+      "severity": {
+        "reported_value": "CRITICAL",
+        "normalized_value": "critical"
+      },
+      "affected_targets": [
+        {
+          "target_type": "android_application",
+          "reported_value": "Android Mobile Application (APK)",
+          "normalized_value": "Android Mobile Application (APK)",
+          "normalization_notes": []
+        }
+      ],
+      "cwe": {
+        "reported_value": "CWE-798: Use of Hard-coded Credentials",
+        "cwe_id": "CWE-798",
+        "description": "Use of Hard-coded Credentials",
+        "parse_successful": true
+      },
+      "impact": {
+        "reported_value": "The mobile application contains valid RabbitMQ credentials that allow direct authentication to the backend messaging infrastructure. Successful exploitation enables an attacker to access the RabbitMQ broker without requiring prior authentication to the application. Depending on the permissions assigned to the exposed account, an attacker may enumerate messaging resources, publish or consume messages, manipulate business workflows, and potentially compromise the confidentiality, integrity, and availability of the application's messaging infrastructure.",
+        "is_marked_potential": false
+      },
+      "retest_status": {
+        "reported_value": "",
+        "normalized_value": null
+      },
+      "affected_user_roles": {
+        "reported_value": "No authentication required",
+        "normalized_values": [
+          "No authentication required"
+        ]
+      },
+      "cvss": {
+        "reported_value": "9.8(C CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H (9.8))",
+        "score": 9.8,
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "normalized_rendering": "9.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)",
+        "parse_successful": true,
+        "normalization_notes": [
+          "Source formatting differs from the normalized score and vector representation."
+        ]
+      },
+      "source_fields": {
+        "severity": {
+          "source_label": "SEVERITY",
+          "source_value": "CRITICAL",
+          "row_number": 1
+        },
+        "affected_targets": {
+          "source_label": "AFFECTED TARGETS",
+          "source_value": "Android Mobile Application (APK)",
+          "row_number": 2
+        },
+        "cwe": {
+          "source_label": "CWE-ID",
+          "source_value": "CWE-798: Use of Hard-coded Credentials",
+          "row_number": 3
+        },
+        "impact": {
+          "source_label": "IMPACT",
+          "source_value": "The mobile application contains valid RabbitMQ credentials that allow direct authentication to the backend messaging infrastructure. Successful exploitation enables an attacker to access the RabbitMQ broker without requiring prior authentication to the application. Depending on the permissions assigned to the exposed account, an attacker may enumerate messaging resources, publish or consume messages, manipulate business workflows, and potentially compromise the confidentiality, integrity, and availability of the application's messaging infrastructure.",
+          "row_number": 4
+        },
+        "retest_status": {
+          "source_label": "RETEST STATUS",
+          "source_value": "",
+          "row_number": 5
+        },
+        "affected_user_roles": {
+          "source_label": "Affected User Roles",
+          "source_value": "No authentication required",
+          "row_number": 6
+        },
+        "cvss": {
+          "source_label": "CVSS SCORE",
+          "source_value": "9.8(C CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H (9.8))",
+          "row_number": 7
+        }
+      }
+    },
+    {
+      "finding_id": "FND-000002",
+      "document_id": "DOC-000001",
+      "title": "Use of Symmetric JWT Signing Algorithm (HS256)",
+      "source_table_number": 21,
+      "severity": {
+        "reported_value": "MEDIUM",
+        "normalized_value": "medium"
+      },
+      "affected_targets": [
+        {
+          "target_type": "cryptographic_component",
+          "reported_value": "JWT token",
+          "normalized_value": "JWT token",
+          "normalization_notes": []
+        }
+      ],
+      "cwe": {
+        "reported_value": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "cwe_id": "CWE-327",
+        "description": "Use of a Broken or Risky Cryptographic Algorithm",
+        "parse_successful": true
+      },
+      "impact": {
+        "reported_value": "The application uses the HS256 algorithm to sign JSON Web Tokens (JWTs). Unlike asymmetric algorithms, HS256 relies on a single shared secret for both token signing and verification. If the shared signing key is weak, exposed, reused across multiple environments, or otherwise compromised, an attacker may be able to forge valid JWTs and impersonate legitimate users. Although no evidence of such compromise was identified during the assessment, the use of a symmetric signing algorithm increases the reliance on secure key management and should be carefully controlled throughout the application's lifecycle.",
+        "is_marked_potential": false
+      },
+      "retest_status": {
+        "reported_value": "",
+        "normalized_value": null
+      },
+      "affected_user_roles": {
+        "reported_value": "No authentication required",
+        "normalized_values": [
+          "No authentication required"
+        ]
+      },
+      "cvss": {
+        "reported_value": "4.8 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N)",
+        "score": 4.8,
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
+        "normalized_rendering": "4.8 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N)",
+        "parse_successful": true,
+        "normalization_notes": []
+      },
+      "source_fields": {
+        "severity": {
+          "source_label": "SEVERITY",
+          "source_value": "MEDIUM",
+          "row_number": 1
+        },
+        "affected_targets": {
+          "source_label": "AFFECTED TARGETS",
+          "source_value": "JWT token",
+          "row_number": 2
+        },
+        "cwe": {
+          "source_label": "CWE-ID",
+          "source_value": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+          "row_number": 3
+        },
+        "impact": {
+          "source_label": "IMPACT",
+          "source_value": "The application uses the HS256 algorithm to sign JSON Web Tokens (JWTs). Unlike asymmetric algorithms, HS256 relies on a single shared secret for both token signing and verification. If the shared signing key is weak, exposed, reused across multiple environments, or otherwise compromised, an attacker may be able to forge valid JWTs and impersonate legitimate users. Although no evidence of such compromise was identified during the assessment, the use of a symmetric signing algorithm increases the reliance on secure key management and should be carefully controlled throughout the application's lifecycle.",
+          "row_number": 4
+        },
+        "retest_status": {
+          "source_label": "RETEST STATUS",
+          "source_value": "",
+          "row_number": 5
+        },
+        "affected_user_roles": {
+          "source_label": "Affected User Roles",
+          "source_value": "No authentication required",
+          "row_number": 6
+        },
+        "cvss": {
+          "source_label": "CVSS SCORE",
+          "source_value": "4.8 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N)",
+          "row_number": 7
+        }
+      }
+    },
+    {
+      "finding_id": "FND-000003",
+      "document_id": "DOC-000001",
+      "title": "Root Detection Not Implemented",
+      "source_table_number": 22,
+      "severity": {
+        "reported_value": "LOW",
+        "normalized_value": "low"
+      },
+      "affected_targets": [
+        {
+          "target_type": "android_application",
+          "reported_value": "Android Mobile Application",
+          "normalized_value": "Android Mobile Application",
+          "normalization_notes": []
+        }
+      ],
+      "cwe": {
+        "reported_value": "CWE-693: Protection Mechanism Failure",
+        "cwe_id": "CWE-693",
+        "description": "Protection Mechanism Failure",
+        "parse_successful": true
+      },
+      "impact": {
+        "reported_value": "The absence of root detection allows the application to execute normally on rooted Android devices, where attackers have elevated privileges over the operating system. This may facilitate reverse engineering, runtime instrumentation, interception of sensitive information, and manipulation of client-side application logic, increasing the likelihood of further attacks against the application.",
+        "is_marked_potential": true
+      },
+      "retest_status": {
+        "reported_value": "",
+        "normalized_value": null
+      },
+      "affected_user_roles": {
+        "reported_value": "No authentication required",
+        "normalized_values": [
+          "No authentication required"
+        ]
+      },
+      "cvss": {
+        "reported_value": "6.5 (CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N )",
+        "score": 6.5,
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+        "normalized_rendering": "6.5 (CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N)",
+        "parse_successful": true,
+        "normalization_notes": [
+          "Source formatting differs from the normalized score and vector representation."
+        ]
+      },
+      "source_fields": {
+        "severity": {
+          "source_label": "SEVERITY",
+          "source_value": "LOW",
+          "row_number": 1
+        },
+        "affected_targets": {
+          "source_label": "AFFECTED TARGETS",
+          "source_value": "Android Mobile Application",
+          "row_number": 2
+        },
+        "cwe": {
+          "source_label": "CWE-ID",
+          "source_value": "CWE-693: Protection Mechanism Failure",
+          "row_number": 3
+        },
+        "impact": {
+          "source_label": "IMPACT (Potential)",
+          "source_value": "The absence of root detection allows the application to execute normally on rooted Android devices, where attackers have elevated privileges over the operating system. This may facilitate reverse engineering, runtime instrumentation, interception of sensitive information, and manipulation of client-side application logic, increasing the likelihood of further attacks against the application.",
+          "row_number": 4
+        },
+        "retest_status": {
+          "source_label": "RETEST STATUS",
+          "source_value": "",
+          "row_number": 5
+        },
+        "affected_user_roles": {
+          "source_label": "Affected User Roles",
+          "source_value": "No authentication required",
+          "row_number": 6
+        },
+        "cvss": {
+          "source_label": "CVSS SCORE",
+          "source_value": "6.5 (CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N )",
+          "row_number": 7
+        }
+      }
+    },
+    {
+      "finding_id": "FND-000004",
+      "document_id": "DOC-000001",
+      "title": "Weak SSL Pinning Implementation",
+      "source_table_number": 23,
+      "severity": {
+        "reported_value": "LOW",
+        "normalized_value": "low"
+      },
+      "affected_targets": [
+        {
+          "target_type": "android_application",
+          "reported_value": "Android Mobile Application",
+          "normalized_value": "Android Mobile Application",
+          "normalization_notes": []
+        }
+      ],
+      "cwe": {
+        "reported_value": "CWE-295: Improper Certificate Validation",
+        "cwe_id": "CWE-295",
+        "description": "Improper Certificate Validation",
+        "parse_successful": true
+      },
+      "impact": {
+        "reported_value": "Although SSL pinning has been implemented, the protection can be bypassed using publicly available runtime instrumentation frameworks. As a result, an attacker with control of a rooted device may intercept and inspect HTTPS communications between the application and backend services, potentially exposing sensitive information transmitted over encrypted channels.",
+        "is_marked_potential": false
+      },
+      "retest_status": {
+        "reported_value": "",
+        "normalized_value": null
+      },
+      "affected_user_roles": {
+        "reported_value": "No authentication required",
+        "normalized_values": [
+          "No authentication required"
+        ]
+      },
+      "cvss": {
+        "reported_value": "6.5 (CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N)",
+        "score": 6.5,
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+        "normalized_rendering": "6.5 (CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N)",
+        "parse_successful": true,
+        "normalization_notes": []
+      },
+      "source_fields": {
+        "severity": {
+          "source_label": "SEVERITY",
+          "source_value": "LOW",
+          "row_number": 1
+        },
+        "affected_targets": {
+          "source_label": "AFFECTED TARGETS",
+          "source_value": "Android Mobile Application",
+          "row_number": 2
+        },
+        "cwe": {
+          "source_label": "CWE-ID",
+          "source_value": "CWE-295: Improper Certificate Validation",
+          "row_number": 3
+        },
+        "impact": {
+          "source_label": "IMPACT",
+          "source_value": "Although SSL pinning has been implemented, the protection can be bypassed using publicly available runtime instrumentation frameworks. As a result, an attacker with control of a rooted device may intercept and inspect HTTPS communications between the application and backend services, potentially exposing sensitive information transmitted over encrypted channels.",
+          "row_number": 4
+        },
+        "retest_status": {
+          "source_label": "RETEST STATUS",
+          "source_value": "",
+          "row_number": 5
+        },
+        "affected_user_roles": {
+          "source_label": "Affected User Roles",
+          "source_value": "No authentication required",
+          "row_number": 6
+        },
+        "cvss": {
+          "source_label": "CVSS SCORE",
+          "source_value": "6.5 (CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N)",
+          "row_number": 7
+        }
+      }
+    },
+    {
+      "finding_id": "FND-000005",
+      "document_id": "DOC-000001",
+      "title": "Email Enumeration Possible During User Registration",
+      "source_table_number": 24,
+      "severity": {
+        "reported_value": "LOW",
+        "normalized_value": "low"
+      },
+      "affected_targets": [
+        {
+          "target_type": "web_application",
+          "reported_value": "https://eform.brightree.com.sg/users/sign_up",
+          "normalized_value": "https://eform.brightree.com.sg/users/sign_up",
+          "normalization_notes": []
+        }
+      ],
+      "cwe": {
+        "reported_value": "CWE-204: Observable Response Discrepancy",
+        "cwe_id": "CWE-204",
+        "description": "Observable Response Discrepancy",
+        "parse_successful": true
+      },
+      "impact": {
+        "reported_value": "The application discloses whether a username already exists during the user registration process through distinguishable server responses. An attacker may leverage this behavior to enumerate valid usernames, facilitating subsequent attacks such as password spraying, credential stuffing, or targeted brute-force attacks.",
+        "is_marked_potential": true
+      },
+      "retest_status": {
+        "reported_value": "",
+        "normalized_value": null
+      },
+      "affected_user_roles": {
+        "reported_value": "No authentication required",
+        "normalized_values": [
+          "No authentication required"
+        ]
+      },
+      "cvss": {
+        "reported_value": "5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)",
+        "score": 5.3,
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+        "normalized_rendering": "5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)",
+        "parse_successful": true,
+        "normalization_notes": []
+      },
+      "source_fields": {
+        "severity": {
+          "source_label": "SEVERITY",
+          "source_value": "LOW",
+          "row_number": 1
+        },
+        "affected_targets": {
+          "source_label": "AFFECTED TARGETS",
+          "source_value": "https://eform.brightree.com.sg/users/sign_up",
+          "row_number": 2
+        },
+        "cwe": {
+          "source_label": "CWE-ID",
+          "source_value": "CWE-204: Observable Response Discrepancy",
+          "row_number": 3
+        },
+        "impact": {
+          "source_label": "IMPACT (Potential)",
+          "source_value": "The application discloses whether a username already exists during the user registration process through distinguishable server responses. An attacker may leverage this behavior to enumerate valid usernames, facilitating subsequent attacks such as password spraying, credential stuffing, or targeted brute-force attacks.",
+          "row_number": 4
+        },
+        "retest_status": {
+          "source_label": "RETEST STATUS",
+          "source_value": "",
+          "row_number": 5
+        },
+        "affected_user_roles": {
+          "source_label": "Affected User Roles",
+          "source_value": "No authentication required",
+          "row_number": 6
+        },
+        "cvss": {
+          "source_label": "CVSS SCORE",
+          "source_value": "5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)",
+          "row_number": 7
+        }
+      }
+    }
+  ]
+}

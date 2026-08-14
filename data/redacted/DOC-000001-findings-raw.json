@@ -1,0 +1,1477 @@
+{
+  "extraction_version": "0.1",
+  "document_id": "DOC-000001",
+  "source_filename": "DOC-000001.docx",
+  "finding_count": 5,
+  "normalization_applied": [
+    "repeated_whitespace_collapsed"
+  ],
+  "technical_content_reviewed": false,
+  "findings": [
+    {
+      "finding_id": "FND-000001",
+      "document_id": "DOC-000001",
+      "title": "Hardcoded RabbitMQ Credentials in Mobile Application",
+      "source_title_block": {
+        "block_number": 230,
+        "paragraph_number": 211,
+        "style": "EvvoH2"
+      },
+      "extraction": {
+        "start_block_number": 230,
+        "end_block_number": 261,
+        "block_count": 32,
+        "non_empty_block_count": 26
+      },
+      "raw_blocks": [
+        {
+          "block_number": 230,
+          "block_type": "paragraph",
+          "paragraph_number": 211,
+          "table_number": null,
+          "style": "EvvoH2",
+          "text": "Hardcoded RabbitMQ Credentials in Mobile Application",
+          "rows": null
+        },
+        {
+          "block_number": 231,
+          "block_type": "table",
+          "paragraph_number": null,
+          "table_number": 20,
+          "style": null,
+          "text": null,
+          "rows": [
+            {
+              "row_number": 1,
+              "cells": [
+                "SEVERITY",
+                "CRITICAL"
+              ]
+            },
+            {
+              "row_number": 2,
+              "cells": [
+                "AFFECTED TARGETS",
+                "Android Mobile Application (APK)"
+              ]
+            },
+            {
+              "row_number": 3,
+              "cells": [
+                "CWE-ID",
+                "CWE-798: Use of Hard-coded Credentials"
+              ]
+            },
+            {
+              "row_number": 4,
+              "cells": [
+                "IMPACT",
+                "The mobile application contains valid RabbitMQ credentials that allow direct authentication to the backend messaging infrastructure. Successful exploitation enables an attacker to access the RabbitMQ broker without requiring prior authentication to the application. Depending on the permissions assigned to the exposed account, an attacker may enumerate messaging resources, publish or consume messages, manipulate business workflows, and potentially compromise the confidentiality, integrity, and availability of the application's messaging infrastructure."
+              ]
+            },
+            {
+              "row_number": 5,
+              "cells": [
+                "RETEST STATUS",
+                ""
+              ]
+            },
+            {
+              "row_number": 6,
+              "cells": [
+                "Affected User Roles",
+                "No authentication required"
+              ]
+            },
+            {
+              "row_number": 7,
+              "cells": [
+                "CVSS SCORE",
+                "9.8(C CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H (9.8))"
+              ]
+            }
+          ]
+        },
+        {
+          "block_number": 232,
+          "block_type": "paragraph",
+          "paragraph_number": 212,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 233,
+          "block_type": "paragraph",
+          "paragraph_number": 213,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Observation",
+          "rows": null
+        },
+        {
+          "block_number": 234,
+          "block_type": "paragraph",
+          "paragraph_number": 214,
+          "table_number": null,
+          "style": "Normal",
+          "text": "The Android mobile application contains hardcoded RabbitMQ connection credentials embedded within the application package. During static analysis, the RabbitMQ hostname, username, and password were identified within the application resources, allowing them to be extracted without requiring privileged access.",
+          "rows": null
+        },
+        {
+          "block_number": 235,
+          "block_type": "paragraph",
+          "paragraph_number": 215,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Because these credentials are distributed as part of the client application, any individual with access to the APK can recover them using publicly available reverse engineering tools.",
+          "rows": null
+        },
+        {
+          "block_number": 236,
+          "block_type": "paragraph",
+          "paragraph_number": 216,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Using the extracted credentials, it was verified that the RabbitMQ broker accepted the authentication request and granted access to the messaging environment. The authenticated account was able to enumerate the configured message queues, confirming that the exposed credentials remain valid and provide direct access to the backend messaging infrastructure.",
+          "rows": null
+        },
+        {
+          "block_number": 237,
+          "block_type": "paragraph",
+          "paragraph_number": 217,
+          "table_number": null,
+          "style": "Normal",
+          "text": "The exposure of valid backend service credentials within a client application significantly increases the risk of unauthorized access to internal messaging services and violates secure credential management for best practices.",
+          "rows": null
+        },
+        {
+          "block_number": 238,
+          "block_type": "paragraph",
+          "paragraph_number": 218,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 239,
+          "block_type": "paragraph",
+          "paragraph_number": 219,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Exploitation",
+          "rows": null
+        },
+        {
+          "block_number": 240,
+          "block_type": "paragraph",
+          "paragraph_number": 220,
+          "table_number": null,
+          "style": "Normal",
+          "text": "During the assessment, the Android APK was subjected to static analysis to identify sensitive information embedded within the application package.",
+          "rows": null
+        },
+        {
+          "block_number": 241,
+          "block_type": "paragraph",
+          "paragraph_number": 221,
+          "table_number": null,
+          "style": "Normal",
+          "text": "The attacker first extracts readable strings from the APK using the following command:",
+          "rows": null
+        },
+        {
+          "block_number": 242,
+          "block_type": "paragraph",
+          "paragraph_number": 222,
+          "table_number": null,
+          "style": "Normal",
+          "text": "strings BrightNote.apk > strings.txt",
+          "rows": null
+        },
+        {
+          "block_number": 243,
+          "block_type": "paragraph",
+          "paragraph_number": 223,
+          "table_number": null,
+          "style": "Normal",
+          "text": "The extracted output is then searched for messaging-related keywords using:",
+          "rows": null
+        },
+        {
+          "block_number": 244,
+          "block_type": "paragraph",
+          "paragraph_number": 224,
+          "table_number": null,
+          "style": "Normal",
+          "text": "grep -iE \"rabbit|amqp|socket|host|username|password|secret|apikey|https\" strings.txt",
+          "rows": null
+        },
+        {
+          "block_number": 245,
+          "block_type": "paragraph",
+          "paragraph_number": 225,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Reviewing the matching results reveals the embedded RabbitMQ configuration, including the broker hostname, username, password, and AMQP connection information.",
+          "rows": null
+        },
+        {
+          "block_number": 246,
+          "block_type": "paragraph",
+          "paragraph_number": 226,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 247,
+          "block_type": "paragraph",
+          "paragraph_number": 227,
+          "table_number": null,
+          "style": "Normal",
+          "text": "The extracted credentials are subsequently used to authenticate to the RabbitMQ Management interface.",
+          "rows": null
+        },
+        {
+          "block_number": 248,
+          "block_type": "paragraph",
+          "paragraph_number": 228,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Authentication succeeds successfully, confirming that the exposed credentials remain valid. The authenticated account is then able to enumerate RabbitMQ resources, including the configured message queues and their corresponding message counts, demonstrating unauthorized access to the backend messaging infrastructure as shown as in the screenshot:",
+          "rows": null
+        },
+        {
+          "block_number": 249,
+          "block_type": "paragraph",
+          "paragraph_number": 229,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 250,
+          "block_type": "paragraph",
+          "paragraph_number": 230,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Recommendation",
+          "rows": null
+        },
+        {
+          "block_number": 251,
+          "block_type": "paragraph",
+          "paragraph_number": 231,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Remove all RabbitMQ credentials from the mobile application immediately.",
+          "rows": null
+        },
+        {
+          "block_number": 252,
+          "block_type": "paragraph",
+          "paragraph_number": 232,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Rotate the exposed RabbitMQ credentials and revoke any previously distributed credentials.",
+          "rows": null
+        },
+        {
+          "block_number": 253,
+          "block_type": "paragraph",
+          "paragraph_number": 233,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Never embed backend service credentials within client-side applications.",
+          "rows": null
+        },
+        {
+          "block_number": 254,
+          "block_type": "paragraph",
+          "paragraph_number": 234,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Implement a secure server-side mechanism for accessing messaging services instead of exposing credentials to mobile clients.",
+          "rows": null
+        },
+        {
+          "block_number": 255,
+          "block_type": "paragraph",
+          "paragraph_number": 235,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Apply the principle of least privilege by restricting RabbitMQ accounts to only the minimum permissions required.",
+          "rows": null
+        },
+        {
+          "block_number": 256,
+          "block_type": "paragraph",
+          "paragraph_number": 236,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Restrict RabbitMQ Management access using firewall rules, VPN, IP allowlists, or private network segmentation.",
+          "rows": null
+        },
+        {
+          "block_number": 257,
+          "block_type": "paragraph",
+          "paragraph_number": 237,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Disable unnecessary management interfaces exposed to untrusted networks.",
+          "rows": null
+        },
+        {
+          "block_number": 258,
+          "block_type": "paragraph",
+          "paragraph_number": 238,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Perform automated secret scanning during the build pipeline to prevent sensitive credentials from being included in production releases.",
+          "rows": null
+        },
+        {
+          "block_number": 259,
+          "block_type": "paragraph",
+          "paragraph_number": 239,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 260,
+          "block_type": "paragraph",
+          "paragraph_number": 240,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Re-Test Verification Result:",
+          "rows": null
+        },
+        {
+          "block_number": 261,
+          "block_type": "paragraph",
+          "paragraph_number": 241,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        }
+      ]
+    },
+    {
+      "finding_id": "FND-000002",
+      "document_id": "DOC-000001",
+      "title": "Use of Symmetric JWT Signing Algorithm (HS256)",
+      "source_title_block": {
+        "block_number": 262,
+        "paragraph_number": 242,
+        "style": "EvvoH2"
+      },
+      "extraction": {
+        "start_block_number": 262,
+        "end_block_number": 284,
+        "block_count": 23,
+        "non_empty_block_count": 17
+      },
+      "raw_blocks": [
+        {
+          "block_number": 262,
+          "block_type": "paragraph",
+          "paragraph_number": 242,
+          "table_number": null,
+          "style": "EvvoH2",
+          "text": "Use of Symmetric JWT Signing Algorithm (HS256)",
+          "rows": null
+        },
+        {
+          "block_number": 263,
+          "block_type": "table",
+          "paragraph_number": null,
+          "table_number": 21,
+          "style": null,
+          "text": null,
+          "rows": [
+            {
+              "row_number": 1,
+              "cells": [
+                "SEVERITY",
+                "MEDIUM"
+              ]
+            },
+            {
+              "row_number": 2,
+              "cells": [
+                "AFFECTED TARGETS",
+                "JWT token"
+              ]
+            },
+            {
+              "row_number": 3,
+              "cells": [
+                "CWE-ID",
+                "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+              ]
+            },
+            {
+              "row_number": 4,
+              "cells": [
+                "IMPACT",
+                "The application uses the HS256 algorithm to sign JSON Web Tokens (JWTs). Unlike asymmetric algorithms, HS256 relies on a single shared secret for both token signing and verification. If the shared signing key is weak, exposed, reused across multiple environments, or otherwise compromised, an attacker may be able to forge valid JWTs and impersonate legitimate users. Although no evidence of such compromise was identified during the assessment, the use of a symmetric signing algorithm increases the reliance on secure key management and should be carefully controlled throughout the application's lifecycle."
+              ]
+            },
+            {
+              "row_number": 5,
+              "cells": [
+                "RETEST STATUS",
+                ""
+              ]
+            },
+            {
+              "row_number": 6,
+              "cells": [
+                "Affected User Roles",
+                "No authentication required"
+              ]
+            },
+            {
+              "row_number": 7,
+              "cells": [
+                "CVSS SCORE",
+                "4.8 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N)"
+              ]
+            }
+          ]
+        },
+        {
+          "block_number": 264,
+          "block_type": "paragraph",
+          "paragraph_number": 243,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 265,
+          "block_type": "paragraph",
+          "paragraph_number": 244,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Observation",
+          "rows": null
+        },
+        {
+          "block_number": 266,
+          "block_type": "paragraph",
+          "paragraph_number": 245,
+          "table_number": null,
+          "style": "Normal",
+          "text": "During testing, the application's issued JSON Web Tokens (JWTs) were inspected and found to be signed using the HS256 (HMAC-SHA256) algorithm.",
+          "rows": null
+        },
+        {
+          "block_number": 267,
+          "block_type": "paragraph",
+          "paragraph_number": 246,
+          "table_number": null,
+          "style": "Normal",
+          "text": "HS256 is a symmetric signing algorithm that uses a single shared secret for both signing and verifying JWTs. Unlike asymmetric algorithms such as RS256 or ES256, any party possessing the signing secret can generate valid tokens that will be accepted by the server.",
+          "rows": null
+        },
+        {
+          "block_number": 268,
+          "block_type": "paragraph",
+          "paragraph_number": 247,
+          "table_number": null,
+          "style": "Normal",
+          "text": "During the assessment, no evidence was found that the signing secret could be recovered, or that forged JWTs were accepted by the application. However, the use of a shared signing key increases the importance of secure key management and protection throughout the application's lifecycle.",
+          "rows": null
+        },
+        {
+          "block_number": 269,
+          "block_type": "paragraph",
+          "paragraph_number": 248,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 270,
+          "block_type": "paragraph",
+          "paragraph_number": 249,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Exploitation",
+          "rows": null
+        },
+        {
+          "block_number": 271,
+          "block_type": "paragraph",
+          "paragraph_number": 250,
+          "table_number": null,
+          "style": "Normal",
+          "text": "During the assessment, the JWT header was inspected and confirmed to specify the HS256 signing algorithm.",
+          "rows": null
+        },
+        {
+          "block_number": 272,
+          "block_type": "paragraph",
+          "paragraph_number": 251,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 273,
+          "block_type": "paragraph",
+          "paragraph_number": 252,
+          "table_number": null,
+          "style": "Normal",
+          "text": "No evidence was found that the signing secret could be recovered and attempts to modify the JWT payload without a valid signature were correctly rejected by the application.",
+          "rows": null
+        },
+        {
+          "block_number": 274,
+          "block_type": "paragraph",
+          "paragraph_number": 253,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Although no successful exploitation was demonstrated, the use of a symmetric signing algorithm increases the potential impact should the signing secret become compromised in the future.",
+          "rows": null
+        },
+        {
+          "block_number": 275,
+          "block_type": "paragraph",
+          "paragraph_number": 254,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Remediation:",
+          "rows": null
+        },
+        {
+          "block_number": 276,
+          "block_type": "paragraph",
+          "paragraph_number": 255,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Protect the JWT signing secret using a secure secrets management solution and restrict access to authorized systems only.",
+          "rows": null
+        },
+        {
+          "block_number": 277,
+          "block_type": "paragraph",
+          "paragraph_number": 256,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Ensure the signing key is sufficiently random, cryptographically strong, and periodically rotated.",
+          "rows": null
+        },
+        {
+          "block_number": 278,
+          "block_type": "paragraph",
+          "paragraph_number": 257,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Avoid reusing the same signing key across different environments (e.g., Development, UAT, and Production).",
+          "rows": null
+        },
+        {
+          "block_number": 279,
+          "block_type": "paragraph",
+          "paragraph_number": 258,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Consider migrating an asymmetric signing algorithm such as RS256 or ES256, where the private signing key remains exclusively on the authentication server, and only the public verification key is distributed.",
+          "rows": null
+        },
+        {
+          "block_number": 280,
+          "block_type": "paragraph",
+          "paragraph_number": 259,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Continue validating JWT signatures and explicitly enforce the expected signing algorithm to prevent algorithm confusion attacks.",
+          "rows": null
+        },
+        {
+          "block_number": 281,
+          "block_type": "paragraph",
+          "paragraph_number": 260,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 282,
+          "block_type": "paragraph",
+          "paragraph_number": 261,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Re-Test Verification Result:",
+          "rows": null
+        },
+        {
+          "block_number": 283,
+          "block_type": "paragraph",
+          "paragraph_number": 262,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 284,
+          "block_type": "paragraph",
+          "paragraph_number": 263,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        }
+      ]
+    },
+    {
+      "finding_id": "FND-000003",
+      "document_id": "DOC-000001",
+      "title": "Root Detection Not Implemented",
+      "source_title_block": {
+        "block_number": 285,
+        "paragraph_number": 264,
+        "style": "EvvoH2"
+      },
+      "extraction": {
+        "start_block_number": 285,
+        "end_block_number": 304,
+        "block_count": 20,
+        "non_empty_block_count": 14
+      },
+      "raw_blocks": [
+        {
+          "block_number": 285,
+          "block_type": "paragraph",
+          "paragraph_number": 264,
+          "table_number": null,
+          "style": "EvvoH2",
+          "text": "Root Detection Not Implemented",
+          "rows": null
+        },
+        {
+          "block_number": 286,
+          "block_type": "table",
+          "paragraph_number": null,
+          "table_number": 22,
+          "style": null,
+          "text": null,
+          "rows": [
+            {
+              "row_number": 1,
+              "cells": [
+                "SEVERITY",
+                "LOW"
+              ]
+            },
+            {
+              "row_number": 2,
+              "cells": [
+                "AFFECTED TARGETS",
+                "Android Mobile Application"
+              ]
+            },
+            {
+              "row_number": 3,
+              "cells": [
+                "CWE-ID",
+                "CWE-693: Protection Mechanism Failure"
+              ]
+            },
+            {
+              "row_number": 4,
+              "cells": [
+                "IMPACT (Potential)",
+                "The absence of root detection allows the application to execute normally on rooted Android devices, where attackers have elevated privileges over the operating system. This may facilitate reverse engineering, runtime instrumentation, interception of sensitive information, and manipulation of client-side application logic, increasing the likelihood of further attacks against the application."
+              ]
+            },
+            {
+              "row_number": 5,
+              "cells": [
+                "RETEST STATUS",
+                ""
+              ]
+            },
+            {
+              "row_number": 6,
+              "cells": [
+                "Affected User Roles",
+                "No authentication required"
+              ]
+            },
+            {
+              "row_number": 7,
+              "cells": [
+                "CVSS SCORE",
+                "6.5 (CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N )"
+              ]
+            }
+          ]
+        },
+        {
+          "block_number": 287,
+          "block_type": "paragraph",
+          "paragraph_number": 265,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 288,
+          "block_type": "paragraph",
+          "paragraph_number": 266,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Observation",
+          "rows": null
+        },
+        {
+          "block_number": 289,
+          "block_type": "paragraph",
+          "paragraph_number": 267,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Running the application on a jailbroken device enables attackers to bypass client-side security controls, inspect or extract local data, manipulate runtime memory, hook sensitive functions, and tamper with application logic. This increases the risk of credential theft, unauthorized access, API abuse, and exposure of sensitive information.",
+          "rows": null
+        },
+        {
+          "block_number": 290,
+          "block_type": "paragraph",
+          "paragraph_number": 268,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 291,
+          "block_type": "paragraph",
+          "paragraph_number": 269,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 292,
+          "block_type": "paragraph",
+          "paragraph_number": 270,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Exploitation",
+          "rows": null
+        },
+        {
+          "block_number": 293,
+          "block_type": "paragraph",
+          "paragraph_number": 271,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Install the application on a rooted Android device or emulator.",
+          "rows": null
+        },
+        {
+          "block_number": 294,
+          "block_type": "paragraph",
+          "paragraph_number": 272,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Launch the application and observe that it starts successfully without detecting the rooted environment or displaying any security warning.",
+          "rows": null
+        },
+        {
+          "block_number": 295,
+          "block_type": "paragraph",
+          "paragraph_number": 273,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 296,
+          "block_type": "paragraph",
+          "paragraph_number": 274,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Recommendation",
+          "rows": null
+        },
+        {
+          "block_number": 297,
+          "block_type": "paragraph",
+          "paragraph_number": 275,
+          "table_number": null,
+          "style": "Normal",
+          "text": "The application should implement checks to verify the integrity of the operating system upon startup and during sensitive operations.",
+          "rows": null
+        },
+        {
+          "block_number": 298,
+          "block_type": "paragraph",
+          "paragraph_number": 276,
+          "table_number": null,
+          "style": "Normal",
+          "text": "For Android:",
+          "rows": null
+        },
+        {
+          "block_number": 299,
+          "block_type": "paragraph",
+          "paragraph_number": 277,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Check for Root Binaries: Scan for the existence of su binaries or common root management apps (e.g., SuperSU, Magisk)",
+          "rows": null
+        },
+        {
+          "block_number": 300,
+          "block_type": "paragraph",
+          "paragraph_number": 278,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Check for Write Access: Attempt to write to system directories that are usually read-only",
+          "rows": null
+        },
+        {
+          "block_number": 301,
+          "block_type": "paragraph",
+          "paragraph_number": 279,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Google Play Integrity API: Implement the Google Play Integrity API (formerly SafetyNet) to validate the device's integrity and compatibility",
+          "rows": null
+        },
+        {
+          "block_number": 302,
+          "block_type": "paragraph",
+          "paragraph_number": 280,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 303,
+          "block_type": "paragraph",
+          "paragraph_number": 281,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Re-Test Verification Result:",
+          "rows": null
+        },
+        {
+          "block_number": 304,
+          "block_type": "paragraph",
+          "paragraph_number": 282,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        }
+      ]
+    },
+    {
+      "finding_id": "FND-000004",
+      "document_id": "DOC-000001",
+      "title": "Weak SSL Pinning Implementation",
+      "source_title_block": {
+        "block_number": 305,
+        "paragraph_number": 283,
+        "style": "EvvoH2"
+      },
+      "extraction": {
+        "start_block_number": 305,
+        "end_block_number": 330,
+        "block_count": 26,
+        "non_empty_block_count": 17
+      },
+      "raw_blocks": [
+        {
+          "block_number": 305,
+          "block_type": "paragraph",
+          "paragraph_number": 283,
+          "table_number": null,
+          "style": "EvvoH2",
+          "text": "Weak SSL Pinning Implementation",
+          "rows": null
+        },
+        {
+          "block_number": 306,
+          "block_type": "table",
+          "paragraph_number": null,
+          "table_number": 23,
+          "style": null,
+          "text": null,
+          "rows": [
+            {
+              "row_number": 1,
+              "cells": [
+                "SEVERITY",
+                "LOW"
+              ]
+            },
+            {
+              "row_number": 2,
+              "cells": [
+                "AFFECTED TARGETS",
+                "Android Mobile Application"
+              ]
+            },
+            {
+              "row_number": 3,
+              "cells": [
+                "CWE-ID",
+                "CWE-295: Improper Certificate Validation"
+              ]
+            },
+            {
+              "row_number": 4,
+              "cells": [
+                "IMPACT",
+                "Although SSL pinning has been implemented, the protection can be bypassed using publicly available runtime instrumentation frameworks. As a result, an attacker with control of a rooted device may intercept and inspect HTTPS communications between the application and backend services, potentially exposing sensitive information transmitted over encrypted channels."
+              ]
+            },
+            {
+              "row_number": 5,
+              "cells": [
+                "RETEST STATUS",
+                ""
+              ]
+            },
+            {
+              "row_number": 6,
+              "cells": [
+                "Affected User Roles",
+                "No authentication required"
+              ]
+            },
+            {
+              "row_number": 7,
+              "cells": [
+                "CVSS SCORE",
+                "6.5 (CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N)"
+              ]
+            }
+          ]
+        },
+        {
+          "block_number": 307,
+          "block_type": "paragraph",
+          "paragraph_number": 284,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 308,
+          "block_type": "paragraph",
+          "paragraph_number": 285,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 309,
+          "block_type": "paragraph",
+          "paragraph_number": 286,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Observation",
+          "rows": null
+        },
+        {
+          "block_number": 310,
+          "block_type": "paragraph",
+          "paragraph_number": 287,
+          "table_number": null,
+          "style": "Normal",
+          "text": "he Android application was assessed to verify the effectiveness of its SSL pinning implementation.",
+          "rows": null
+        },
+        {
+          "block_number": 311,
+          "block_type": "paragraph",
+          "paragraph_number": 288,
+          "table_number": null,
+          "style": "Normal",
+          "text": "During testing, the application correctly rejected connections through an interception proxy when no bypass techniques were applied, indicating that SSL pinning is implemented.",
+          "rows": null
+        },
+        {
+          "block_number": 312,
+          "block_type": "paragraph",
+          "paragraph_number": 289,
+          "table_number": null,
+          "style": "Normal",
+          "text": "However, after attaching a runtime instrumentation framework (e.g., Frida) and applying a standard SSL pinning bypass script, the application established HTTPS connections successfully through the interception proxy. Network traffic could then be decrypted and inspected without additional resistance from the application.",
+          "rows": null
+        },
+        {
+          "block_number": 313,
+          "block_type": "paragraph",
+          "paragraph_number": 290,
+          "table_number": null,
+          "style": "Normal",
+          "text": "This indicates that the current SSL pinning implementation can be bypassed through runtime instrumentation and does not provide sufficient protection against dynamic analysis on compromised devices.",
+          "rows": null
+        },
+        {
+          "block_number": 314,
+          "block_type": "paragraph",
+          "paragraph_number": 291,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 315,
+          "block_type": "paragraph",
+          "paragraph_number": 292,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Exploitation",
+          "rows": null
+        },
+        {
+          "block_number": 316,
+          "block_type": "paragraph",
+          "paragraph_number": 293,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Configure an interception proxy (e.g., Burp Suite) and install the proxy's CA certificate on a rooted Android device. Then launch the application without any runtime instrumentation and observe that HTTPS communications cannot be intercepted because SSL pinning is enforced.",
+          "rows": null
+        },
+        {
+          "block_number": 317,
+          "block_type": "paragraph",
+          "paragraph_number": 294,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 318,
+          "block_type": "paragraph",
+          "paragraph_number": 295,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Next, attach Frida to the running application and load a publicly available SSL pinning bypass script.",
+          "rows": null
+        },
+        {
+          "block_number": 319,
+          "block_type": "paragraph",
+          "paragraph_number": 296,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 320,
+          "block_type": "paragraph",
+          "paragraph_number": 297,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Repeat the previous actions and observe that HTTPS requests and responses can now be successfully intercepted and decrypted through the proxy, confirming that the SSL pinning implementation can be bypassed using runtime instrumentation.",
+          "rows": null
+        },
+        {
+          "block_number": 321,
+          "block_type": "paragraph",
+          "paragraph_number": 298,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 322,
+          "block_type": "paragraph",
+          "paragraph_number": 299,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Recommendation:",
+          "rows": null
+        },
+        {
+          "block_number": 323,
+          "block_type": "paragraph",
+          "paragraph_number": 300,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 324,
+          "block_type": "paragraph",
+          "paragraph_number": 301,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Implement SSL Pinning to ensure the application only trusts the specific certificate chain of your backend server",
+          "rows": null
+        },
+        {
+          "block_number": 325,
+          "block_type": "paragraph",
+          "paragraph_number": 302,
+          "table_number": null,
+          "style": "Normal",
+          "text": "For Android:",
+          "rows": null
+        },
+        {
+          "block_number": 326,
+          "block_type": "paragraph",
+          "paragraph_number": 303,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Network Security Configuration: Use the native XML configuration file (res/xml/network_security_config.xml) to define the pin set (hashes of the public keys or certificates)",
+          "rows": null
+        },
+        {
+          "block_number": 327,
+          "block_type": "paragraph",
+          "paragraph_number": 304,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "OkHttp: If using OkHttp directly, use the CertificatePinner builder",
+          "rows": null
+        },
+        {
+          "block_number": 328,
+          "block_type": "paragraph",
+          "paragraph_number": 305,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 329,
+          "block_type": "paragraph",
+          "paragraph_number": 306,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Re-Test Verification Result:",
+          "rows": null
+        },
+        {
+          "block_number": 330,
+          "block_type": "paragraph",
+          "paragraph_number": 307,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        }
+      ]
+    },
+    {
+      "finding_id": "FND-000005",
+      "document_id": "DOC-000001",
+      "title": "Email Enumeration Possible During User Registration",
+      "source_title_block": {
+        "block_number": 331,
+        "paragraph_number": 308,
+        "style": "EvvoH2"
+      },
+      "extraction": {
+        "start_block_number": 331,
+        "end_block_number": 354,
+        "block_count": 24,
+        "non_empty_block_count": 18
+      },
+      "raw_blocks": [
+        {
+          "block_number": 331,
+          "block_type": "paragraph",
+          "paragraph_number": 308,
+          "table_number": null,
+          "style": "EvvoH2",
+          "text": "Email Enumeration Possible During User Registration",
+          "rows": null
+        },
+        {
+          "block_number": 332,
+          "block_type": "table",
+          "paragraph_number": null,
+          "table_number": 24,
+          "style": null,
+          "text": null,
+          "rows": [
+            {
+              "row_number": 1,
+              "cells": [
+                "SEVERITY",
+                "LOW"
+              ]
+            },
+            {
+              "row_number": 2,
+              "cells": [
+                "AFFECTED TARGETS",
+                "https://eform.brightree.com.sg/users/sign_up"
+              ]
+            },
+            {
+              "row_number": 3,
+              "cells": [
+                "CWE-ID",
+                "CWE-204: Observable Response Discrepancy"
+              ]
+            },
+            {
+              "row_number": 4,
+              "cells": [
+                "IMPACT (Potential)",
+                "The application discloses whether a username already exists during the user registration process through distinguishable server responses. An attacker may leverage this behavior to enumerate valid usernames, facilitating subsequent attacks such as password spraying, credential stuffing, or targeted brute-force attacks."
+              ]
+            },
+            {
+              "row_number": 5,
+              "cells": [
+                "RETEST STATUS",
+                ""
+              ]
+            },
+            {
+              "row_number": 6,
+              "cells": [
+                "Affected User Roles",
+                "No authentication required"
+              ]
+            },
+            {
+              "row_number": 7,
+              "cells": [
+                "CVSS SCORE",
+                "5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)"
+              ]
+            }
+          ]
+        },
+        {
+          "block_number": 333,
+          "block_type": "paragraph",
+          "paragraph_number": 309,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 334,
+          "block_type": "paragraph",
+          "paragraph_number": 310,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Observation",
+          "rows": null
+        },
+        {
+          "block_number": 335,
+          "block_type": "paragraph",
+          "paragraph_number": 311,
+          "table_number": null,
+          "style": "Normal",
+          "text": "The user registration functionality was assessed to determine whether the application discloses information about existing user accounts.",
+          "rows": null
+        },
+        {
+          "block_number": 336,
+          "block_type": "paragraph",
+          "paragraph_number": 312,
+          "table_number": null,
+          "style": "Normal",
+          "text": "During testing, it was observed that the application returns different responses depending on whether the submitted username already exists in the system. When an existing username is provided, the server returns a specific error message indicating that the username has already been registered. Conversely, when a non-existing username is supplied, the application proceeds with the registration process or returns a different response.",
+          "rows": null
+        },
+        {
+          "block_number": 337,
+          "block_type": "paragraph",
+          "paragraph_number": 313,
+          "table_number": null,
+          "style": "Normal",
+          "text": "The distinguishable responses allow an unauthenticated attacker to determine whether a username exists within the application, resulting in a username enumeration vulnerability.",
+          "rows": null
+        },
+        {
+          "block_number": 338,
+          "block_type": "paragraph",
+          "paragraph_number": 314,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 339,
+          "block_type": "paragraph",
+          "paragraph_number": 315,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Exploitation",
+          "rows": null
+        },
+        {
+          "block_number": 340,
+          "block_type": "paragraph",
+          "paragraph_number": 316,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Navigate to the application's user registration page.",
+          "rows": null
+        },
+        {
+          "block_number": 341,
+          "block_type": "paragraph",
+          "paragraph_number": 317,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Submit a registration request using an existing email and observe that the application returns a response indicating that the email already exists.",
+          "rows": null
+        },
+        {
+          "block_number": 342,
+          "block_type": "paragraph",
+          "paragraph_number": 318,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 343,
+          "block_type": "paragraph",
+          "paragraph_number": 319,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Repeat the request using a email that does not exist in the system. Observe that the application redirects the request to the login page without indicating that the username already exists.",
+          "rows": null
+        },
+        {
+          "block_number": 344,
+          "block_type": "paragraph",
+          "paragraph_number": 320,
+          "table_number": null,
+          "style": "Normal",
+          "text": "By comparing the server responses, an attacker can systematically enumerate valid email registered within the application.",
+          "rows": null
+        },
+        {
+          "block_number": 345,
+          "block_type": "paragraph",
+          "paragraph_number": 321,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Recommendation",
+          "rows": null
+        },
+        {
+          "block_number": 346,
+          "block_type": "paragraph",
+          "paragraph_number": 322,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Return a generic response for all registration attempts regardless of whether the submitted username already exists.",
+          "rows": null
+        },
+        {
+          "block_number": 347,
+          "block_type": "paragraph",
+          "paragraph_number": 323,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Avoid exposing detailed validation messages that reveal the existence of user accounts.",
+          "rows": null
+        },
+        {
+          "block_number": 348,
+          "block_type": "paragraph",
+          "paragraph_number": 324,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Perform duplicate account validation internally without disclosing the result to the client.",
+          "rows": null
+        },
+        {
+          "block_number": 349,
+          "block_type": "paragraph",
+          "paragraph_number": 325,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Implement rate limiting and CAPTCHA on the registration endpoint to reduce automated enumeration attempts.",
+          "rows": null
+        },
+        {
+          "block_number": 350,
+          "block_type": "paragraph",
+          "paragraph_number": 326,
+          "table_number": null,
+          "style": "List Paragraph",
+          "text": "Monitor and alert on excessive registration requests that may indicate username enumeration activity.",
+          "rows": null
+        },
+        {
+          "block_number": 351,
+          "block_type": "paragraph",
+          "paragraph_number": 327,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 352,
+          "block_type": "paragraph",
+          "paragraph_number": 328,
+          "table_number": null,
+          "style": "Normal",
+          "text": "Re-Test Verification Result:",
+          "rows": null
+        },
+        {
+          "block_number": 353,
+          "block_type": "paragraph",
+          "paragraph_number": 329,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        },
+        {
+          "block_number": 354,
+          "block_type": "paragraph",
+          "paragraph_number": 330,
+          "table_number": null,
+          "style": "Normal",
+          "text": "",
+          "rows": null
+        }
+      ]
+    }
+  ]
+}
