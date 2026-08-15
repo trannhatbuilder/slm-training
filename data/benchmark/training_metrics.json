@@ -1,0 +1,131 @@
+{
+  "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+  "smoke_test": false,
+  "ran_at": "2026-08-15T09:18:29.248527+00:00",
+  "environment": "google_colab",
+  "case_count": 34,
+  "epochs": 3,
+  "final_loss": 1.5585,
+  "loss_history": [
+    {
+      "step": 1,
+      "loss": 2.0871
+    },
+    {
+      "step": 2,
+      "loss": 1.8474
+    },
+    {
+      "step": 3,
+      "loss": 2.1874
+    },
+    {
+      "step": 4,
+      "loss": 1.7368
+    },
+    {
+      "step": 5,
+      "loss": 1.9449
+    },
+    {
+      "step": 6,
+      "loss": 1.9197
+    },
+    {
+      "step": 7,
+      "loss": 1.8566
+    },
+    {
+      "step": 8,
+      "loss": 1.5549
+    },
+    {
+      "step": 9,
+      "loss": 2.6023
+    },
+    {
+      "step": 10,
+      "loss": 1.9513
+    },
+    {
+      "step": 11,
+      "loss": 1.8214
+    },
+    {
+      "step": 12,
+      "loss": 1.923
+    },
+    {
+      "step": 13,
+      "loss": 1.5899
+    },
+    {
+      "step": 14,
+      "loss": 1.0471
+    },
+    {
+      "step": 15,
+      "loss": 1.9548
+    },
+    {
+      "step": 16,
+      "loss": 1.8011
+    },
+    {
+      "step": 17,
+      "loss": 2.2463
+    },
+    {
+      "step": 18,
+      "loss": 1.6814
+    },
+    {
+      "step": 19,
+      "loss": 1.689
+    },
+    {
+      "step": 20,
+      "loss": 1.3919
+    },
+    {
+      "step": 21,
+      "loss": 1.5786
+    },
+    {
+      "step": 22,
+      "loss": 1.6498
+    },
+    {
+      "step": 23,
+      "loss": 1.7359
+    },
+    {
+      "step": 24,
+      "loss": 1.5585
+    }
+  ],
+  "runtime_seconds": 96.43,
+  "peak_vram_gb": 6.77,
+  "adapter_path_drive": "/content/drive/MyDrive/evvo-slm-checkpoints/slm-adapter-v0.1",
+  "adapter_path_local": "checkpoints/slm-adapter-v0.1",
+  "reload_test_passed": true,
+  "lora_config": {
+    "r": 8,
+    "alpha": 16,
+    "dropout": 0.05,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj"
+    ]
+  },
+  "training_config": {
+    "batch_size": 1,
+    "grad_accum": 4,
+    "lr": 0.0002,
+    "max_seq_length": 2048,
+    "fp16": true,
+    "seed": 42
+  }
+}
