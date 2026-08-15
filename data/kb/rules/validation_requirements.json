@@ -6,16 +6,45 @@
       "kb_id": "KB-VAL-001",
       "category": "validation_requirements",
       "subcategory": "required_sections",
-      "title": "Finding must have Observation, Evidence, and Recommendation sections",
-      "description": "A VAPT finding is incomplete if it lacks any of the three core sections: Observation (what was found), Evidence (how it was demonstrated), and Recommendation (how to fix). Missing sections prevent reliable review.",
-      "conditions": ["observation is null or empty", "evidence array is empty", "recommendation array is empty"],
-      "action": "Flag as incomplete (taxonomy COMP). Report specific missing sections. Set review_status to needs_revision if critical sections are missing.",
-      "references": ["input_schema.json", "review_taxonomy.yaml → COMP"],
+      "title": "Finding must have all 5 required sections: Observation, Exploitation, Recommendation, Re-Test Verification, Metadata",
+      "description": "A complete VAPT finding (per EVVO report standard, see DOC-000001 DETAILED FINDINGS) must contain all five sections: (1) Observation — what was found and how it manifests; (2) Exploitation — concrete reproduction steps, commands, request/response pairs, or screenshots; (3) Recommendation — actionable remediation steps addressing root cause; (4) Re-Test Verification Result — status of retesting after fix (Verified/Fixed/Not Retested); (5) Metadata table — Severity, Affected Targets, CWE-ID, Impact, Retest Status, Affected User Roles, CVSS Score+Vector. Missing any of these sections prevents reliable review. Findings missing Observation, Exploitation, or Recommendation are blocked; missing Re-Test or Metadata are flagged as needs_revision.",
+      "conditions": [
+        "observation is null or empty",
+        "exploitation/reproduction steps are missing",
+        "recommendation array is empty",
+        "retest.verification_result is null or 'Re-Test Verification Result:' line is empty",
+        "metadata table missing any of: Severity, Affected Targets, CWE-ID, Impact, CVSS"
+      ],
+      "action": "Flag as incomplete (taxonomy COMP). Report specific missing sections. If Observation/Exploitation/Recommendation missing: set review_status=needs_revision and block. If only Re-Test or Metadata missing: flag as needs_revision but allow pipeline to continue.",
+      "references": [
+        "input_schema.json",
+        "review_taxonomy.yaml → COMP",
+        "DOC-000001 → DETAILED FINDINGS (5-part structure reference)"
+      ],
       "severity": "critical",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → COMP → triggers",
-      "tags": ["validation", "completeness", "required_sections", "schema"]
+      "tags": [
+        "validation",
+        "completeness",
+        "required_sections",
+        "schema",
+        "five_part_structure",
+        "observation",
+        "exploitation",
+        "recommendation",
+        "retest",
+        "metadata"
+      ],
+      "document_type": "policy_document",
+      "section": "validation_requirements:required_sections",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     },
     {
       "kb_id": "KB-VAL-002",
@@ -23,14 +52,34 @@
       "subcategory": "cvss_format",
       "title": "CVSS vector must be valid and score must match",
       "description": "The CVSS vector string must be parseable according to the declared CVSS version (3.1 supported in v1). The reported score should match the vector calculation. Malformed vectors are flagged for manual correction.",
-      "conditions": ["CVSS vector is malformed", "CVSS score does not match vector calculation", "unsupported CVSS version"],
+      "conditions": [
+        "CVSS vector is malformed",
+        "CVSS score does not match vector calculation",
+        "unsupported CVSS version"
+      ],
       "action": "Flag as CVSS validation issue (taxonomy CVSS). Do NOT recalculate score. Flag requires_manual_recalculation as true. Human must correct.",
-      "references": ["CVSS v3.1 Specification", "input_schema.json → cvss"],
+      "references": [
+        "CVSS v3.1 Specification",
+        "input_schema.json → cvss"
+      ],
       "severity": "warning",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → CVSS",
-      "tags": ["validation", "cvss", "format", "schema"]
+      "tags": [
+        "validation",
+        "cvss",
+        "format",
+        "schema"
+      ],
+      "document_type": "policy_document",
+      "section": "validation_requirements:cvss_format",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     },
     {
       "kb_id": "KB-VAL-003",
@@ -38,14 +87,33 @@
       "subcategory": "cwe_format",
       "title": "CWE ID must follow CWE-NNN format",
       "description": "The CWE identifier must follow the format CWE-NNN where NNN is a positive integer. Non-standard formats (e.g., 'CWE123', 'CWE-ABC') are invalid. The CWE should also be relevant to the finding title.",
-      "conditions": ["CWE ID does not match CWE-NNN format", "CWE does not match vulnerability category"],
+      "conditions": [
+        "CWE ID does not match CWE-NNN format",
+        "CWE does not match vulnerability category"
+      ],
       "action": "Flag as invalid or mismatched CWE (taxonomy CWE). Do not auto-correct. Human must assign correct CWE.",
-      "references": ["MITRE CWE Dictionary", "input_schema.json → cwe_id"],
+      "references": [
+        "MITRE CWE Dictionary",
+        "input_schema.json → cwe_id"
+      ],
       "severity": "warning",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → CWE",
-      "tags": ["validation", "cwe", "format", "schema"]
+      "tags": [
+        "validation",
+        "cwe",
+        "format",
+        "schema"
+      ],
+      "document_type": "policy_document",
+      "section": "validation_requirements:cwe_format",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     },
     {
       "kb_id": "KB-VAL-004",
@@ -53,14 +121,34 @@
       "subcategory": "governance_check",
       "title": "Finding must pass data governance checks before review",
       "description": "Before a finding can be reviewed, it must pass governance checks: usage_approved must be true, usage_scope must be internal or evaluation_only, and redaction_status must indicate redaction has been applied or is not applicable.",
-      "conditions": ["governance.usage_approved is false", "governance.usage_scope not in [internal, evaluation_only]", "governance.redaction_status indicates review needed"],
+      "conditions": [
+        "governance.usage_approved is false",
+        "governance.usage_scope not in [internal, evaluation_only]",
+        "governance.redaction_status indicates review needed"
+      ],
       "action": "Block review. Return human_review with governance violation reason. Do not proceed with review pipeline on governance-failed findings.",
-      "references": ["data_usage_policy.yaml", "data_protection_rules.yaml"],
+      "references": [
+        "data_usage_policy.yaml",
+        "data_protection_rules.yaml"
+      ],
       "severity": "critical",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "data_usage_policy.yaml + data_protection_rules.yaml",
-      "tags": ["validation", "governance", "data_protection", "blocking"]
+      "tags": [
+        "validation",
+        "governance",
+        "data_protection",
+        "blocking"
+      ],
+      "document_type": "policy_document",
+      "section": "validation_requirements:governance_check",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-data_usage"
     },
     {
       "kb_id": "KB-VAL-005",
@@ -68,14 +156,32 @@
       "subcategory": "retest_validation",
       "title": "Retest status must be valid if applicable",
       "description": "If retest is applicable (retest.applicable is true), the retest status must be a valid enum value and evidence should be provided for any non-not_retested status. Findings marked as remediated without retest evidence are flagged.",
-      "conditions": ["retest.applicable is true", "retest.status is null or invalid", "retest indicates fixed but no retest evidence"],
+      "conditions": [
+        "retest.applicable is true",
+        "retest.status is null or invalid",
+        "retest indicates fixed but no retest evidence"
+      ],
       "action": "Flag as retest validation issue (taxonomy RET). Do not auto-fill retest status. Human must schedule retest or provide results.",
-      "references": ["review_taxonomy.yaml → RET"],
+      "references": [
+        "review_taxonomy.yaml → RET"
+      ],
       "severity": "info",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → RET",
-      "tags": ["validation", "retest", "completeness"]
+      "tags": [
+        "validation",
+        "retest",
+        "completeness"
+      ],
+      "document_type": "policy_document",
+      "section": "validation_requirements:retest_validation",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     },
     {
       "kb_id": "KB-VAL-006",
@@ -83,14 +189,30 @@
       "subcategory": "schema_version",
       "title": "Input must match schema version 0.2",
       "description": "The input finding must declare schema_version '0.2' to be processed by the current harness. Other versions are rejected at the validation step.",
-      "conditions": ["schema_version is not '0.2'"],
+      "conditions": [
+        "schema_version is not '0.2'"
+      ],
       "action": "Reject input. Return error with expected version. Cannot proceed with review.",
-      "references": ["input_schema.json"],
+      "references": [
+        "input_schema.json"
+      ],
       "severity": "critical",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "input_schema.json",
-      "tags": ["validation", "schema_version", "blocking"]
+      "tags": [
+        "validation",
+        "schema_version",
+        "blocking"
+      ],
+      "document_type": "schema_definition",
+      "section": "validation_requirements:schema_version",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "SCHEMA-input_schema"
     }
   ]
 }

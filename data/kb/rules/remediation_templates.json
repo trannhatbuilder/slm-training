@@ -1,96 +1,219 @@
 {
-  "description": "Remediation quality and template rules — standards for evaluating recommendation quality. Sourced from review_taxonomy.yaml (REC) and system_responsibility.md.",
+  "description": "Remediation template patterns — concrete recommendation structures for common vulnerability classes. Used by the SLM to suggest remediation structure (not text) for human reviewers. Sourced from DOC-000001 DETAILED FINDINGS + EVVO internal SOP. These are TEMPLATES (patterns to follow); KB-REC-001..006 in remediation_quality.json are QUALITY RULES (how to evaluate a written recommendation).",
   "version": "1.0",
   "entries": [
     {
-      "kb_id": "KB-REC-001",
+      "kb_id": "KB-REC-TPL-001",
       "category": "remediation_guidance",
-      "subcategory": "root_cause",
-      "title": "Recommendation must address root cause, not just symptoms",
-      "description": "A quality remediation addresses the root cause of the vulnerability. Recommendations that only address symptoms (e.g., 'update to latest version' without explaining why) are flagged as weak. The recommendation should explain what to fix and why.",
-      "conditions": ["recommendation is generic", "recommendation does not explain why", "recommendation addresses symptom not cause"],
-      "action": "Flag as weak/generic recommendation (taxonomy REC). Do NOT generate new recommendation text. Suggest human write specific remediation.",
-      "references": ["review_taxonomy.yaml → REC → triggers"],
-      "severity": "warning",
-      "applicable_to": ["all"],
+      "subcategory": "rotate_credentials",
+      "title": "Template: Rotate exposed credentials and revoke old ones",
+      "description": "Pattern for findings where credentials/secrets are exposed (hardcoded in client app, leaked to logs, committed to repo). The recommendation MUST include: (a) immediate removal of the credential from the exposed location; (b) rotation of the credential and revocation of all previously distributed copies; (c) commit to never embedding backend credentials in client-side code; (d) implementation of a server-side secret retrieval mechanism; (e) principle of least privilege for the affected account; (f) network-level restrictions (firewall/VPN/IP allowlist); (g) disable unnecessary management interfaces; (h) automated secret scanning in the build pipeline.",
+      "conditions": [
+        "finding type is hardcoded_credentials or secret_exposure"
+      ],
+      "action": "Suggest this template structure. Do NOT generate final remediation text — human writes the final recommendation.",
+      "references": [
+        "CWE-798",
+        "OWASP Top 10 A05",
+        "DOC-000001 finding 1 (RabbitMQ)"
+      ],
+      "severity": "info",
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
-      "source": "review_taxonomy.yaml → REC",
-      "tags": ["recommendation", "root_cause", "quality", "generic"]
+      "source": "DOC-000001",
+      "tags": [
+        "recommendation",
+        "template",
+        "credentials",
+        "rotation",
+        "hardcoded"
+      ],
+      "document_type": "pentest_report",
+      "section": "remediation_guidance:rotate_credentials",
+      "vulnerability_type": "hardcoded_credentials",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "DOC-000001"
     },
     {
-      "kb_id": "KB-REC-002",
+      "kb_id": "KB-REC-TPL-002",
       "category": "remediation_guidance",
-      "subcategory": "actionable",
-      "title": "Recommendation must be actionable",
-      "description": "A recommendation should provide concrete, implementable steps. Vague advice like 'implement security controls' or 'follow best practices' is not actionable. The reviewer should be able to understand what specific action to take.",
-      "conditions": ["recommendation uses vague language", "no concrete steps provided", "recommendation is template-like"],
-      "action": "Flag as non-actionable recommendation (taxonomy REC). Reduce confidence score. Suggest human provide specific steps.",
-      "references": [],
-      "severity": "warning",
-      "applicable_to": ["all"],
+      "subcategory": "migrate_algorithm",
+      "title": "Template: Migrate from symmetric to asymmetric cryptographic algorithm",
+      "description": "Pattern for findings where a symmetric algorithm is used in a context that would benefit from asymmetric (e.g., HS256 JWT → RS256/ES256). Recommendation MUST include: (a) protect the existing signing secret with a secure secrets manager; (b) ensure the key is sufficiently random and cryptographically strong; (c) periodically rotate the key; (d) never reuse the same key across Dev/UAT/Production; (e) migrate to an asymmetric algorithm (RS256/ES256) where the private key stays on the auth server and only the public key is distributed; (f) explicitly enforce the expected signing algorithm to prevent algorithm confusion.",
+      "conditions": [
+        "finding type is weak_crypto_algorithm or symmetric_jwt"
+      ],
+      "action": "Suggest this template structure. Do NOT generate final remediation text.",
+      "references": [
+        "CWE-327",
+        "RFC 7519 (JWT)",
+        "DOC-000001 finding 2 (HS256)"
+      ],
+      "severity": "info",
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
-      "source": "review_taxonomy.yaml → REC → triggers",
-      "tags": ["recommendation", "actionable", "quality", "vague"]
+      "source": "DOC-000001",
+      "tags": [
+        "recommendation",
+        "template",
+        "crypto",
+        "jwt",
+        "asymmetric"
+      ],
+      "document_type": "pentest_report",
+      "section": "remediation_guidance:migrate_algorithm",
+      "vulnerability_type": "weak_crypto_algorithm",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "DOC-000001"
     },
     {
-      "kb_id": "KB-REC-003",
+      "kb_id": "KB-REC-TPL-003",
       "category": "remediation_guidance",
-      "subcategory": "technically_relevant",
-      "title": "Recommendation must be technically relevant to the vulnerability",
-      "description": "The recommendation must be technically relevant to the specific vulnerability described. A recommendation for a different vulnerability type or a generic security hardening step that doesn't address the reported issue is flagged.",
-      "conditions": ["recommendation does not match vulnerability type", "recommendation is generic hardening advice"],
-      "action": "Flag as technically irrelevant recommendation (taxonomy REC). This reduces confidence in the overall finding quality.",
-      "references": [],
-      "severity": "warning",
-      "applicable_to": ["all"],
+      "subcategory": "implement_check",
+      "title": "Template: Implement platform-specific security check / control",
+      "description": "Pattern for findings where a security control is missing or weak (e.g., no root detection, weak SSL pinning, no input validation). Recommendation MUST include: (a) state what the control does and why it matters; (b) reference the platform-native API (e.g., Android Network Security Config, Google Play Integrity API, OkHttp CertificatePinner); (c) provide configuration-level guidance (XML, code snippet structure); (d) mention complementary runtime protections (anti-tampering, obfuscation); (e) reference OWASP Mobile Top 10 or Web Top 10 as appropriate.",
+      "conditions": [
+        "finding type is missing_root_detection, weak_ssl_pinning, or similar"
+      ],
+      "action": "Suggest this template structure. Do NOT generate final remediation text.",
+      "references": [
+        "CWE-693",
+        "CWE-295",
+        "OWASP Mobile Top 10",
+        "DOC-000001 findings 3, 4"
+      ],
+      "severity": "info",
+      "applicable_to": [
+        "android_application",
+        "ios_application",
+        "web_application"
+      ],
       "version": "1.0",
-      "source": "review_taxonomy.yaml → REC → triggers",
-      "tags": ["recommendation", "relevance", "quality"]
+      "source": "DOC-000001",
+      "tags": [
+        "recommendation",
+        "template",
+        "platform",
+        "check",
+        "control"
+      ],
+      "document_type": "pentest_report",
+      "section": "remediation_guidance:implement_check",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "DOC-000001"
     },
     {
-      "kb_id": "KB-REC-004",
+      "kb_id": "KB-REC-TPL-004",
       "category": "remediation_guidance",
-      "subcategory": "never_generate",
-      "title": "SLM must not generate new remediation text",
-      "description": "The SLM can evaluate whether a recommendation is adequate, but must not generate new remediation text. Writing remediation is a human-only responsibility in v1. The SLM flags weak recommendations and escalates for human writing.",
-      "conditions": ["existing recommendation is insufficient"],
-      "action": "Flag as insufficient. Do NOT generate replacement text. Escalate to human reviewer to write specific remediation.",
-      "references": ["system_responsibility.md → SLM Proposes — Human Confirms"],
-      "severity": "critical",
-      "applicable_to": ["all"],
+      "subcategory": "restrict_access",
+      "title": "Template: Restrict access using network controls and least privilege",
+      "description": "Pattern for findings where an interface, endpoint, or service is exposed more broadly than necessary (e.g., management interface reachable from internet). Recommendation MUST include: (a) restrict access using firewall rules, VPN, IP allowlists, or private network segmentation; (b) disable unnecessary management interfaces on untrusted networks; (c) enforce least-privilege role-based access; (d) require authentication for the affected endpoint; (e) monitor and alert on anomalous access patterns.",
+      "conditions": [
+        "finding relates to exposed management interface, open endpoint, or excessive permissions"
+      ],
+      "action": "Suggest this template structure. Do NOT generate final remediation text.",
+      "references": [
+        "CWE-798",
+        "OWASP A01 Broken Access Control"
+      ],
+      "severity": "info",
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
-      "source": "system_responsibility.md + review_taxonomy.yaml → REC → slm_action",
-      "tags": ["recommendation", "safety", "never_generate", "human_only"]
+      "source": "EVVO-internal",
+      "tags": [
+        "recommendation",
+        "template",
+        "network",
+        "firewall",
+        "least_privilege"
+      ],
+      "document_type": "internal_guideline",
+      "section": "remediation_guidance:restrict_access",
+      "vulnerability_type": "misconfiguration",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "EVVO-internal"
     },
     {
-      "kb_id": "KB-REC-005",
+      "kb_id": "KB-REC-TPL-005",
       "category": "remediation_guidance",
-      "subcategory": "web_specific",
-      "title": "Web application remediation should reference specific controls",
-      "description": "For web application findings, the recommendation should reference specific security controls (e.g., input validation, CSP headers, parameterized queries) rather than generic advice. OWASP recommendations are preferred references.",
-      "conditions": ["finding domain is web_application", "recommendation is generic"],
-      "action": "Flag as generic web remediation. Suggest referencing specific OWASP controls. Do not auto-generate specific recommendations.",
-      "references": ["OWASP Top 10", "OWASP ASVS"],
-      "severity": "warning",
-      "applicable_to": ["web_application", "api"],
+      "subcategory": "generic_response",
+      "title": "Template: Return generic response to prevent information disclosure",
+      "description": "Pattern for findings where server responses leak information (user enumeration, verbose errors, stack traces). Recommendation MUST include: (a) return a generic response for all attempts regardless of internal state; (b) avoid exposing detailed validation messages that reveal existence of accounts/resources; (c) perform duplicate checks internally without disclosing the result to the client; (d) implement rate limiting and CAPTCHA on sensitive endpoints; (e) monitor and alert on patterns indicating enumeration or brute-force activity.",
+      "conditions": [
+        "finding type is user_enumeration, information_disclosure, or observable_response_discrepancy"
+      ],
+      "action": "Suggest this template structure. Do NOT generate final remediation text.",
+      "references": [
+        "CWE-204",
+        "CWE-209",
+        "OWASP A04 Insecure Design",
+        "DOC-000001 finding 5"
+      ],
+      "severity": "info",
+      "applicable_to": [
+        "web_application",
+        "api"
+      ],
       "version": "1.0",
-      "source": "EVVO SOP (internal)",
-      "tags": ["recommendation", "web", "owasp", "specific_controls"]
+      "source": "DOC-000001",
+      "tags": [
+        "recommendation",
+        "template",
+        "generic",
+        "enumeration",
+        "rate_limiting"
+      ],
+      "document_type": "pentest_report",
+      "section": "remediation_guidance:generic_response",
+      "vulnerability_type": "user_enumeration",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "DOC-000001"
     },
     {
-      "kb_id": "KB-REC-006",
+      "kb_id": "KB-REC-TPL-006",
       "category": "remediation_guidance",
-      "subcategory": "mobile_specific",
-      "title": "Mobile application remediation should address platform-specific controls",
-      "description": "For mobile application findings (Android/iOS), the recommendation should address platform-specific security controls (e.g., Android Network Security Config, iOS App Transport Security) rather than generic web advice.",
-      "conditions": ["finding domain is android_application or ios_application", "recommendation is generic or web-focused"],
-      "action": "Flag as potentially irrelevant mobile remediation. Suggest platform-specific controls. Do not auto-generate.",
-      "references": ["OWASP Mobile Top 10", "Android Security Guidelines", "iOS Security Guidelines"],
-      "severity": "warning",
-      "applicable_to": ["android_application", "ios_application"],
+      "subcategory": "secret_scanning_pipeline",
+      "title": "Template: Integrate automated secret scanning in build pipeline",
+      "description": "Pattern for findings where secrets/credentials reach production due to lack of build-time checks. Recommendation MUST include: (a) integrate a secret scanning tool (e.g., gitleaks, truffleHog, GitGuardian) into the CI/CD pipeline; (b) fail the build on detection of high-confidence secrets; (c) maintain a baseline of false positives to suppress; (d) enforce pre-commit hooks for developers; (e) periodically audit historical commits for leaked secrets.",
+      "conditions": [
+        "finding type is hardcoded_credentials or secret_exposure in client code"
+      ],
+      "action": "Suggest this template structure. Do NOT generate final remediation text.",
+      "references": [
+        "CWE-798",
+        "OWASP A05 Security Misconfiguration"
+      ],
+      "severity": "info",
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
-      "source": "EVVO SOP (internal)",
-      "tags": ["recommendation", "mobile", "android", "ios", "platform_specific"]
+      "source": "EVVO-internal",
+      "tags": [
+        "recommendation",
+        "template",
+        "secret_scanning",
+        "ci_cd",
+        "pipeline"
+      ],
+      "document_type": "internal_guideline",
+      "section": "remediation_guidance:secret_scanning_pipeline",
+      "vulnerability_type": "hardcoded_credentials",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "EVVO-internal"
     }
   ]
 }

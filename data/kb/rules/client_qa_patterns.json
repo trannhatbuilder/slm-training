@@ -1,0 +1,207 @@
+{
+  "description": "Client Q&A patterns — behavior rules for the SLM when answering client questions about a pentest report. Covers source citation, refusal patterns, conditional answers for potential findings, remediation status, scope-out handling, and severity explanation.",
+  "version": "1.0",
+  "entries": [
+    {
+      "kb_id": "KB-QA-001",
+      "category": "writing_guidelines",
+      "subcategory": "source_citation",
+      "title": "Client Q&A answers must cite source evidence from the report or KB",
+      "description": "When answering a client question, the SLM must cite the specific source: (a) finding_id and section (e.g., 'Per Finding 1, Observation section, DOC-000001'); (b) the exact paragraph or table cell that supports the answer; (c) the KB rule applied (e.g., 'KB-SEV-001 CVSS mapping'). If the answer requires information from multiple findings, list all sources. If the answer relies on a KB rule rather than report content, cite the KB rule by ID.",
+      "conditions": [
+        "client question being answered"
+      ],
+      "action": "Verify every claim in the answer has a source citation. Flag any unsourced claim as unsupported. Do NOT generate answers without traceability.",
+      "references": [
+        "problem_definition.md §12 (safety principles)"
+      ],
+      "severity": "critical",
+      "applicable_to": [
+        "all"
+      ],
+      "version": "1.0",
+      "source": "EVVO-internal",
+      "tags": [
+        "client_qa",
+        "citation",
+        "traceability",
+        "evidence_based"
+      ],
+      "document_type": "internal_guideline",
+      "section": "client_qa:source_citation",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "EVVO-internal"
+    },
+    {
+      "kb_id": "KB-QA-002",
+      "category": "writing_guidelines",
+      "subcategory": "refusal_pattern",
+      "title": "Refuse questions that cannot be answered from the report or KB",
+      "description": "When a client asks a question that cannot be answered from the report content or the KB, the SLM must refuse with a structured response: (a) acknowledge the question; (b) state explicitly that the answer is not available in the report or KB; (c) list what information would be needed to answer; (d) suggest escalation to a human reviewer if appropriate. The SLM must NEVER speculate, infer, or generate answers from general knowledge when report/KB content is insufficient.",
+      "conditions": [
+        "question asks about content not in report",
+        "question requires speculation about future risk",
+        "question asks for opinion outside the report scope"
+      ],
+      "action": "Return structured refusal: {answerable: false, reason: 'insufficient_evidence', missing_info: [...], suggested_action: 'escalate_to_human'}.",
+      "references": [
+        "problem_definition.md §12",
+        "system_responsibility.md → SLM MUST NOT"
+      ],
+      "severity": "critical",
+      "applicable_to": [
+        "all"
+      ],
+      "version": "1.0",
+      "source": "EVVO-internal",
+      "tags": [
+        "client_qa",
+        "refusal",
+        "safety",
+        "no_hallucination",
+        "escalation"
+      ],
+      "document_type": "internal_guideline",
+      "section": "client_qa:refusal_pattern",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "EVVO-internal"
+    },
+    {
+      "kb_id": "KB-QA-003",
+      "category": "writing_guidelines",
+      "subcategory": "conditional_answer",
+      "title": "Conditional answers for findings marked '(Potential)'",
+      "description": "When a client question concerns a finding whose IMPACT row is prefixed with '(Potential)' (i.e., the vulnerability was not fully demonstrated during testing), the SLM must answer conditionally: (a) state that the finding is classified as Potential Issue, not Confirmed Vulnerability; (b) explain what would be needed to confirm or refute (additional testing, evidence); (c) provide the CVSS score and range as-is, without inflating severity; (d) recommend remediation as defensive measure, but acknowledge it is precautionary. Example from DOC-000001: Finding 3 (Root Detection) and Finding 5 (Email Enumeration) are both (Potential) — answers about these must use conditional phrasing.",
+      "conditions": [
+        "question concerns finding with '(Potential)' impact marker"
+      ],
+      "action": "Detect '(Potential)' marker in finding metadata. Apply conditional-answer template. Do NOT represent potential findings as confirmed.",
+      "references": [
+        "DOC-000001 Tables 22, 24",
+        "KB-CLASS-002 (potential_issue)"
+      ],
+      "severity": "warning",
+      "applicable_to": [
+        "all"
+      ],
+      "version": "1.0",
+      "source": "DOC-000001",
+      "tags": [
+        "client_qa",
+        "conditional",
+        "potential",
+        "classification"
+      ],
+      "document_type": "pentest_report",
+      "section": "client_qa:conditional_answer",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "DOC-000001"
+    },
+    {
+      "kb_id": "KB-QA-004",
+      "category": "writing_guidelines",
+      "subcategory": "remediation_status_answer",
+      "title": "Remediation status answers must use retest verification result",
+      "description": "When a client asks 'Has this been fixed?' or 'What is the remediation status?', the SLM must answer using the Re-Test Verification Result field of the finding: (a) if retest.verification_result is 'Verified Fixed' → state the fix has been validated during retest; (b) if 'Not Retested' → state the fix has been reported by the client but not yet validated by EVVO; (c) if 'Verification Failed' → state the fix did not resolve the issue and additional remediation is needed; (d) if retest field is empty → state no retest information is available. The SLM must NEVER claim a fix is verified if the retest result does not support it.",
+      "conditions": [
+        "question about remediation status or fix verification"
+      ],
+      "action": "Read retest.verification_result from finding. Apply matching answer template. Flag if retest field is empty.",
+      "references": [
+        "DOC-000001 'Re-Test Verification Result:' lines",
+        "KB-VAL-005 (retest_validation)"
+      ],
+      "severity": "warning",
+      "applicable_to": [
+        "all"
+      ],
+      "version": "1.0",
+      "source": "DOC-000001",
+      "tags": [
+        "client_qa",
+        "remediation",
+        "retest",
+        "verification"
+      ],
+      "document_type": "pentest_report",
+      "section": "client_qa:remediation_status_answer",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "DOC-000001"
+    },
+    {
+      "kb_id": "KB-QA-005",
+      "category": "writing_guidelines",
+      "subcategory": "scope_out_refusal",
+      "title": "Refuse questions about assets or topics explicitly out of scope",
+      "description": "When a client asks about an asset, module, or topic that is listed in the OUT OF SCOPE section of the report, the SLM must refuse: (a) state the asset/topic is explicitly out of scope for this engagement; (b) cite the OUT OF SCOPE entry verbatim; (c) suggest a separate engagement if assessment of that asset is needed. Example from DOC-000001: social engineering aspects, customer sites hosted on the GEVME platform, and 3rd-party hosted services are all explicitly out of scope.",
+      "conditions": [
+        "question concerns asset/topic in OUT OF SCOPE list"
+      ],
+      "action": "Match question against OUT OF SCOPE entries. If match found, return refusal citing the scope entry.",
+      "references": [
+        "DOC-000001 paragraphs 86-89"
+      ],
+      "severity": "warning",
+      "applicable_to": [
+        "all"
+      ],
+      "version": "1.0",
+      "source": "DOC-000001",
+      "tags": [
+        "client_qa",
+        "scope",
+        "refusal",
+        "out_of_scope"
+      ],
+      "document_type": "pentest_report",
+      "section": "client_qa:scope_out_refusal",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "DOC-000001"
+    },
+    {
+      "kb_id": "KB-QA-006",
+      "category": "writing_guidelines",
+      "subcategory": "severity_explanation",
+      "title": "Severity explanation answers must reference CVSS vector breakdown",
+      "description": "When a client asks 'Why is this Critical/High/Medium/Low?', the SLM must explain by decomposing the CVSS vector: (a) state the CVSS score and severity band (per KB-SEV-001..005); (b) walk through the vector components (AV, AC, PR, UI, S, C, I, A) with plain-English explanations of each; (c) explain which components contributed most to the score; (d) if the finding has a '(Potential)' marker, note that the score reflects potential impact assuming exploitation is confirmed. Example: '9.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H) — Network-exploitable, low complexity, no privileges or user interaction required, high impact on confidentiality, integrity, and availability.'",
+      "conditions": [
+        "question about severity rating justification"
+      ],
+      "action": "Decompose CVSS vector. Provide plain-English explanation per component. Cite KB-SEV-001..005 for severity band mapping.",
+      "references": [
+        "CVSS v3.1 Specification",
+        "KB-SEV-001..005",
+        "DOC-000001 Tables 20-24"
+      ],
+      "severity": "info",
+      "applicable_to": [
+        "all"
+      ],
+      "version": "1.0",
+      "source": "DOC-000001",
+      "tags": [
+        "client_qa",
+        "severity",
+        "cvss",
+        "explanation",
+        "decomposition"
+      ],
+      "document_type": "pentest_report",
+      "section": "client_qa:severity_explanation",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "DOC-000001"
+    }
+  ]
+}

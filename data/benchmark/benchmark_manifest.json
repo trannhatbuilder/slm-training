@@ -1,0 +1,44 @@
+{
+  "benchmark_version": "1.0",
+  "created_at": "2026-08-15",
+  "source": {
+    "findings_jsonl": "data\\normalized\\DOC-000001-findings-normalized.jsonl",
+    "engagement_id": "DOC-000001",
+    "n_findings": 5
+  },
+  "case_count": 34,
+  "cases_by_task_type": {
+    "client_qa": 7,
+    "evidence_check": 5,
+    "false_positive_detection": 3,
+    "finding_review": 5,
+    "hard_negative_potential_issue": 1,
+    "remediation_review": 5,
+    "severity_review": 5,
+    "unsupported_refusal": 3
+  },
+  "cases_by_difficulty": {
+    "easy": 14,
+    "hard": 9,
+    "medium": 11
+  },
+  "hard_negative_count": 9,
+  "schema_contract": "schemas/output_schema.json (v0.1)",
+  "envelope_schema": {
+    "case_id": "string",
+    "task_type": "enum",
+    "instruction": "string",
+    "input": "object",
+    "gold_output": "object (shape depends on task_type)",
+    "expected_failure_modes": "string[]",
+    "metadata": "object"
+  },
+  "duplicates_detected": [],
+  "generation_strategy": "cross_task_expansion + hand_crafted_hard_negatives",
+  "notes": [
+    "Gold labels are rule-based, not human-validated.",
+    "Test set is NOT frozen — only 1 engagement available (see data/dataset/test_set_freeze.json).",
+    "Baseline run is deferred to Colab on 10/08 (per Q2 = option a).",
+    "Regenerate with: python scripts/build_benchmark_v1.py"
+  ]
+}

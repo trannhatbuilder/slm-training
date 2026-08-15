@@ -1,0 +1,539 @@
+{
+  "eval_version": "1.0",
+  "kb_version": "1.1",
+  "evaluated_at": "2026-08-15T03:31:57+00:00",
+  "retrieval_method": "metadata_filter (taxonomy + domain + tags) — vector index planned for task 13/08",
+  "total_queries": 10,
+  "aggregate_metrics": {
+    "mean_recall": 1.0,
+    "mean_precision_at_5": 0.36,
+    "pass_rate": 1.0,
+    "queries_passed": 10,
+    "queries_failed": 0
+  },
+  "coverage_categories": {
+    "severity_logic": [
+      "Q001",
+      "Q009"
+    ],
+    "validation_rules": [
+      "Q010"
+    ],
+    "remediation_patterns": [
+      "Q003",
+      "Q004"
+    ],
+    "report_style": [
+      "Q005"
+    ],
+    "sop_methodology": [
+      "Q008"
+    ],
+    "client_qa_patterns": [
+      "Q006",
+      "Q007"
+    ],
+    "evidence_classification": [
+      "Q002"
+    ]
+  },
+  "queries": [
+    {
+      "query_id": "Q001",
+      "scenario": "Review a Critical-severity finding with CVSS 9.8 — needs severity + consistency rules",
+      "query_params": {
+        "taxonomy_codes": [
+          "SEV",
+          "CVSS",
+          "CONS"
+        ],
+        "domain": "all",
+        "tags": null,
+        "categories": null
+      },
+      "retrieved_count": 11,
+      "retrieved_kb_ids": [
+        "KB-CONS-002",
+        "KB-SEV-001",
+        "KB-SEV-002",
+        "KB-SEV-006",
+        "KB-CONS-001",
+        "KB-CONS-003",
+        "KB-CONS-004",
+        "KB-SEV-003",
+        "KB-SEV-004",
+        "KB-SEV-007",
+        "KB-SEV-005"
+      ],
+      "expected_kb_ids": [
+        "KB-SEV-001",
+        "KB-CONS-001"
+      ],
+      "expected_found": [
+        "KB-SEV-001",
+        "KB-CONS-001"
+      ],
+      "expected_missing": [],
+      "relevant_kb_ids": [
+        "KB-SEV-001",
+        "KB-SEV-006",
+        "KB-SEV-007",
+        "KB-CONS-001",
+        "KB-VAL-002"
+      ],
+      "recall": 1.0,
+      "precision_at_5": 0.6
+    },
+    {
+      "query_id": "Q002",
+      "scenario": "Finding has only scanner output as evidence — classify as false positive or potential?",
+      "query_params": {
+        "taxonomy_codes": [
+          "EVID",
+          "CLASS"
+        ],
+        "domain": "all",
+        "tags": null,
+        "categories": null
+      },
+      "retrieved_count": 12,
+      "retrieved_kb_ids": [
+        "KB-CLASS-001",
+        "KB-CLASS-002",
+        "KB-CLASS-004",
+        "KB-CLASS-005",
+        "KB-EVID-002",
+        "KB-EVID-003",
+        "KB-EVID-004",
+        "KB-EVID-006",
+        "KB-CLASS-006",
+        "KB-EVID-005",
+        "KB-CLASS-003",
+        "KB-EVID-001"
+      ],
+      "expected_kb_ids": [
+        "KB-EVID-004",
+        "KB-CLASS-004"
+      ],
+      "expected_found": [
+        "KB-EVID-004",
+        "KB-CLASS-004"
+      ],
+      "expected_missing": [],
+      "relevant_kb_ids": [
+        "KB-EVID-001",
+        "KB-EVID-004",
+        "KB-CLASS-002",
+        "KB-CLASS-004",
+        "KB-VAL-001"
+      ],
+      "recall": 1.0,
+      "precision_at_5": 0.4
+    },
+    {
+      "query_id": "Q003",
+      "scenario": "Finding has hardcoded credentials in mobile APK — needs remediation template",
+      "query_params": {
+        "taxonomy_codes": [
+          "REC"
+        ],
+        "domain": "android_application",
+        "tags": null,
+        "categories": null
+      },
+      "retrieved_count": 10,
+      "retrieved_kb_ids": [
+        "KB-REC-004",
+        "KB-REC-001",
+        "KB-REC-002",
+        "KB-REC-003",
+        "KB-REC-006",
+        "KB-REC-TPL-001",
+        "KB-REC-TPL-002",
+        "KB-REC-TPL-003",
+        "KB-REC-TPL-004",
+        "KB-REC-TPL-006"
+      ],
+      "expected_kb_ids": [
+        "KB-REC-TPL-001",
+        "KB-REC-TPL-006"
+      ],
+      "expected_found": [
+        "KB-REC-TPL-001",
+        "KB-REC-TPL-006"
+      ],
+      "expected_missing": [],
+      "relevant_kb_ids": [
+        "KB-REC-TPL-001",
+        "KB-REC-TPL-004",
+        "KB-REC-TPL-006",
+        "KB-REC-005",
+        "KB-REC-006"
+      ],
+      "recall": 1.0,
+      "precision_at_5": 0.2
+    },
+    {
+      "query_id": "Q004",
+      "scenario": "Finding uses HS256 JWT — needs migration template + crypto guidance",
+      "query_params": {
+        "taxonomy_codes": [
+          "REC",
+          "SEV"
+        ],
+        "domain": "all",
+        "tags": null,
+        "categories": null
+      },
+      "retrieved_count": 19,
+      "retrieved_kb_ids": [
+        "KB-REC-004",
+        "KB-SEV-001",
+        "KB-SEV-002",
+        "KB-SEV-006",
+        "KB-REC-001",
+        "KB-REC-002",
+        "KB-REC-003",
+        "KB-REC-005",
+        "KB-REC-006",
+        "KB-SEV-003",
+        "KB-SEV-004",
+        "KB-SEV-007",
+        "KB-REC-TPL-001",
+        "KB-REC-TPL-002",
+        "KB-REC-TPL-003",
+        "KB-REC-TPL-004",
+        "KB-REC-TPL-005",
+        "KB-REC-TPL-006",
+        "KB-SEV-005"
+      ],
+      "expected_kb_ids": [
+        "KB-REC-TPL-002"
+      ],
+      "expected_found": [
+        "KB-REC-TPL-002"
+      ],
+      "expected_missing": [],
+      "relevant_kb_ids": [
+        "KB-REC-TPL-002",
+        "KB-SEV-003",
+        "KB-CONS-001",
+        "KB-REC-001",
+        "KB-REC-002"
+      ],
+      "recall": 1.0,
+      "precision_at_5": 0.2
+    },
+    {
+      "query_id": "Q005",
+      "scenario": "Review a finding's report style — check heading hierarchy and metadata table",
+      "query_params": {
+        "taxonomy_codes": null,
+        "domain": "all",
+        "tags": null,
+        "categories": [
+          "writing_guidelines"
+        ]
+      },
+      "retrieved_count": 17,
+      "retrieved_kb_ids": [
+        "KB-QA-001",
+        "KB-QA-002",
+        "KB-QA-003",
+        "KB-QA-004",
+        "KB-QA-005",
+        "KB-STYLE-001",
+        "KB-STYLE-002",
+        "KB-STYLE-004",
+        "KB-STYLE-007",
+        "KB-WRITE-001",
+        "KB-WRITE-002",
+        "KB-WRITE-003",
+        "KB-WRITE-004",
+        "KB-QA-006",
+        "KB-STYLE-003",
+        "KB-STYLE-005",
+        "KB-STYLE-006"
+      ],
+      "expected_kb_ids": [
+        "KB-STYLE-001",
+        "KB-STYLE-004"
+      ],
+      "expected_found": [
+        "KB-STYLE-001",
+        "KB-STYLE-004"
+      ],
+      "expected_missing": [],
+      "relevant_kb_ids": [
+        "KB-STYLE-001",
+        "KB-STYLE-002",
+        "KB-STYLE-003",
+        "KB-STYLE-004",
+        "KB-STYLE-005"
+      ],
+      "recall": 1.0,
+      "precision_at_5": 0.0
+    },
+    {
+      "query_id": "Q006",
+      "scenario": "Client asks about a finding marked (Potential) — answer conditionally",
+      "query_params": {
+        "taxonomy_codes": null,
+        "domain": "all",
+        "tags": null,
+        "categories": [
+          "writing_guidelines",
+          "classification_criteria"
+        ]
+      },
+      "retrieved_count": 23,
+      "retrieved_kb_ids": [
+        "KB-CLASS-001",
+        "KB-CLASS-002",
+        "KB-CLASS-004",
+        "KB-CLASS-005",
+        "KB-QA-001",
+        "KB-QA-002",
+        "KB-CLASS-006",
+        "KB-QA-003",
+        "KB-QA-004",
+        "KB-QA-005",
+        "KB-STYLE-001",
+        "KB-STYLE-002",
+        "KB-STYLE-004",
+        "KB-STYLE-007",
+        "KB-WRITE-001",
+        "KB-WRITE-002",
+        "KB-WRITE-003",
+        "KB-WRITE-004",
+        "KB-CLASS-003",
+        "KB-QA-006",
+        "KB-STYLE-003",
+        "KB-STYLE-005",
+        "KB-STYLE-006"
+      ],
+      "expected_kb_ids": [
+        "KB-QA-003",
+        "KB-CLASS-002"
+      ],
+      "expected_found": [
+        "KB-QA-003",
+        "KB-CLASS-002"
+      ],
+      "expected_missing": [],
+      "relevant_kb_ids": [
+        "KB-QA-003",
+        "KB-CLASS-002",
+        "KB-QA-001",
+        "KB-QA-002",
+        "KB-VAL-001"
+      ],
+      "recall": 1.0,
+      "precision_at_5": 0.4
+    },
+    {
+      "query_id": "Q007",
+      "scenario": "Client asks about scope-out asset — must refuse",
+      "query_params": {
+        "taxonomy_codes": null,
+        "domain": "all",
+        "tags": null,
+        "categories": [
+          "writing_guidelines"
+        ]
+      },
+      "retrieved_count": 17,
+      "retrieved_kb_ids": [
+        "KB-QA-001",
+        "KB-QA-002",
+        "KB-QA-003",
+        "KB-QA-004",
+        "KB-QA-005",
+        "KB-STYLE-001",
+        "KB-STYLE-002",
+        "KB-STYLE-004",
+        "KB-STYLE-007",
+        "KB-WRITE-001",
+        "KB-WRITE-002",
+        "KB-WRITE-003",
+        "KB-WRITE-004",
+        "KB-QA-006",
+        "KB-STYLE-003",
+        "KB-STYLE-005",
+        "KB-STYLE-006"
+      ],
+      "expected_kb_ids": [
+        "KB-QA-005"
+      ],
+      "expected_found": [
+        "KB-QA-005"
+      ],
+      "expected_missing": [],
+      "relevant_kb_ids": [
+        "KB-QA-005",
+        "KB-QA-002",
+        "KB-QA-003",
+        "KB-STYLE-003"
+      ],
+      "recall": 1.0,
+      "precision_at_5": 0.6
+    },
+    {
+      "query_id": "Q008",
+      "scenario": "Review a finding — needs full pentest methodology context (NIST/OWASP)",
+      "query_params": {
+        "taxonomy_codes": null,
+        "domain": "all",
+        "tags": null,
+        "categories": [
+          "sop"
+        ]
+      },
+      "retrieved_count": 19,
+      "retrieved_kb_ids": [
+        "KB-SOP-ESC-001",
+        "KB-SOP-METH-005",
+        "KB-SOP-REV-002",
+        "KB-SOP-REV-003",
+        "KB-SOP-ESC-002",
+        "KB-SOP-METH-001",
+        "KB-SOP-METH-003",
+        "KB-SOP-METH-004",
+        "KB-SOP-METH-008",
+        "KB-SOP-REV-009",
+        "KB-SOP-REV-010",
+        "KB-SOP-ESC-003",
+        "KB-SOP-METH-002",
+        "KB-SOP-METH-006",
+        "KB-SOP-METH-007",
+        "KB-SOP-REV-001",
+        "KB-SOP-REV-004",
+        "KB-SOP-REV-005",
+        "KB-SOP-REV-011"
+      ],
+      "expected_kb_ids": [
+        "KB-SOP-METH-001",
+        "KB-SOP-METH-003"
+      ],
+      "expected_found": [
+        "KB-SOP-METH-001",
+        "KB-SOP-METH-003"
+      ],
+      "expected_missing": [],
+      "relevant_kb_ids": [
+        "KB-SOP-METH-001",
+        "KB-SOP-METH-002",
+        "KB-SOP-METH-003",
+        "KB-SOP-METH-004",
+        "KB-SOP-METH-005"
+      ],
+      "recall": 1.0,
+      "precision_at_5": 0.2
+    },
+    {
+      "query_id": "Q009",
+      "scenario": "Finding has severity High but evidence insufficient — escalate",
+      "query_params": {
+        "taxonomy_codes": [
+          "CONF",
+          "EVID",
+          "SEV"
+        ],
+        "domain": "all",
+        "tags": null,
+        "categories": null
+      },
+      "retrieved_count": 19,
+      "retrieved_kb_ids": [
+        "KB-ESC-001",
+        "KB-ESC-002",
+        "KB-ESC-003",
+        "KB-ESC-006",
+        "KB-EVID-002",
+        "KB-EVID-003",
+        "KB-EVID-004",
+        "KB-EVID-006",
+        "KB-SEV-001",
+        "KB-SEV-002",
+        "KB-SEV-006",
+        "KB-ESC-004",
+        "KB-ESC-005",
+        "KB-EVID-005",
+        "KB-SEV-003",
+        "KB-SEV-004",
+        "KB-SEV-007",
+        "KB-EVID-001",
+        "KB-SEV-005"
+      ],
+      "expected_kb_ids": [
+        "KB-ESC-001",
+        "KB-SEV-006"
+      ],
+      "expected_found": [
+        "KB-ESC-001",
+        "KB-SEV-006"
+      ],
+      "expected_missing": [],
+      "relevant_kb_ids": [
+        "KB-ESC-001",
+        "KB-ESC-002",
+        "KB-ESC-004",
+        "KB-SEV-006",
+        "KB-EVID-002"
+      ],
+      "recall": 1.0,
+      "precision_at_5": 0.6
+    },
+    {
+      "query_id": "Q010",
+      "scenario": "Validate finding schema — check 5-part structure + CVSS + CWE format",
+      "query_params": {
+        "taxonomy_codes": [
+          "COMP",
+          "CVSS",
+          "CWE"
+        ],
+        "domain": "all",
+        "tags": null,
+        "categories": null
+      },
+      "retrieved_count": 13,
+      "retrieved_kb_ids": [
+        "KB-SEV-001",
+        "KB-SEV-002",
+        "KB-SEV-006",
+        "KB-VAL-001",
+        "KB-VAL-004",
+        "KB-VAL-006",
+        "KB-SEV-003",
+        "KB-SEV-004",
+        "KB-SEV-007",
+        "KB-VAL-002",
+        "KB-VAL-003",
+        "KB-SEV-005",
+        "KB-VAL-005"
+      ],
+      "expected_kb_ids": [
+        "KB-VAL-001",
+        "KB-VAL-002",
+        "KB-VAL-003"
+      ],
+      "expected_found": [
+        "KB-VAL-001",
+        "KB-VAL-002",
+        "KB-VAL-003"
+      ],
+      "expected_missing": [],
+      "relevant_kb_ids": [
+        "KB-VAL-001",
+        "KB-VAL-002",
+        "KB-VAL-003",
+        "KB-VAL-004",
+        "KB-VAL-005",
+        "KB-VAL-006"
+      ],
+      "recall": 1.0,
+      "precision_at_5": 0.4
+    }
+  ]
+}

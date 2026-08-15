@@ -141,7 +141,7 @@ def check_leakage_risks(records, by_doc, by_finding):
         "risk_id": "LEAK-005",
         "severity": "high",
         "category": "small_dataset_split",
-        "description": f"Dataset has only {len(records)} examples — any split (even 80/10/10) leaves test with ~2 examples, insufficient for meaningful evaluation",
+        "description": f"Dataset has only {len(records)} examples — any split (even 80/10/10) leaves test with ~{max(1, len(records)//10)} examples, insufficient for meaningful evaluation",
         "recommendation": "Do NOT split until dataset has at least 100 examples from 3+ engagements.",
         "affected_examples": len(records),
     })
@@ -274,9 +274,9 @@ def write_split_report(records, by_doc, by_finding, by_engagement, risks, strate
 
     report = f"""# Split Report — EVVO SLM / Harness
 
-**Version:** 1.0
+**Version:** 1.1
 **Date:** {datetime.now().strftime('%Y-%m-%d')}
-**Scope:** Ngày 07/08 — Split by engagement, freeze test set, check leakage
+**Scope:** Ngày 08/08 — Split by engagement, freeze test set, check leakage (regenerated after cross-task expansion)
 
 ---
 
@@ -414,14 +414,14 @@ Format: CSV with columns:
 | Exit Criterion | Status | Evidence |
 |---|---|---|
 | Test set frozen and not mixed with train | ⚠️ HOLD | Cannot freeze with 1 engagement — documented in §4 |
-| At least one complete sample for each task type | ✅ | 7/8 task types have examples (false_positive_detection = 0 per plan) |
+| At least one complete sample for each task type | ✅ | 8/8 task types have examples (after cross-task expansion on 08/08) |
 | Data redacted before uploading to Colab | ⚠️ Partial | Redaction markers applied in dataset_draft.jsonl; full redaction pipeline pending |
 
 ---
 
 ## 7. Recommendations
 
-1. **Do NOT split** the current 22-example dataset — the leakage risk is too high
+1. **Do NOT split** the current {len(records)}-example dataset — the leakage risk is too high
 2. **Add 2-3 engagements** from different clients/assessments as the NEXT priority
 3. When new engagements are added, apply the split policy in §3
 4. **Freeze test set** immediately after split — document hash of all test examples
@@ -436,7 +436,7 @@ Format: CSV with columns:
 
 def main():
     print("=" * 70)
-    print("NGÀY 05/08 (07/08): Split + Freeze + Leakage Check")
+    print("NGÀY 08/08: Split + Freeze + Leakage Check")
     print("=" * 70)
     print()
 

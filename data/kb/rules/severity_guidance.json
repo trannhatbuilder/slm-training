@@ -8,14 +8,31 @@
       "subcategory": "cvss_range_mapping",
       "title": "CVSS 9.0-10.0 maps to Critical severity",
       "description": "A CVSS score between 9.0 and 10.0 inclusive corresponds to Critical severity. If the reported severity differs, flag as CVSS-severity mismatch.",
-      "conditions": ["cvss.score >= 9.0 AND cvss.score <= 10.0"],
+      "conditions": [
+        "cvss.score >= 9.0 AND cvss.score <= 10.0"
+      ],
       "action": "Expected severity is 'critical'. If reported severity differs, flag mismatch (taxonomy SEV). Do NOT auto-correct.",
-      "references": ["CVSS v3.1 Specification"],
+      "references": [
+        "CVSS v3.1 Specification"
+      ],
       "severity": "critical",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → SEV → cvss_ranges",
-      "tags": ["cvss", "severity", "critical", "mapping"]
+      "tags": [
+        "cvss",
+        "severity",
+        "critical",
+        "mapping"
+      ],
+      "document_type": "policy_document",
+      "section": "severity_guidance:cvss_range_mapping",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     },
     {
       "kb_id": "KB-SEV-002",
@@ -23,14 +40,31 @@
       "subcategory": "cvss_range_mapping",
       "title": "CVSS 7.0-8.9 maps to High severity",
       "description": "A CVSS score between 7.0 and 8.9 inclusive corresponds to High severity. If the reported severity differs, flag as CVSS-severity mismatch.",
-      "conditions": ["cvss.score >= 7.0 AND cvss.score <= 8.9"],
+      "conditions": [
+        "cvss.score >= 7.0 AND cvss.score <= 8.9"
+      ],
       "action": "Expected severity is 'high'. If reported severity differs, flag mismatch (taxonomy SEV). Do NOT auto-correct.",
-      "references": ["CVSS v3.1 Specification"],
+      "references": [
+        "CVSS v3.1 Specification"
+      ],
       "severity": "critical",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → SEV → cvss_ranges",
-      "tags": ["cvss", "severity", "high", "mapping"]
+      "tags": [
+        "cvss",
+        "severity",
+        "high",
+        "mapping"
+      ],
+      "document_type": "policy_document",
+      "section": "severity_guidance:cvss_range_mapping",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     },
     {
       "kb_id": "KB-SEV-003",
@@ -38,14 +72,31 @@
       "subcategory": "cvss_range_mapping",
       "title": "CVSS 4.0-6.9 maps to Medium severity",
       "description": "A CVSS score between 4.0 and 6.9 inclusive corresponds to Medium severity. If the reported severity differs, flag as CVSS-severity mismatch.",
-      "conditions": ["cvss.score >= 4.0 AND cvss.score <= 6.9"],
+      "conditions": [
+        "cvss.score >= 4.0 AND cvss.score <= 6.9"
+      ],
       "action": "Expected severity is 'medium'. If reported severity differs, flag mismatch (taxonomy SEV). Do NOT auto-correct.",
-      "references": ["CVSS v3.1 Specification"],
+      "references": [
+        "CVSS v3.1 Specification"
+      ],
       "severity": "warning",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → SEV → cvss_ranges",
-      "tags": ["cvss", "severity", "medium", "mapping"]
+      "tags": [
+        "cvss",
+        "severity",
+        "medium",
+        "mapping"
+      ],
+      "document_type": "policy_document",
+      "section": "severity_guidance:cvss_range_mapping",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     },
     {
       "kb_id": "KB-SEV-004",
@@ -53,14 +104,31 @@
       "subcategory": "cvss_range_mapping",
       "title": "CVSS 0.1-3.9 maps to Low severity",
       "description": "A CVSS score between 0.1 and 3.9 inclusive corresponds to Low severity. If the reported severity differs, flag as CVSS-severity mismatch.",
-      "conditions": ["cvss.score >= 0.1 AND cvss.score <= 3.9"],
+      "conditions": [
+        "cvss.score >= 0.1 AND cvss.score <= 3.9"
+      ],
       "action": "Expected severity is 'low'. If reported severity differs, flag mismatch (taxonomy SEV). Do NOT auto-correct.",
-      "references": ["CVSS v3.1 Specification"],
+      "references": [
+        "CVSS v3.1 Specification"
+      ],
       "severity": "warning",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → SEV → cvss_ranges",
-      "tags": ["cvss", "severity", "low", "mapping"]
+      "tags": [
+        "cvss",
+        "severity",
+        "low",
+        "mapping"
+      ],
+      "document_type": "policy_document",
+      "section": "severity_guidance:cvss_range_mapping",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     },
     {
       "kb_id": "KB-SEV-005",
@@ -68,14 +136,31 @@
       "subcategory": "cvss_range_mapping",
       "title": "CVSS 0.0 maps to Informational severity",
       "description": "A CVSS score of exactly 0.0 corresponds to Informational severity. This indicates no direct security impact.",
-      "conditions": ["cvss.score == 0.0"],
+      "conditions": [
+        "cvss.score == 0.0"
+      ],
       "action": "Expected severity is 'informational'. If reported severity differs, flag mismatch (taxonomy SEV).",
-      "references": ["CVSS v3.1 Specification"],
+      "references": [
+        "CVSS v3.1 Specification"
+      ],
       "severity": "info",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → SEV → cvss_ranges",
-      "tags": ["cvss", "severity", "informational", "mapping"]
+      "tags": [
+        "cvss",
+        "severity",
+        "informational",
+        "mapping"
+      ],
+      "document_type": "policy_document",
+      "section": "severity_guidance:cvss_range_mapping",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     },
     {
       "kb_id": "KB-SEV-006",
@@ -83,14 +168,30 @@
       "subcategory": "severity_escalation",
       "title": "Severity escalation without evidence is a warning",
       "description": "If a finding reports High or Critical severity but the evidence does not support the impact claim, the severity may be inflated. Flag for human review rather than auto-downgrading.",
-      "conditions": ["severity in [critical, high] AND evidence does not support impact"],
+      "conditions": [
+        "severity in [critical, high] AND evidence does not support impact"
+      ],
       "action": "Flag as severity-evidence mismatch. Escalate to human reviewer. Do NOT auto-downgrade severity.",
       "references": [],
       "severity": "critical",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → SEV → triggers",
-      "tags": ["severity", "escalation", "evidence", "high", "critical"]
+      "tags": [
+        "severity",
+        "escalation",
+        "evidence",
+        "high",
+        "critical"
+      ],
+      "document_type": "policy_document",
+      "section": "severity_guidance:severity_escalation",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     },
     {
       "kb_id": "KB-SEV-007",
@@ -98,14 +199,28 @@
       "subcategory": "impact_alignment",
       "title": "Impact description must align with severity level",
       "description": "The impact description should reflect the severity level. A Critical finding should describe significant business impact (data breach, system compromise). A Low finding should describe minimal impact.",
-      "conditions": ["impact description does not align with reported severity"],
+      "conditions": [
+        "impact description does not align with reported severity"
+      ],
       "action": "Flag as impact-severity misalignment. Report both values for human decision.",
       "references": [],
       "severity": "warning",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → SEV → triggers",
-      "tags": ["severity", "impact", "alignment"]
+      "tags": [
+        "severity",
+        "impact",
+        "alignment"
+      ],
+      "document_type": "policy_document",
+      "section": "severity_guidance:impact_alignment",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     }
   ]
 }

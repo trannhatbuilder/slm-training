@@ -8,14 +8,31 @@
       "subcategory": "input_schema",
       "title": "Input Schema v0.2 — Normalized VAPT Finding",
       "description": "The input schema defines the structure of a normalized VAPT finding that enters the review pipeline. It includes 16 required fields: schema_version, finding_id, title, severity, affected_targets, affected_user_roles, cwe_id, cvss, impact, observation, evidence, recommendation, retest, references, source, governance.",
-      "conditions": ["finding enters the review pipeline"],
+      "conditions": [
+        "finding enters the review pipeline"
+      ],
       "action": "Validate finding against input_schema.json. Reject if schema_version is not '0.2'.",
-      "references": ["schemas/input_schema.json"],
+      "references": [
+        "schemas/input_schema.json"
+      ],
       "severity": "critical",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "0.2",
       "source": "schemas/input_schema.json",
-      "tags": ["schema", "input", "validation", "registry"]
+      "tags": [
+        "schema",
+        "input",
+        "validation",
+        "registry"
+      ],
+      "document_type": "schema_definition",
+      "section": "taxonomy_definitions:input_schema",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "SCHEMA-input_schema"
     },
     {
       "kb_id": "KB-SCH-002",
@@ -23,14 +40,31 @@
       "subcategory": "output_schema",
       "title": "Output Schema v0.1 — Structured Review Result",
       "description": "The output schema defines the structure of the review result. It includes review_status, classification, completeness_review, evidence_review, severity_review, cvss_review, cwe_review, impact_review, recommendation_review, consistency_review, retest_review, review_comments, confidence, human_escalation, and traceability.",
-      "conditions": ["review pipeline completes"],
+      "conditions": [
+        "review pipeline completes"
+      ],
       "action": "Assemble output matching output_schema.json. Validate before returning.",
-      "references": ["schemas/output_schema.json"],
+      "references": [
+        "schemas/output_schema.json"
+      ],
       "severity": "critical",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "0.1",
       "source": "schemas/output_schema.json",
-      "tags": ["schema", "output", "validation", "registry"]
+      "tags": [
+        "schema",
+        "output",
+        "validation",
+        "registry"
+      ],
+      "document_type": "schema_definition",
+      "section": "taxonomy_definitions:output_schema",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "SCHEMA-output_schema"
     },
     {
       "kb_id": "KB-SCH-003",
@@ -38,29 +72,64 @@
       "subcategory": "taxonomy_codes",
       "title": "Review Taxonomy v1.0 — 10 taxonomy codes",
       "description": "The review taxonomy defines 10 codes for categorizing review comments: COMP (Completeness), EVID (Evidence), CLASS (Classification), SEV (Severity), CVSS (CVSS Review), CWE (CWE Review), IMP (Impact), REC (Recommendation), RET (Retest), and CONF (Confidence). Plus consistency rules.",
-      "conditions": ["review comment generated"],
+      "conditions": [
+        "review comment generated"
+      ],
       "action": "Assign taxonomy code to every review comment. Use format {CODE}-{NNN} (e.g., SEV-001).",
-      "references": ["policies/review_taxonomy.yaml"],
+      "references": [
+        "policies/review_taxonomy.yaml"
+      ],
       "severity": "info",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "policies/review_taxonomy.yaml",
-      "tags": ["schema", "taxonomy", "codes", "registry"]
+      "tags": [
+        "schema",
+        "taxonomy",
+        "codes",
+        "registry"
+      ],
+      "document_type": "policy_document",
+      "section": "taxonomy_definitions:taxonomy_codes",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     },
     {
       "kb_id": "KB-SCH-004",
       "category": "taxonomy_definitions",
       "subcategory": "kb_entry_schema",
-      "title": "KB Entry Schema v1.0 — Knowledge Base entry structure",
-      "description": "The KB entry schema defines the structure of every Knowledge Base entry. Fields: kb_id, category, subcategory, title, description, conditions, action, references, severity, applicable_to, version, source, tags. Defined in src/harness/kb/schema.py.",
-      "conditions": ["KB entry loaded or created"],
+      "title": "KB Entry Schema v1.1 — Knowledge Base entry structure",
+      "description": "The KB entry schema defines the structure of every Knowledge Base entry. Fields: kb_id, category, subcategory, title, description, conditions, action, references, severity, applicable_to, version, source, tags. New in v1.1 (per task 08/08 Definition of Done, PDF §3.3): document_type, section, vulnerability_type, effective_date, access_scope, source_id. Defined in src/harness/kb/schema.py.",
+      "conditions": [
+        "KB entry loaded or created"
+      ],
       "action": "Validate every KB entry against this schema. Reject entries with invalid category or severity.",
-      "references": ["src/harness/kb/schema.py"],
+      "references": [
+        "src/harness/kb/schema.py",
+        "PDF §3.3 metadata schema"
+      ],
       "severity": "info",
-      "applicable_to": ["all"],
-      "version": "1.0",
+      "applicable_to": [
+        "all"
+      ],
+      "version": "1.1",
       "source": "src/harness/kb/schema.py",
-      "tags": ["schema", "kb_entry", "registry"]
+      "tags": [
+        "schema",
+        "kb_entry",
+        "registry",
+        "v1.1"
+      ],
+      "document_type": "schema_definition",
+      "section": "taxonomy_definitions:kb_entry_schema",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "CODE-kb_schema"
     }
   ]
 }

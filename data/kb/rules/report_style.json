@@ -1,0 +1,237 @@
+{
+  "description": "Report style rules — EVVO pentest report formatting conventions including heading hierarchy, disclaimer block, scope list format, finding metadata table, version control, glossary, and posture rating. Sourced from DOC-000001 structural analysis.",
+  "version": "1.0",
+  "entries": [
+    {
+      "kb_id": "KB-STYLE-001",
+      "category": "writing_guidelines",
+      "subcategory": "heading_hierarchy",
+      "title": "Report must use EVVO heading styles: EvvoH1 for sections, EvvoH2 for subsections",
+      "description": "EVVO pentest reports use custom heading styles: EvvoH1 for top-level sections (e.g., ENGAGEMENT INFORMATION, METHODOLOGY, DETAILED FINDINGS, CONCLUSION), EvvoH2 for subsections (e.g., DISCLAIMER, SCOPE, OUT OF SCOPE, OVERALL POSTURE, FINAL REMEDIATION STATUS, RECOMMENDATIONS SUMMARY, individual finding titles). Standard Heading 2 style is reserved for legacy compatibility (e.g., STATEMENT OF LIMITATIONS). When generating or reviewing report text, the SLM must respect this hierarchy.",
+      "conditions": [
+        "report text is being generated or reviewed for style"
+      ],
+      "action": "Verify heading styles match the EVVO convention. Flag any section using non-EVVO heading style. Do NOT auto-fix heading styles — escalate to human.",
+      "references": [
+        "DOC-000001 (style inventory: EvvoH1=7, EvvoH2=18)"
+      ],
+      "severity": "warning",
+      "applicable_to": [
+        "all"
+      ],
+      "version": "1.0",
+      "source": "DOC-000001",
+      "tags": [
+        "style",
+        "heading",
+        "evvoh1",
+        "evvoh2",
+        "report_structure"
+      ],
+      "document_type": "pentest_report",
+      "section": "report_style:heading_hierarchy",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "DOC-000001"
+    },
+    {
+      "kb_id": "KB-STYLE-002",
+      "category": "writing_guidelines",
+      "subcategory": "disclaimer_block",
+      "title": "Disclaimer and legal notice must appear before any technical content",
+      "description": "Every EVVO report must include, in order: (1) DISCLAIMER — confidentiality notice with EVVO Labs Pte Ltd address (28 Genting, #05-07 Platinum 28, Singapore 349585); (2) COMPANY PROFILE — brief description of EVVO Labs services; (3) LEGAL NOTICE & LIMITATIONS — engagement scope, liability cap, third-party tool disclaimer. These sections must appear BEFORE Engagement Information. When reviewing a report, missing or out-of-order boilerplate must be flagged.",
+      "conditions": [
+        "report is being validated for completeness"
+      ],
+      "action": "Verify disclaimer block exists and is in correct position. Flag missing or misplaced boilerplate. Do NOT generate boilerplate text — human inserts.",
+      "references": [
+        "DOC-000001 paragraphs 38-72"
+      ],
+      "severity": "warning",
+      "applicable_to": [
+        "all"
+      ],
+      "version": "1.0",
+      "source": "DOC-000001",
+      "tags": [
+        "style",
+        "disclaimer",
+        "legal",
+        "boilerplate",
+        "report_structure"
+      ],
+      "document_type": "pentest_report",
+      "section": "report_style:disclaimer_block",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "DOC-000001"
+    },
+    {
+      "kb_id": "KB-STYLE-003",
+      "category": "writing_guidelines",
+      "subcategory": "scope_list_format",
+      "title": "Scope and out-of-scope items must use bullet list format (List Paragraph style)",
+      "description": "Scope and out-of-scope items must be formatted as a bulleted list using the 'List Paragraph' style. Each item is a single concise statement (one module, one asset, one constraint). Example from DOC-000001: scope lists admin portal modules (Invitees, Attendees, Orders, Reports, Campaings, Statistics, Templates, Promo codes, Event details, Event Page, Tickets, Merchandise & Inventory, Forms, Page Templates, Surveys, Automated Messages & Emails, Customizable Titles & Tickets, Payment, Taxes, Audit Logs). Out-of-scope items must also use this format (e.g., 'Anything in conjunction with social engineering aspects').",
+      "conditions": [
+        "report contains SCOPE or OUT OF SCOPE section"
+      ],
+      "action": "Verify scope/out-of-scope sections use bullet list format. Flag if items are in paragraph form. Do NOT rewrite — human reformats.",
+      "references": [
+        "DOC-000001 paragraphs 84-113"
+      ],
+      "severity": "info",
+      "applicable_to": [
+        "all"
+      ],
+      "version": "1.0",
+      "source": "DOC-000001",
+      "tags": [
+        "style",
+        "scope",
+        "bullet_list",
+        "list_paragraph",
+        "formatting"
+      ],
+      "document_type": "pentest_report",
+      "section": "report_style:scope_list_format",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "DOC-000001"
+    },
+    {
+      "kb_id": "KB-STYLE-004",
+      "category": "writing_guidelines",
+      "subcategory": "finding_metadata_table",
+      "title": "Each finding must include a 7-row metadata table after the Recommendation section",
+      "description": "Every finding in DETAILED FINDINGS must end with a 2-column, 7-row metadata table with EXACTLY these row labels in this order: SEVERITY | AFFECTED TARGETS | CWE-ID | IMPACT | RETEST STATUS | Affected User Roles | CVSS SCORE. Impact row may be prefixed with '(Potential)' for findings that did not demonstrate full exploitation. CVSS SCORE row must contain the numeric score AND the full CVSS:3.1 vector. Example: '9.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H (9.8))'.",
+      "conditions": [
+        "finding is being validated for structural completeness"
+      ],
+      "action": "Verify all 7 metadata rows present and in correct order. Flag missing rows (especially CWE-ID and CVSS vector). Flag malformed CVSS vector.",
+      "references": [
+        "DOC-000001 Tables 20-24",
+        "input_schema.json"
+      ],
+      "severity": "warning",
+      "applicable_to": [
+        "all"
+      ],
+      "version": "1.0",
+      "source": "DOC-000001",
+      "tags": [
+        "style",
+        "finding",
+        "metadata_table",
+        "cvss",
+        "cwe",
+        "structure"
+      ],
+      "document_type": "pentest_report",
+      "section": "report_style:finding_metadata_table",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "DOC-000001"
+    },
+    {
+      "kb_id": "KB-STYLE-005",
+      "category": "writing_guidelines",
+      "subcategory": "version_control_table",
+      "title": "Report must include a Document Version Control table tracking revisions",
+      "description": "Every EVVO report must include a Document Version Control table with 4 columns: VERSION | DATE | AUTHOR | DESCRIPTION. The table must list every revision (V 1.0 First version, V 1.1 added justification, V 1.2 added tool/CVSS/user roles, V 1.3 added scope and test cases, V 1.4 retest verification, ...). The current version field on page 1 must match the latest row in this table.",
+      "conditions": [
+        "report validation in progress"
+      ],
+      "action": "Verify version control table exists and latest version matches the page-1 Version field. Flag mismatches. Do NOT auto-update version.",
+      "references": [
+        "DOC-000001 Table 2"
+      ],
+      "severity": "info",
+      "applicable_to": [
+        "all"
+      ],
+      "version": "1.0",
+      "source": "DOC-000001",
+      "tags": [
+        "style",
+        "version_control",
+        "traceability",
+        "report_structure"
+      ],
+      "document_type": "pentest_report",
+      "section": "report_style:version_control_table",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "DOC-000001"
+    },
+    {
+      "kb_id": "KB-STYLE-006",
+      "category": "writing_guidelines",
+      "subcategory": "glossary_section",
+      "title": "Report must include a Glossary defining testing methodology terms",
+      "description": "Every EVVO report must include a Glossary section that defines testing methodology terms (Grey Box Testing, Vulnerability Assessment, Penetration Testing, External Testing, and any specialized terms used in the engagement). Definitions must be plain English, 1-3 sentences, and not assume security expertise. This section must appear in the Methodology section, before TESTING APPROACH.",
+      "conditions": [
+        "report being reviewed for completeness"
+      ],
+      "action": "Verify Glossary exists and contains required definitions. Flag missing entries.",
+      "references": [
+        "DOC-000001 paragraphs 171-176"
+      ],
+      "severity": "info",
+      "applicable_to": [
+        "all"
+      ],
+      "version": "1.0",
+      "source": "DOC-000001",
+      "tags": [
+        "style",
+        "glossary",
+        "methodology",
+        "definitions"
+      ],
+      "document_type": "pentest_report",
+      "section": "report_style:glossary_section",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "DOC-000001"
+    },
+    {
+      "kb_id": "KB-STYLE-007",
+      "category": "writing_guidelines",
+      "subcategory": "overall_posture_rating",
+      "title": "Overall Posture Rating must use the 4-level scale with reasoning",
+      "description": "The OVERALL POSTURE section must include a Security Posture Rating using one of 4 levels: Critical Risk | High Risk | Medium Risk | Low Risk. The rating must be followed by a 'Reason:' paragraph that explains: (a) what was fixed since the last assessment; (b) what residual issues remain; (c) why the rating was chosen. Per-finding summaries (e.g., 'Improper Authorization: The application now properly enforces authorization checks...') must support the overall rating.",
+      "conditions": [
+        "report being reviewed for posture section"
+      ],
+      "action": "Verify posture rating uses one of the 4 levels. Verify Reason paragraph exists and addresses remediation + residual + justification.",
+      "references": [
+        "DOC-000001 paragraphs 115-126",
+        "DOC-000001 Table 4"
+      ],
+      "severity": "warning",
+      "applicable_to": [
+        "all"
+      ],
+      "version": "1.0",
+      "source": "DOC-000001",
+      "tags": [
+        "style",
+        "posture_rating",
+        "executive_summary",
+        "risk"
+      ],
+      "document_type": "pentest_report",
+      "section": "report_style:overall_posture_rating",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "DOC-000001"
+    }
+  ]
+}

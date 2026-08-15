@@ -8,14 +8,31 @@
       "subcategory": "severity_cvss",
       "title": "Reported severity should align with CVSS score range",
       "description": "The reported severity level should fall within the range implied by the CVSS score. For example, CVSS 8.5 implies High severity (7.0-8.9 range). If the reported severity is Medium for CVSS 8.5, this is a mismatch that should be flagged.",
-      "conditions": ["reported severity does not match CVSS score range"],
+      "conditions": [
+        "reported severity does not match CVSS score range"
+      ],
       "action": "Flag as severity-CVSS mismatch (taxonomy SEV). Report both reported severity and CVSS-implied severity. Do NOT auto-correct.",
-      "references": ["review_taxonomy.yaml → consistency_rules → severity_cvss_alignment"],
+      "references": [
+        "review_taxonomy.yaml → consistency_rules → severity_cvss_alignment"
+      ],
       "severity": "warning",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → consistency_rules",
-      "tags": ["consistency", "severity", "cvss", "alignment"]
+      "tags": [
+        "consistency",
+        "severity",
+        "cvss",
+        "alignment"
+      ],
+      "document_type": "policy_document",
+      "section": "consistency_rules:severity_cvss",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     },
     {
       "kb_id": "KB-CONS-002",
@@ -23,14 +40,32 @@
       "subcategory": "evidence_classification",
       "title": "Classification must not be Confirmed if evidence is insufficient",
       "description": "If the evidence is insufficient (EVID_INSUFF, EVID_NONE, or EVID_SCANNER_ONLY), the classification must NOT be confirmed_vulnerability. The consistency check overrides the classification to potential_issue when this rule is violated.",
-      "conditions": ["classification is confirmed_vulnerability", "AND evidence is insufficient"],
+      "conditions": [
+        "classification is confirmed_vulnerability",
+        "AND evidence is insufficient"
+      ],
       "action": "Override classification to potential_issue. Flag as evidence-classification inconsistency (taxonomy CLASS). This is an override, not a suggestion.",
-      "references": ["review_taxonomy.yaml → consistency_rules → evidence_classification_alignment"],
+      "references": [
+        "review_taxonomy.yaml → consistency_rules → evidence_classification_alignment"
+      ],
       "severity": "critical",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → consistency_rules",
-      "tags": ["consistency", "evidence", "classification", "override"]
+      "tags": [
+        "consistency",
+        "evidence",
+        "classification",
+        "override"
+      ],
+      "document_type": "policy_document",
+      "section": "consistency_rules:evidence_classification",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     },
     {
       "kb_id": "KB-CONS-003",
@@ -38,14 +73,32 @@
       "subcategory": "title_content",
       "title": "Finding title should reflect the described vulnerability",
       "description": "The finding title should be consistent with the observation and evidence content. A title describing 'SQL Injection' with evidence showing 'XSS' indicates a title-content mismatch. This is flagged for human review.",
-      "conditions": ["title describes different vulnerability than evidence", "title and observation are inconsistent"],
+      "conditions": [
+        "title describes different vulnerability than evidence",
+        "title and observation are inconsistent"
+      ],
       "action": "Flag as title-content mismatch. Flag for human review. Do NOT auto-correct title.",
-      "references": ["review_taxonomy.yaml → consistency_rules → title_content_alignment"],
+      "references": [
+        "review_taxonomy.yaml → consistency_rules → title_content_alignment"
+      ],
       "severity": "warning",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → consistency_rules",
-      "tags": ["consistency", "title", "content", "alignment"]
+      "tags": [
+        "consistency",
+        "title",
+        "content",
+        "alignment"
+      ],
+      "document_type": "policy_document",
+      "section": "consistency_rules:title_content",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     },
     {
       "kb_id": "KB-CONS-004",
@@ -53,14 +106,32 @@
       "subcategory": "recommendation_cause",
       "title": "Recommendation should address root cause, not just symptoms",
       "description": "The recommendation should be consistent with the root cause described in the observation. A finding about 'insecure deserialization' with a recommendation to 'update TLS certificates' is inconsistent — the recommendation addresses a different issue.",
-      "conditions": ["recommendation addresses different issue than observation", "recommendation is tangential to root cause"],
+      "conditions": [
+        "recommendation addresses different issue than observation",
+        "recommendation is tangential to root cause"
+      ],
       "action": "Flag as recommendation-cause mismatch. Flag for human review to write appropriate remediation.",
-      "references": ["review_taxonomy.yaml → consistency_rules → recommendation_root_cause"],
+      "references": [
+        "review_taxonomy.yaml → consistency_rules → recommendation_root_cause"
+      ],
       "severity": "warning",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → consistency_rules",
-      "tags": ["consistency", "recommendation", "root_cause", "alignment"]
+      "tags": [
+        "consistency",
+        "recommendation",
+        "root_cause",
+        "alignment"
+      ],
+      "document_type": "policy_document",
+      "section": "consistency_rules:recommendation_cause",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     }
   ]
 }

@@ -1,0 +1,304 @@
+{
+  "benchmark_version": "1.0",
+  "model_id": null,
+  "ran_at": null,
+  "environment": "local_stub",
+  "case_count": 34,
+  "pass_rate": 0.0,
+  "error_rate": 1.0,
+  "hard_negative_pass_rate": 0.0,
+  "error_distribution": {
+    "CLASS-WRONG-LABEL": 0,
+    "CLASS-HALLUCINATED-CONFIRM": 0,
+    "CLASS-FAILED-REFUSE": 0,
+    "EVID-WRONG-SUFFICIENCY": 0,
+    "EVID-HALLUCINATED": 0,
+    "EVID-MISSED-UNSUPPORTED": 0,
+    "SEV-WRONG-SUGGESTION": 0,
+    "SEV-MISSED-MISMATCH": 0,
+    "QA-LEAKED-REDACTED": 0,
+    "QA-REFUSED-IN-SCOPE": 0,
+    "FMT-INVALID-JSON": 34,
+    "FMT-SCHEMA-VIOLATION": 0,
+    "FMT-MISSING-FIELD": 0
+  },
+  "per_case": [
+    {
+      "case_id": "BMC-EV-0001",
+      "task_type": "evidence_check",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-EV-0002",
+      "task_type": "evidence_check",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-EV-0003",
+      "task_type": "evidence_check",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-EV-0004",
+      "task_type": "evidence_check",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-EV-0005",
+      "task_type": "evidence_check",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-FP-0001",
+      "task_type": "false_positive_detection",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-FP-0002",
+      "task_type": "false_positive_detection",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-FP-0003",
+      "task_type": "false_positive_detection",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-FR-0001",
+      "task_type": "finding_review",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-FR-0002",
+      "task_type": "finding_review",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-FR-0003",
+      "task_type": "finding_review",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-FR-0004",
+      "task_type": "finding_review",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-FR-0005",
+      "task_type": "finding_review",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-HN-0001",
+      "task_type": "hard_negative_potential_issue",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-QA-0001",
+      "task_type": "client_qa",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-QA-0002",
+      "task_type": "client_qa",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-QA-0003",
+      "task_type": "client_qa",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-QA-0004",
+      "task_type": "client_qa",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-QA-0005",
+      "task_type": "client_qa",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-QA-0006",
+      "task_type": "client_qa",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-QA-0007",
+      "task_type": "client_qa",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-RM-0001",
+      "task_type": "remediation_review",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-RM-0002",
+      "task_type": "remediation_review",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-RM-0003",
+      "task_type": "remediation_review",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-RM-0004",
+      "task_type": "remediation_review",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-RM-0005",
+      "task_type": "remediation_review",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-SV-0001",
+      "task_type": "severity_review",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-SV-0002",
+      "task_type": "severity_review",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-SV-0003",
+      "task_type": "severity_review",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-SV-0004",
+      "task_type": "severity_review",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-SV-0005",
+      "task_type": "severity_review",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-UR-0001",
+      "task_type": "unsupported_refusal",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-UR-0002",
+      "task_type": "unsupported_refusal",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    },
+    {
+      "case_id": "BMC-UR-0003",
+      "task_type": "unsupported_refusal",
+      "errors": [
+        "FMT-INVALID-JSON"
+      ],
+      "latency_ms": 0
+    }
+  ],
+  "notes": [
+    "Placeholder structure. Fill in by running notebooks/05_baseline.ipynb on Colab (10/08 task).",
+    "All values are null/zero until the baseline is actually run.",
+    "Per-case entries follow the shape documented in data/benchmark/error_categories.md section 6."
+  ]
+}

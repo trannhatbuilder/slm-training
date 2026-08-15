@@ -8,14 +8,32 @@
       "subcategory": "automatic",
       "title": "Evidence insufficient → always escalate",
       "description": "When evidence is insufficient to support the vulnerability classification, always escalate to human reviewer regardless of confidence score. This is an automatic escalation trigger.",
-      "conditions": ["evidence_completeness < 0.5", "OR evidence is absent or scanner-only"],
+      "conditions": [
+        "evidence_completeness < 0.5",
+        "OR evidence is absent or scanner-only"
+      ],
       "action": "Mandatory escalation to human reviewer (priority: High). Set human_escalation.required = true. recommended_reviewer = technical_reviewer.",
-      "references": ["system_responsibility.md → Automatic Escalation"],
+      "references": [
+        "system_responsibility.md → Automatic Escalation"
+      ],
       "severity": "critical",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "system_responsibility.md → Automatic Escalation",
-      "tags": ["escalation", "automatic", "evidence", "mandatory"]
+      "tags": [
+        "escalation",
+        "automatic",
+        "evidence",
+        "mandatory"
+      ],
+      "document_type": "policy_document",
+      "section": "escalation_rules:automatic",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-system_responsibility"
     },
     {
       "kb_id": "KB-ESC-002",
@@ -23,14 +41,34 @@
       "subcategory": "automatic",
       "title": "High/Critical severity with low confidence → always escalate",
       "description": "When a finding is High or Critical severity but the confidence score is below 0.7, always escalate to human reviewer. High-impact uncertain findings must not be left to autonomous decision.",
-      "conditions": ["severity in [critical, high]", "confidence < 0.7"],
+      "conditions": [
+        "severity in [critical, high]",
+        "confidence < 0.7"
+      ],
       "action": "Mandatory escalation to human reviewer (priority: Critical). recommended_reviewer = senior_pentester.",
-      "references": ["system_responsibility.md → Automatic Escalation"],
+      "references": [
+        "system_responsibility.md → Automatic Escalation"
+      ],
       "severity": "critical",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "system_responsibility.md → Automatic Escalation",
-      "tags": ["escalation", "automatic", "severity", "confidence", "high", "critical"]
+      "tags": [
+        "escalation",
+        "automatic",
+        "severity",
+        "confidence",
+        "high",
+        "critical"
+      ],
+      "document_type": "policy_document",
+      "section": "escalation_rules:automatic",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-system_responsibility"
     },
     {
       "kb_id": "KB-ESC-003",
@@ -38,14 +76,31 @@
       "subcategory": "automatic",
       "title": "Model and rule engine disagree → always escalate",
       "description": "When the SLM classification and the rule-based engine classification disagree, always escalate to human reviewer. This disagreement indicates uncertainty that requires human judgment.",
-      "conditions": ["SLM classification != rule engine classification"],
+      "conditions": [
+        "SLM classification != rule engine classification"
+      ],
       "action": "Mandatory escalation to human reviewer (priority: High). Provide both classifications with rationale. recommended_reviewer = technical_reviewer.",
-      "references": ["system_responsibility.md → Automatic Escalation"],
+      "references": [
+        "system_responsibility.md → Automatic Escalation"
+      ],
       "severity": "critical",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "system_responsibility.md → Automatic Escalation",
-      "tags": ["escalation", "automatic", "disagreement", "uncertainty"]
+      "tags": [
+        "escalation",
+        "automatic",
+        "disagreement",
+        "uncertainty"
+      ],
+      "document_type": "policy_document",
+      "section": "escalation_rules:automatic",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-system_responsibility"
     },
     {
       "kb_id": "KB-ESC-004",
@@ -53,14 +108,32 @@
       "subcategory": "conditional",
       "title": "Overall confidence below threshold → conditional escalation",
       "description": "When the overall confidence score is below 0.7, escalate to human reviewer. The threshold of 0.7 balances autonomous efficiency with safety.",
-      "conditions": ["confidence.overall_score < 0.7"],
+      "conditions": [
+        "confidence.overall_score < 0.7"
+      ],
       "action": "Conditional escalation to human reviewer. recommended_reviewer = technical_reviewer.",
-      "references": ["system_responsibility.md → Conditional Escalation", "review_taxonomy.yaml → CONF → escalation_threshold"],
+      "references": [
+        "system_responsibility.md → Conditional Escalation",
+        "review_taxonomy.yaml → CONF → escalation_threshold"
+      ],
       "severity": "warning",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "review_taxonomy.yaml → CONF",
-      "tags": ["escalation", "conditional", "confidence", "threshold"]
+      "tags": [
+        "escalation",
+        "conditional",
+        "confidence",
+        "threshold"
+      ],
+      "document_type": "policy_document",
+      "section": "escalation_rules:conditional",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-review_taxonomy"
     },
     {
       "kb_id": "KB-ESC-005",
@@ -68,14 +141,31 @@
       "subcategory": "conditional",
       "title": "Classification certainty below threshold → conditional escalation",
       "description": "When classification certainty is below 0.6, the finding may be hard to classify. Escalate to human reviewer for classification judgment.",
-      "conditions": ["classification_certainty < 0.6"],
+      "conditions": [
+        "classification_certainty < 0.6"
+      ],
       "action": "Conditional escalation. recommended_reviewer = technical_reviewer. Provide all evidence for human classification.",
-      "references": ["system_responsibility.md → Conditional Escalation"],
+      "references": [
+        "system_responsibility.md → Conditional Escalation"
+      ],
       "severity": "warning",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "system_responsibility.md → Conditional Escalation",
-      "tags": ["escalation", "conditional", "classification", "uncertainty"]
+      "tags": [
+        "escalation",
+        "conditional",
+        "classification",
+        "uncertainty"
+      ],
+      "document_type": "policy_document",
+      "section": "escalation_rules:conditional",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-system_responsibility"
     },
     {
       "kb_id": "KB-ESC-006",
@@ -83,14 +173,35 @@
       "subcategory": "automatic",
       "title": "Sensitive data detected → escalate to data protection officer",
       "description": "When sensitive data (credentials, PII, internal infrastructure details) is detected in the finding, escalate to the data protection officer. The finding must be redacted before further processing.",
-      "conditions": ["credentials found in evidence/observation", "PII found in finding text", "internal infrastructure details exposed"],
+      "conditions": [
+        "credentials found in evidence/observation",
+        "PII found in finding text",
+        "internal infrastructure details exposed"
+      ],
       "action": "Mandatory escalation to data protection officer (priority: Critical). Block further review until redaction is applied.",
-      "references": ["data_protection_rules.yaml → forbidden", "system_responsibility.md → Automatic Escalation"],
+      "references": [
+        "data_protection_rules.yaml → forbidden",
+        "system_responsibility.md → Automatic Escalation"
+      ],
       "severity": "critical",
-      "applicable_to": ["all"],
+      "applicable_to": [
+        "all"
+      ],
       "version": "1.0",
       "source": "data_protection_rules.yaml + system_responsibility.md",
-      "tags": ["escalation", "automatic", "data_protection", "pii", "credentials"]
+      "tags": [
+        "escalation",
+        "automatic",
+        "data_protection",
+        "pii",
+        "credentials"
+      ],
+      "document_type": "policy_document",
+      "section": "escalation_rules:automatic",
+      "vulnerability_type": "general",
+      "effective_date": "2026-08-15",
+      "access_scope": "internal",
+      "source_id": "POLICY-data_protection"
     }
   ]
 }
