@@ -1,0 +1,78 @@
+# SLM Fine-tuning Configuration
+# ============================
+# Task 11-12/08 — LoRA/SFT on Qwen2.5-1.5B-Instruct
+# Decided 11/08 (user confirmed):
+#   Q1(a) LoRA r=8, alpha=16, dropout=0.05, target=q/k/v/o_proj
+#   Q2(a) No quantization, fp16
+#   Q3(a) 3 epochs
+#   Q4(a) Google Drive for persistent storage
+#
+# This file is the single source of truth — both scripts/06_finetune.py
+# and notebooks/06_finetune.ipynb read from it.
+
+model:
+  base_model_id: "Qwen/Qwen2.5-1.5B-Instruct"
+  torch_dtype: "float16"          # T4 supports fp16, NOT bf16
+  device_map: "auto"
+  trust_remote_code: false
+
+lora:
+  r: 8
+  alpha: 16
+  dropout: 0.05
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj"]
+  bias: "none"
+  task_type: "CAUSAL_LM"
+
+training:
+  output_dir: "./checkpoints/slm-adapter-v0.1"
+  num_train_epochs: 3
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 8   # effective batch = 16
+  learning_rate: 0.0002            # 2e-4
+  lr_scheduler_type: "cosine"
+  warmup_ratio: 0.03
+  max_seq_length: 2048             # finding_review cases can be long
+  logging_steps: 5
+  save_steps: 25
+  save_total_limit: 3
+  fp16: true
+  bf16: false                      # T4 lacks bf16 support
+  gradient_checkpointing: true     # save VRAM
+  optim: "adamw_torch"
+  seed: 42
+  report_to: "none"                # no wandb/tensorboard
+  dataset_text_field: "text"       # SFTTrainer field
+
+smoke_test:
+  # Run smoke test FIRST on Colab — 5 samples, 1 epoch, max 10 steps.
+  # Verifies loss decreases and no OOM before committing to full run.
+  enabled: true                    # set false for full run
+  max_samples: 5
+  num_train_epochs: 1
+  max_steps: 10
+
+data:
+  # Use benchmark_v1.jsonl as training data — each case has
+  # instruction + input + gold_output. We reformat to chat messages.
+  benchmark_path: "data/benchmark/benchmark_v1.jsonl"
+  train_split: 1.0                 # 34/34 train, 0 val (v0.1 — no val split yet)
+  instruction_field: "instruction"
+  input_field: "input"
+  output_field: "gold_output"
+  task_type_field: "task_type"
+
+persistent_storage:
+  # Per Colab principles (plan page 7): no session storage dependency.
+  # Checkpoints must survive session disconnect.
+  type: "google_drive"
+  drive_mount: "/content/drive"
+  checkpoint_dir: "/content/drive/MyDrive/evvo-slm-checkpoints/slm-adapter-v0.1"
+  # Also save a copy in the repo (for git push) — adapter is small (~10MB)
+  local_copy_dir: "./checkpoints/slm-adapter-v0.1"
+
+environment:
+  seed: 42
+  log_packages: true               # record package versions in training_log.md
+  expected_gpu: "Tesla T4"
+  expected_vram_gb: 15
