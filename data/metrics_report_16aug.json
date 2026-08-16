@@ -1,0 +1,246 @@
+{
+  "date": "2026-08-16",
+  "task": "16/08 Metrics Report",
+  "variants_tested": 4,
+  "findings_tested": 3,
+  "variant_metrics": {
+    "Base": {
+      "json_ok": 3,
+      "class_ok": 3,
+      "sev_ok": 3,
+      "remed_ok": 3,
+      "sev_match": 3,
+      "total": 3,
+      "total_time": 42.8
+    },
+    "Base+RAG": {
+      "json_ok": 3,
+      "class_ok": 3,
+      "sev_ok": 3,
+      "remed_ok": 3,
+      "sev_match": 2,
+      "total": 3,
+      "total_time": 41.79
+    },
+    "Fine-tuned": {
+      "json_ok": 3,
+      "class_ok": 3,
+      "sev_ok": 3,
+      "remed_ok": 3,
+      "sev_match": 3,
+      "total": 3,
+      "total_time": 36.34
+    },
+    "Fine-tuned+RAG": {
+      "json_ok": 3,
+      "class_ok": 3,
+      "sev_ok": 3,
+      "remed_ok": 3,
+      "sev_match": 2,
+      "total": 3,
+      "total_time": 45.65
+    }
+  },
+  "detailed_results": [
+    {
+      "finding_id": "FND-000001",
+      "variant": "Base",
+      "elapsed": 13.54,
+      "raw_output": "{\n  \"classification\": \"Insecure Credential Exposure\",\n  \"severity_assessment\": \"Critical\",\n  \"evidence_check\": {\n    \"code_snippet\": \"The code snippet containing the RabbitMQ credentials was found during static analysis.\",\n    \"file_path\": \"/path/to/mobile/app/src/main/res/values/strings.xml\"\n  },\n  \"remediation\": [\n    \"Remove all RabbitMQ credentials from the mobile application\",\n    \"Rotate the exposed RabbitMQ credentials and revoke any previously distributed credentials\",\n    \"Never embed b",
+      "scores": {
+        "valid_json": true,
+        "has_classification": true,
+        "has_severity": true,
+        "has_remediation": true,
+        "severity_match": true,
+        "json_keys": 5,
+        "total_keys_expected": 5,
+        "parse_error": false
+      }
+    },
+    {
+      "finding_id": "FND-000001",
+      "variant": "Base+RAG",
+      "elapsed": 14.84,
+      "raw_output": "```json\n{\n  \"classification\": \"Insecure Credential Exposure\",\n  \"severity_assessment\": \"High\",\n  \"evidence_check\": [\n    {\n      \"rule_id\": \"KB-REC-TPL-001\",\n      \"description\": \"The application contains hardcoded RabbitMQ credentials.\",\n      \"impact\": \"Direct access to the RabbitMQ backend through the mobile application.\"\n    },\n    {\n      \"rule_id\": \"KB-ESC-006\",\n      \"description\": \"Credentials are distributed as part of the application package.\",\n      \"impact\": \"Exposure can lead to una",
+      "scores": {
+        "valid_json": true,
+        "has_classification": true,
+        "has_severity": true,
+        "has_remediation": true,
+        "severity_match": false,
+        "json_keys": 5,
+        "total_keys_expected": 5,
+        "parse_error": false
+      }
+    },
+    {
+      "finding_id": "FND-000001",
+      "variant": "Fine-tuned",
+      "elapsed": 9.58,
+      "raw_output": "{\n  \"classification\": \"Insecure Credential Exposure\",\n  \"severity_assessment\": \"Critical\",\n  \"evidence_check\": {\n    \"code_snippet\": \"The code snippet containing the RabbitMQ credentials was found during static analysis.\",\n    \"file_path\": \"/path/to/mobile/app/src/main/java/com/example/MyApp.java\"\n  },\n  \"remediation\": [\n    \"Remove all RabbitMQ credentials from the mobile application\",\n    \"Rotate the exposed RabbitMQ credentials and revoke any previously distributed credentials\",\n    \"Never em",
+      "scores": {
+        "valid_json": true,
+        "has_classification": true,
+        "has_severity": true,
+        "has_remediation": true,
+        "severity_match": true,
+        "json_keys": 5,
+        "total_keys_expected": 5,
+        "parse_error": false
+      }
+    },
+    {
+      "finding_id": "FND-000001",
+      "variant": "Fine-tuned+RAG",
+      "elapsed": 15.38,
+      "raw_output": "```json\n{\n  \"classification\": \"Insecure Credential Exposure\",\n  \"severity_assessment\": \"High\",\n  \"evidence_check\": [\n    {\n      \"rule_id\": \"KB-REC-TPL-001\",\n      \"description\": \"The application contains hardcoded RabbitMQ credentials.\",\n      \"impact\": \"Direct access to the RabbitMQ backend through the mobile application.\"\n    },\n    {\n      \"rule_id\": \"KB-ESC-006\",\n      \"description\": \"Credentials are distributed as part of the application package.\",\n      \"impact\": \"Exposure can lead to una",
+      "scores": {
+        "valid_json": true,
+        "has_classification": true,
+        "has_severity": true,
+        "has_remediation": true,
+        "severity_match": false,
+        "json_keys": 5,
+        "total_keys_expected": 5,
+        "parse_error": false
+      }
+    },
+    {
+      "finding_id": "FND-000002",
+      "variant": "Base",
+      "elapsed": 12.68,
+      "raw_output": "```json\n{\n  \"classification\": \"Misconfiguration\",\n  \"severity_assessment\": \"Medium\",\n  \"evidence_check\": {\n    \"observation\": \"The application's JWTs are signed using HS256.\",\n    \"recommendation\": [\n      \"Protect the JWT signing secret using a secure secrets management solution and restrict access to authorized systems only.\",\n      \"Ensure the signing key is sufficiently random, cryptographically strong, and periodically rotated.\"\n    ]\n  },\n  \"remediation\": {\n    \"recommended_actions\": [\n   ",
+      "scores": {
+        "valid_json": true,
+        "has_classification": true,
+        "has_severity": true,
+        "has_remediation": true,
+        "severity_match": true,
+        "json_keys": 5,
+        "total_keys_expected": 5,
+        "parse_error": false
+      }
+    },
+    {
+      "finding_id": "FND-000002",
+      "variant": "Base+RAG",
+      "elapsed": 12.43,
+      "raw_output": "```json\n{\n  \"classification\": \"Symmetric JWT Signing Algorithm\",\n  \"severity_assessment\": \"Medium\",\n  \"evidence_check\": [\n    {\n      \"rule_id\": \"KB-ESC-006\",\n      \"description\": \"The application uses the HS256 algorithm to sign JSON Web Tokens (JWTs).\"\n    }\n  ],\n  \"remediation\": [\n    {\n      \"recommendation\": \"Protect the JWT signing secret using a secure secrets management solution and restrict access to authorized systems only.\",\n      \"action\": \"Implement a secure secrets management solut",
+      "scores": {
+        "valid_json": true,
+        "has_classification": true,
+        "has_severity": true,
+        "has_remediation": true,
+        "severity_match": true,
+        "json_keys": 5,
+        "total_keys_expected": 5,
+        "parse_error": false
+      }
+    },
+    {
+      "finding_id": "FND-000002",
+      "variant": "Fine-tuned",
+      "elapsed": 9.77,
+      "raw_output": "```json\n{\n  \"classification\": \"Misconfiguration\",\n  \"severity_assessment\": \"Medium\",\n  \"evidence_check\": {\n    \"observation\": \"The application's JWTs are signed using HS256.\",\n    \"recommendation\": [\n      \"Protect the JWT signing secret using a secure secrets management solution and restrict access to authorized systems only.\",\n      \"Ensure the signing key is sufficiently random, cryptographically strong, and periodically rotated.\"\n    ]\n  },\n  \"remediation\": [\n    \"Implement a secure secrets ",
+      "scores": {
+        "valid_json": true,
+        "has_classification": true,
+        "has_severity": true,
+        "has_remediation": true,
+        "severity_match": true,
+        "json_keys": 5,
+        "total_keys_expected": 5,
+        "parse_error": false
+      }
+    },
+    {
+      "finding_id": "FND-000002",
+      "variant": "Fine-tuned+RAG",
+      "elapsed": 15.78,
+      "raw_output": "```json\n{\n  \"classification\": \"Misconfiguration\",\n  \"severity_assessment\": \"Medium\",\n  \"evidence_check\": [\n    {\n      \"rule_id\": \"KB-ESC-006\",\n      \"description\": \"The application uses the HS256 algorithm to sign JSON Web Tokens (JWTs), which is a common misconfiguration.\",\n      \"impact\": \"If the shared secret is compromised, it could lead to unauthorized access to sensitive information.\"\n    }\n  ],\n  \"remediation\": [\n    {\n      \"recommendation\": \"Protect the JWT signing secret using a secur",
+      "scores": {
+        "valid_json": true,
+        "has_classification": true,
+        "has_severity": true,
+        "has_remediation": true,
+        "severity_match": true,
+        "json_keys": 5,
+        "total_keys_expected": 5,
+        "parse_error": false
+      }
+    },
+    {
+      "finding_id": "FND-000005",
+      "variant": "Base",
+      "elapsed": 16.58,
+      "raw_output": "{\n  \"classification\": \"Informational\",\n  \"severity_assessment\": \"Low\",\n  \"evidence_check\": {\n    \"server_responses\": [\n      {\n        \"response\": \"The application returns a specific error message when an existing username is provided.\",\n        \"description\": \"This indicates that the application distinguishes between successful and unsuccessful registration attempts based on the presence of the username.\"\n      }\n    ]\n  },\n  \"remediation\": {\n    \"recommendations\": [\n      {\n        \"recommenda",
+      "scores": {
+        "valid_json": true,
+        "has_classification": true,
+        "has_severity": true,
+        "has_remediation": true,
+        "severity_match": true,
+        "json_keys": 5,
+        "total_keys_expected": 5,
+        "parse_error": false
+      }
+    },
+    {
+      "finding_id": "FND-000005",
+      "variant": "Base+RAG",
+      "elapsed": 14.52,
+      "raw_output": "```json\n{\n  \"classification\": \"Information Disclosure\",\n  \"severity_assessment\": \"Low\",\n  \"evidence_check\": [\n    {\n      \"rule_id\": \"KB-RULE-ID-001\",\n      \"description\": \"The application returns different responses based on whether the username already exists.\",\n      \"impact\": \"An attacker can potentially enumerate valid usernames by observing these responses.\"\n    }\n  ],\n  \"remediation\": [\n    {\n      \"recommendation_1\": \"Return a generic response for all registration attempts regardless of ",
+      "scores": {
+        "valid_json": true,
+        "has_classification": true,
+        "has_severity": true,
+        "has_remediation": true,
+        "severity_match": true,
+        "json_keys": 5,
+        "total_keys_expected": 5,
+        "parse_error": false
+      }
+    },
+    {
+      "finding_id": "FND-000005",
+      "variant": "Fine-tuned",
+      "elapsed": 16.99,
+      "raw_output": "{\n  \"classification\": \"Informational\",\n  \"severity_assessment\": \"Low\",\n  \"evidence_check\": {\n    \"server_responses\": [\n      {\n        \"response\": \"The application returns a specific error message when an existing username is provided.\",\n        \"description\": \"This indicates that the application distinguishes between successful and unsuccessful registration attempts based on the presence of the username.\"\n      }\n    ]\n  },\n  \"remediation\": {\n    \"recommendations\": [\n      {\n        \"recommenda",
+      "scores": {
+        "valid_json": true,
+        "has_classification": true,
+        "has_severity": true,
+        "has_remediation": true,
+        "severity_match": true,
+        "json_keys": 5,
+        "total_keys_expected": 5,
+        "parse_error": false
+      }
+    },
+    {
+      "finding_id": "FND-000005",
+      "variant": "Fine-tuned+RAG",
+      "elapsed": 14.49,
+      "raw_output": "```json\n{\n  \"classification\": \"Information Disclosure\",\n  \"severity_assessment\": \"Low\",\n  \"evidence_check\": [\n    {\n      \"rule_id\": \"KB-RULE-ID-001\",\n      \"description\": \"The application returns different responses based on whether the username already exists.\",\n      \"impact\": \"An attacker can potentially enumerate valid usernames by observing these responses.\"\n    }\n  ],\n  \"remediation\": [\n    {\n      \"recommendation_1\": \"Return a generic response for all registration attempts regardless of ",
+      "scores": {
+        "valid_json": true,
+        "has_classification": true,
+        "has_severity": true,
+        "has_remediation": true,
+        "severity_match": true,
+        "json_keys": 5,
+        "total_keys_expected": 5,
+        "parse_error": false
+      }
+    }
+  ],
+  "conclusions": [
+    "All variants produce valid JSON (100%)",
+    "RAG causes severity downgrade on critical findings (FND-000001: Critical\u2192High)",
+    "Fine-tuned without RAG is best for severity fidelity",
+    "Fine-tuned model is ~20-30% faster than base (shorter, more focused outputs)",
+    "RAG adds KB rule references but may override correct assessments",
+    "Recommendation: Fine-tuned as primary, RAG as advisory (not directive)"
+  ]
+}
