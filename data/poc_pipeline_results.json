@@ -1,0 +1,1054 @@
+[
+  {
+    "finding_id": "FND-000001",
+    "finding_title": "Hardcoded RabbitMQ Credentials in Mobile Application",
+    "pipeline": "SLM+Harness-PoC-v1",
+    "elapsed_seconds": 8.14,
+    "slm_output": {
+      "classification": "Critical",
+      "severity_assessment": "High",
+      "evidence_check": {
+        "code_snippet": "The code snippet containing the RabbitMQ credentials was found during static analysis.",
+        "file_path": "/path/to/mobile_app/src/main/res/values/strings.xml"
+      },
+      "remediation": [
+        "Review the application's source code for any references to RabbitMQ credentials.",
+        "Remove or obfuscate the credentials if they cannot be removed."
+      ],
+      "confidence": "Very High",
+      "parse_error": false
+    },
+    "harness_output": {
+      "schema_version": "0.1",
+      "review_id": "REV-041390",
+      "finding_id": "FND-000001",
+      "review_status": "human_review",
+      "classification": {
+        "label": "confirmed_vulnerability",
+        "rationale": "Exploitation demonstrated and evidence sufficiently supports the vulnerability claim.",
+        "supported_by_evidence": true
+      },
+      "completeness_review": {
+        "is_complete": true,
+        "missing_required_fields": [],
+        "missing_conditional_fields": [],
+        "comments": []
+      },
+      "evidence_review": {
+        "is_sufficient": true,
+        "evidence_items_reviewed": [
+          "FND-000001-EVID-001"
+        ],
+        "supported_claims": [
+          "Evidence FND-000001-EVID-001: exploitation demonstrated",
+          "Manual exploitation with successful outcome confirmed"
+        ],
+        "unsupported_claims": [],
+        "missing_evidence": [],
+        "comments": []
+      },
+      "severity_review": {
+        "reported_severity": "critical",
+        "suggested_severity": "critical",
+        "is_consistent": true,
+        "change_recommended": false,
+        "rationale": "Reported severity 'critical' is consistent with CVSS score 9.8."
+      },
+      "cvss_review": {
+        "reported_version": "3.1",
+        "reported_score": 9.8,
+        "reported_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "vector_is_valid": true,
+        "score_matches_vector": null,
+        "severity_matches_score": true,
+        "requires_manual_recalculation": false,
+        "comments": []
+      },
+      "cwe_review": {
+        "reported_cwe": "CWE-798",
+        "is_relevant": true,
+        "suggested_cwe": null,
+        "rationale": "CWE CWE-798 keywords found in finding title."
+      },
+      "impact_review": {
+        "is_supported_by_evidence": false,
+        "is_proportionate": false,
+        "unsupported_impact_claims": [
+          "Impact mentions 'compromise' but evidence does not confirm"
+        ],
+        "comments": [
+          "High severity finding has mild impact language \u2014 consider strengthening impact description"
+        ]
+      },
+      "recommendation_review": {
+        "addresses_root_cause": true,
+        "is_actionable": true,
+        "is_technically_relevant": true,
+        "missing_recommendations": [],
+        "comments": []
+      },
+      "consistency_review": {
+        "is_consistent": true,
+        "issues": []
+      },
+      "retest_review": {
+        "applicable": null,
+        "reported_status": null,
+        "status_supported_by_evidence": null,
+        "missing_retest_evidence": [
+          "No retest performed"
+        ],
+        "comments": [
+          "Finding has not been retested \u2014 retest status is empty or not_retested"
+        ]
+      },
+      "review_comments": [
+        {
+          "comment_id": "RC-001",
+          "taxonomy_code": "IMP-001",
+          "category": "impact",
+          "severity": "suggestion",
+          "field": "impact",
+          "message": "High severity finding has mild impact language \u2014 consider strengthening impact description",
+          "evidence_reference": null,
+          "suggested_action": "review_impact_description"
+        },
+        {
+          "comment_id": "RC-002",
+          "taxonomy_code": "RET-001",
+          "category": "retest",
+          "severity": "suggestion",
+          "field": "retest",
+          "message": "Finding has not been retested \u2014 retest status is empty or not_retested",
+          "evidence_reference": null,
+          "suggested_action": "schedule_retest"
+        }
+      ],
+      "confidence": {
+        "overall_score": 0.91,
+        "level": "high",
+        "basis": [
+          "Evidence is sufficient and supports the vulnerability claim",
+          "Classification is well-supported by evidence",
+          "CVSS score and reported severity are consistent",
+          "All required sections are present and complete"
+        ],
+        "limitations": [
+          "No retest has been performed"
+        ]
+      },
+      "human_escalation": {
+        "required": true,
+        "reasons": [
+          "Finding severity is 'critical' \u2014 requires human approval per policy",
+          "Confirmed vulnerability has not been retested \u2014 recommend scheduling retest"
+        ],
+        "recommended_reviewer": "senior_pentester"
+      },
+      "traceability": {
+        "source_document_id": "DOC-000001",
+        "source_location": {
+          "section_title": "Hardcoded RabbitMQ Credentials in Mobile Application",
+          "section_number": null,
+          "finding_number": 1,
+          "page_start": null,
+          "page_end": null
+        },
+        "input_schema_version": "0.2",
+        "output_schema_version": "0.1",
+        "model_version": null,
+        "knowledge_base_version": "1.0",
+        "ruleset_version": "1.0",
+        "reviewed_at": "2026-08-16T08:14:38.622326+00:00"
+      },
+      "_pipeline_meta": {
+        "elapsed_seconds": 0.0268,
+        "comment_count": 2,
+        "escalation_required": true,
+        "validation_issues": 0,
+        "kb_rules_retrieved": 35,
+        "kb_categories_matched": [
+          "classification_criteria",
+          "evidence_standards",
+          "remediation_guidance",
+          "severity_guidance",
+          "validation_requirements"
+        ]
+      }
+    },
+    "comparison": {
+      "slm_classification": "Critical",
+      "harness_classification": "confirmed_vulnerability",
+      "slm_confidence": "Very High",
+      "harness_confidence": 0.91,
+      "harness_status": "human_review"
+    }
+  },
+  {
+    "finding_id": "FND-000002",
+    "finding_title": "Use of Symmetric JWT Signing Algorithm (HS256)",
+    "pipeline": "SLM+Harness-PoC-v1",
+    "elapsed_seconds": 11.42,
+    "slm_output": {
+      "classification": "Symmetric JWT Signing Algorithm",
+      "severity_assessment": "Medium",
+      "evidence_check": {
+        "observation": "The application's JWTs are signed using the HS256 algorithm.",
+        "recommendations": [
+          "Protect the JWT signing secret using a secure secrets management solution and restrict access to authorized systems only.",
+          "Ensure the signing key is sufficiently random, cryptographically strong, and periodically rotated."
+        ]
+      },
+      "remediation": [
+        "Implement a secure secrets management solution to protect the JWT signing secret.",
+        "Use a randomly generated, cryptographically strong key for the JWT signing process and rotate it regularly."
+      ],
+      "confidence": "High",
+      "parse_error": false
+    },
+    "harness_output": {
+      "schema_version": "0.1",
+      "review_id": "REV-728712",
+      "finding_id": "FND-000002",
+      "review_status": "pass",
+      "classification": {
+        "label": "potential_issue",
+        "rationale": "Exploitation was not fully demonstrated or evidence is insufficient to confirm the vulnerability.",
+        "supported_by_evidence": false
+      },
+      "completeness_review": {
+        "is_complete": true,
+        "missing_required_fields": [],
+        "missing_conditional_fields": [],
+        "comments": []
+      },
+      "evidence_review": {
+        "is_sufficient": true,
+        "evidence_items_reviewed": [
+          "FND-000002-EVID-001"
+        ],
+        "supported_claims": [
+          "Evidence FND-000002-EVID-001: exploitation demonstrated",
+          "Manual exploitation with successful outcome confirmed"
+        ],
+        "unsupported_claims": [
+          "Evidence FND-000002-EVID-001: no successful exploitation demonstrated"
+        ],
+        "missing_evidence": [],
+        "comments": [
+          "Evidence item FND-000002-EVID-001 indicates exploitation was NOT demonstrated"
+        ]
+      },
+      "severity_review": {
+        "reported_severity": "medium",
+        "suggested_severity": "medium",
+        "is_consistent": true,
+        "change_recommended": false,
+        "rationale": "Reported severity 'medium' is consistent with CVSS score 4.8."
+      },
+      "cvss_review": {
+        "reported_version": "3.1",
+        "reported_score": 4.8,
+        "reported_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
+        "vector_is_valid": true,
+        "score_matches_vector": null,
+        "severity_matches_score": true,
+        "requires_manual_recalculation": false,
+        "comments": []
+      },
+      "cwe_review": {
+        "reported_cwe": "CWE-327",
+        "is_relevant": true,
+        "suggested_cwe": null,
+        "rationale": "CWE CWE-327 keywords found in finding title."
+      },
+      "impact_review": {
+        "is_supported_by_evidence": true,
+        "is_proportionate": true,
+        "unsupported_impact_claims": [],
+        "comments": []
+      },
+      "recommendation_review": {
+        "addresses_root_cause": true,
+        "is_actionable": true,
+        "is_technically_relevant": true,
+        "missing_recommendations": [],
+        "comments": []
+      },
+      "consistency_review": {
+        "is_consistent": true,
+        "issues": []
+      },
+      "retest_review": {
+        "applicable": null,
+        "reported_status": null,
+        "status_supported_by_evidence": null,
+        "missing_retest_evidence": [
+          "No retest performed"
+        ],
+        "comments": [
+          "Finding has not been retested \u2014 retest status is empty or not_retested"
+        ]
+      },
+      "review_comments": [
+        {
+          "comment_id": "RC-001",
+          "taxonomy_code": "EVID-002",
+          "category": "evidence",
+          "severity": "warning",
+          "field": "evidence",
+          "message": "Evidence item FND-000002-EVID-001 indicates exploitation was NOT demonstrated",
+          "evidence_reference": "FND-000002-EVID-001",
+          "suggested_action": "confirm_classification_as_potential_issue"
+        },
+        {
+          "comment_id": "RC-002",
+          "taxonomy_code": "CLASS-001",
+          "category": "classification",
+          "severity": "warning",
+          "field": "classification",
+          "message": "Evidence does not support Confirmed Vulnerability \u2014 classified as Potential Issue",
+          "evidence_reference": null,
+          "suggested_action": "provide_additional_evidence_to_confirm"
+        },
+        {
+          "comment_id": "RC-003",
+          "taxonomy_code": "RET-001",
+          "category": "retest",
+          "severity": "suggestion",
+          "field": "retest",
+          "message": "Finding has not been retested \u2014 retest status is empty or not_retested",
+          "evidence_reference": null,
+          "suggested_action": "schedule_retest"
+        }
+      ],
+      "confidence": {
+        "overall_score": 0.835,
+        "level": "high",
+        "basis": [
+          "Evidence is sufficient and supports the vulnerability claim",
+          "Classification has moderate support",
+          "CVSS score and reported severity are consistent",
+          "All required sections are present and complete"
+        ],
+        "limitations": [
+          "No retest has been performed"
+        ]
+      },
+      "human_escalation": {
+        "required": false,
+        "reasons": [],
+        "recommended_reviewer": null
+      },
+      "traceability": {
+        "source_document_id": "DOC-000001",
+        "source_location": {
+          "section_title": "Use of Symmetric JWT Signing Algorithm (HS256)",
+          "section_number": null,
+          "finding_number": 2,
+          "page_start": null,
+          "page_end": null
+        },
+        "input_schema_version": "0.2",
+        "output_schema_version": "0.1",
+        "model_version": null,
+        "knowledge_base_version": "1.0",
+        "ruleset_version": "1.0",
+        "reviewed_at": "2026-08-16T08:14:50.044006+00:00"
+      },
+      "_pipeline_meta": {
+        "elapsed_seconds": 0.0245,
+        "comment_count": 3,
+        "escalation_required": false,
+        "validation_issues": 0,
+        "kb_rules_retrieved": 33,
+        "kb_categories_matched": [
+          "classification_criteria",
+          "evidence_standards",
+          "remediation_guidance",
+          "severity_guidance",
+          "validation_requirements"
+        ]
+      }
+    },
+    "comparison": {
+      "slm_classification": "Symmetric JWT Signing Algorithm",
+      "harness_classification": "potential_issue",
+      "slm_confidence": "High",
+      "harness_confidence": 0.835,
+      "harness_status": "pass"
+    }
+  },
+  {
+    "finding_id": "FND-000003",
+    "finding_title": "Root Detection Not Implemented",
+    "pipeline": "SLM+Harness-PoC-v1",
+    "elapsed_seconds": 13.54,
+    "slm_output": {
+      "classification": "security",
+      "severity_assessment": "low",
+      "confidence": "high",
+      "evidence_check": "[Rule 1], [Rule 2], [Rule 3], [Rule 4], [Rule 5]",
+      "remediation": [
+        {
+          "recommendation": "The application should implement checks to verify the integrity of the operating system upon startup and during sensitive operations.",
+          "details": "Implementing these checks will help detect if the application is running on a rooted device."
+        },
+        {
+          "recommendation": "For Android, check for Root Binaries: Scan for the existence of su binaries or common root management apps (e.g., SuperSU, Magisk).",
+          "details": "This involves scanning the system for known root-related binaries and identifying any that might indicate rooting presence."
+        }
+      ],
+      "parse_error": false
+    },
+    "harness_output": {
+      "schema_version": "0.1",
+      "review_id": "REV-302978",
+      "finding_id": "FND-000003",
+      "review_status": "human_review",
+      "classification": {
+        "label": "confirmed_vulnerability",
+        "rationale": "Exploitation demonstrated and evidence sufficiently supports the vulnerability claim.",
+        "supported_by_evidence": true
+      },
+      "completeness_review": {
+        "is_complete": true,
+        "missing_required_fields": [],
+        "missing_conditional_fields": [],
+        "comments": []
+      },
+      "evidence_review": {
+        "is_sufficient": true,
+        "evidence_items_reviewed": [
+          "FND-000003-EVID-001"
+        ],
+        "supported_claims": [
+          "Evidence FND-000003-EVID-001: exploitation demonstrated",
+          "Manual exploitation with successful outcome confirmed"
+        ],
+        "unsupported_claims": [],
+        "missing_evidence": [],
+        "comments": []
+      },
+      "severity_review": {
+        "reported_severity": "low",
+        "suggested_severity": "medium",
+        "is_consistent": false,
+        "change_recommended": true,
+        "rationale": "CVSS 6.5 maps to 'medium', reported severity is 'low'. Mismatch flagged for human review."
+      },
+      "cvss_review": {
+        "reported_version": "3.1",
+        "reported_score": 6.5,
+        "reported_vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+        "vector_is_valid": true,
+        "score_matches_vector": null,
+        "severity_matches_score": false,
+        "requires_manual_recalculation": false,
+        "comments": [
+          "CVSS score 6.5 (medium) does not match reported severity 'low'"
+        ]
+      },
+      "cwe_review": {
+        "reported_cwe": "CWE-693",
+        "is_relevant": true,
+        "suggested_cwe": null,
+        "rationale": "CWE CWE-693 keywords found in finding title."
+      },
+      "impact_review": {
+        "is_supported_by_evidence": true,
+        "is_proportionate": true,
+        "unsupported_impact_claims": [],
+        "comments": []
+      },
+      "recommendation_review": {
+        "addresses_root_cause": true,
+        "is_actionable": true,
+        "is_technically_relevant": true,
+        "missing_recommendations": [],
+        "comments": []
+      },
+      "consistency_review": {
+        "is_consistent": false,
+        "issues": [
+          "Reported severity 'low' does not match CVSS 6.5 (implies 'medium')",
+          "Finding title keywords are barely reflected in observation content (0/3 matches)"
+        ]
+      },
+      "retest_review": {
+        "applicable": null,
+        "reported_status": null,
+        "status_supported_by_evidence": null,
+        "missing_retest_evidence": [
+          "No retest performed"
+        ],
+        "comments": [
+          "Finding has not been retested \u2014 retest status is empty or not_retested"
+        ]
+      },
+      "review_comments": [
+        {
+          "comment_id": "RC-001",
+          "taxonomy_code": "SEV-001",
+          "category": "severity",
+          "severity": "warning",
+          "field": "severity",
+          "message": "Severity mismatch: reported='low', CVSS 6.5 implies 'medium'",
+          "evidence_reference": null,
+          "suggested_action": "review_with_human"
+        },
+        {
+          "comment_id": "RC-002",
+          "taxonomy_code": "CVSS-002",
+          "category": "cvss",
+          "severity": "warning",
+          "field": "cvss.score",
+          "message": "CVSS score 6.5 (medium) does not match reported severity 'low'",
+          "evidence_reference": null,
+          "suggested_action": "review_with_human"
+        },
+        {
+          "comment_id": "RC-003",
+          "taxonomy_code": "RET-001",
+          "category": "retest",
+          "severity": "suggestion",
+          "field": "retest",
+          "message": "Finding has not been retested \u2014 retest status is empty or not_retested",
+          "evidence_reference": null,
+          "suggested_action": "schedule_retest"
+        },
+        {
+          "comment_id": "RC-004",
+          "taxonomy_code": "CONS-001",
+          "category": "consistency",
+          "severity": "warning",
+          "field": "severity",
+          "message": "Reported severity 'low' does not match CVSS 6.5 (implies 'medium')",
+          "evidence_reference": null,
+          "suggested_action": "review_with_human"
+        },
+        {
+          "comment_id": "RC-005",
+          "taxonomy_code": "CONS-003",
+          "category": "consistency",
+          "severity": "suggestion",
+          "field": "title",
+          "message": "Finding title keywords are barely reflected in observation content (0/3 matches)",
+          "evidence_reference": null,
+          "suggested_action": "review_title_accuracy"
+        }
+      ],
+      "confidence": {
+        "overall_score": 0.79,
+        "level": "medium",
+        "basis": [
+          "Evidence is sufficient and supports the vulnerability claim",
+          "Classification is well-supported by evidence",
+          "All required sections are present and complete"
+        ],
+        "limitations": [
+          "CVSS score and reported severity are inconsistent",
+          "No retest has been performed"
+        ]
+      },
+      "human_escalation": {
+        "required": true,
+        "reasons": [
+          "CVSS-severity mismatch requires human review for final severity decision",
+          "Confirmed vulnerability has not been retested \u2014 recommend scheduling retest"
+        ],
+        "recommended_reviewer": "report_reviewer"
+      },
+      "traceability": {
+        "source_document_id": "DOC-000001",
+        "source_location": {
+          "section_title": "Root Detection Not Implemented",
+          "section_number": null,
+          "finding_number": 3,
+          "page_start": null,
+          "page_end": null
+        },
+        "input_schema_version": "0.2",
+        "output_schema_version": "0.1",
+        "model_version": null,
+        "knowledge_base_version": "1.0",
+        "ruleset_version": "1.0",
+        "reviewed_at": "2026-08-16T08:15:03.584528+00:00"
+      },
+      "_pipeline_meta": {
+        "elapsed_seconds": 0.0265,
+        "comment_count": 5,
+        "escalation_required": true,
+        "validation_issues": 0,
+        "kb_rules_retrieved": 35,
+        "kb_categories_matched": [
+          "classification_criteria",
+          "evidence_standards",
+          "remediation_guidance",
+          "severity_guidance",
+          "validation_requirements"
+        ]
+      }
+    },
+    "comparison": {
+      "slm_classification": "security",
+      "harness_classification": "confirmed_vulnerability",
+      "slm_confidence": "high",
+      "harness_confidence": 0.79,
+      "harness_status": "human_review"
+    }
+  },
+  {
+    "finding_id": "FND-000004",
+    "finding_title": "Weak SSL Pinning Implementation",
+    "pipeline": "SLM+Harness-PoC-v1",
+    "elapsed_seconds": 14.19,
+    "slm_output": {
+      "classification": "Weakness",
+      "severity_assessment": "Low",
+      "evidence_check": [
+        {
+          "rule_id": "KB-REC-TPL-003",
+          "description": "This rule applies to the use of weak security practices in code."
+        },
+        {
+          "rule_id": "KB-REC-006",
+          "description": "This rule applies to the use of weak security practices in code."
+        }
+      ],
+      "remediation": [
+        {
+          "recommendation": "Implement SSL Pinning to ensure the application only trusts the specific certificate chain of your backend server"
+        },
+        {
+          "recommendation": "For Android: Network Security Configuration: Use the native XML configuration file (res/xml/network_security_config.xml) to define the pin set (hashes of the public keys or certificates)"
+        }
+      ],
+      "confidence": "High",
+      "parse_error": false
+    },
+    "harness_output": {
+      "schema_version": "0.1",
+      "review_id": "REV-998289",
+      "finding_id": "FND-000004",
+      "review_status": "human_review",
+      "classification": {
+        "label": "confirmed_vulnerability",
+        "rationale": "Exploitation demonstrated and evidence sufficiently supports the vulnerability claim.",
+        "supported_by_evidence": true
+      },
+      "completeness_review": {
+        "is_complete": true,
+        "missing_required_fields": [],
+        "missing_conditional_fields": [],
+        "comments": []
+      },
+      "evidence_review": {
+        "is_sufficient": true,
+        "evidence_items_reviewed": [
+          "FND-000004-EVID-001"
+        ],
+        "supported_claims": [
+          "Evidence FND-000004-EVID-001: exploitation demonstrated",
+          "Manual exploitation with successful outcome confirmed"
+        ],
+        "unsupported_claims": [],
+        "missing_evidence": [],
+        "comments": []
+      },
+      "severity_review": {
+        "reported_severity": "low",
+        "suggested_severity": "medium",
+        "is_consistent": false,
+        "change_recommended": true,
+        "rationale": "CVSS 6.5 maps to 'medium', reported severity is 'low'. Mismatch flagged for human review."
+      },
+      "cvss_review": {
+        "reported_version": "3.1",
+        "reported_score": 6.5,
+        "reported_vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+        "vector_is_valid": true,
+        "score_matches_vector": null,
+        "severity_matches_score": false,
+        "requires_manual_recalculation": false,
+        "comments": [
+          "CVSS score 6.5 (medium) does not match reported severity 'low'"
+        ]
+      },
+      "cwe_review": {
+        "reported_cwe": "CWE-295",
+        "is_relevant": true,
+        "suggested_cwe": null,
+        "rationale": "CWE CWE-295 keywords found in finding title."
+      },
+      "impact_review": {
+        "is_supported_by_evidence": true,
+        "is_proportionate": true,
+        "unsupported_impact_claims": [],
+        "comments": []
+      },
+      "recommendation_review": {
+        "addresses_root_cause": true,
+        "is_actionable": true,
+        "is_technically_relevant": true,
+        "missing_recommendations": [],
+        "comments": []
+      },
+      "consistency_review": {
+        "is_consistent": false,
+        "issues": [
+          "Reported severity 'low' does not match CVSS 6.5 (implies 'medium')"
+        ]
+      },
+      "retest_review": {
+        "applicable": null,
+        "reported_status": null,
+        "status_supported_by_evidence": null,
+        "missing_retest_evidence": [
+          "No retest performed"
+        ],
+        "comments": [
+          "Finding has not been retested \u2014 retest status is empty or not_retested"
+        ]
+      },
+      "review_comments": [
+        {
+          "comment_id": "RC-001",
+          "taxonomy_code": "SEV-001",
+          "category": "severity",
+          "severity": "warning",
+          "field": "severity",
+          "message": "Severity mismatch: reported='low', CVSS 6.5 implies 'medium'",
+          "evidence_reference": null,
+          "suggested_action": "review_with_human"
+        },
+        {
+          "comment_id": "RC-002",
+          "taxonomy_code": "CVSS-002",
+          "category": "cvss",
+          "severity": "warning",
+          "field": "cvss.score",
+          "message": "CVSS score 6.5 (medium) does not match reported severity 'low'",
+          "evidence_reference": null,
+          "suggested_action": "review_with_human"
+        },
+        {
+          "comment_id": "RC-003",
+          "taxonomy_code": "RET-001",
+          "category": "retest",
+          "severity": "suggestion",
+          "field": "retest",
+          "message": "Finding has not been retested \u2014 retest status is empty or not_retested",
+          "evidence_reference": null,
+          "suggested_action": "schedule_retest"
+        },
+        {
+          "comment_id": "RC-004",
+          "taxonomy_code": "CONS-001",
+          "category": "consistency",
+          "severity": "warning",
+          "field": "severity",
+          "message": "Reported severity 'low' does not match CVSS 6.5 (implies 'medium')",
+          "evidence_reference": null,
+          "suggested_action": "review_with_human"
+        }
+      ],
+      "confidence": {
+        "overall_score": 0.79,
+        "level": "medium",
+        "basis": [
+          "Evidence is sufficient and supports the vulnerability claim",
+          "Classification is well-supported by evidence",
+          "All required sections are present and complete"
+        ],
+        "limitations": [
+          "CVSS score and reported severity are inconsistent",
+          "No retest has been performed"
+        ]
+      },
+      "human_escalation": {
+        "required": true,
+        "reasons": [
+          "CVSS-severity mismatch requires human review for final severity decision",
+          "Confirmed vulnerability has not been retested \u2014 recommend scheduling retest"
+        ],
+        "recommended_reviewer": "report_reviewer"
+      },
+      "traceability": {
+        "source_document_id": "DOC-000001",
+        "source_location": {
+          "section_title": "Weak SSL Pinning Implementation",
+          "section_number": null,
+          "finding_number": 4,
+          "page_start": null,
+          "page_end": null
+        },
+        "input_schema_version": "0.2",
+        "output_schema_version": "0.1",
+        "model_version": null,
+        "knowledge_base_version": "1.0",
+        "ruleset_version": "1.0",
+        "reviewed_at": "2026-08-16T08:15:17.774883+00:00"
+      },
+      "_pipeline_meta": {
+        "elapsed_seconds": 0.025,
+        "comment_count": 4,
+        "escalation_required": true,
+        "validation_issues": 0,
+        "kb_rules_retrieved": 35,
+        "kb_categories_matched": [
+          "classification_criteria",
+          "evidence_standards",
+          "remediation_guidance",
+          "severity_guidance",
+          "validation_requirements"
+        ]
+      }
+    },
+    "comparison": {
+      "slm_classification": "Weakness",
+      "harness_classification": "confirmed_vulnerability",
+      "slm_confidence": "High",
+      "harness_confidence": 0.79,
+      "harness_status": "human_review"
+    }
+  },
+  {
+    "finding_id": "FND-000005",
+    "finding_title": "Email Enumeration Possible During User Registration",
+    "pipeline": "SLM+Harness-PoC-v1",
+    "elapsed_seconds": 15.25,
+    "slm_output": {
+      "classification": "Information Disclosure",
+      "severity_assessment": "Low",
+      "evidence_check": [
+        {
+          "rule_id": "KB-EVID-001",
+          "description": "The application discloses whether a username already exists during the user registration process through distinguishable server responses."
+        }
+      ],
+      "remediation": [
+        {
+          "recommendation": "Return a generic response for all registration attempts regardless of whether the submitted username already exists.",
+          "details": "An attacker may leverage this behavior to enumerate valid usernames."
+        },
+        {
+          "recommendation": "Avoid exposing detailed validation messages that reveal the existence of user accounts.",
+          "details": "An attacker can infer if a username already exists by analyzing the response."
+        },
+        {
+          "recommendation": "Perform duplicate account validation internally without disclosing the result to the client.",
+          "details": "This prevents attackers from gaining insights into the system's internal state."
+        }
+      ],
+      "confidence": "High",
+      "parse_error": false
+    },
+    "harness_output": {
+      "schema_version": "0.1",
+      "review_id": "REV-912544",
+      "finding_id": "FND-000005",
+      "review_status": "human_review",
+      "classification": {
+        "label": "potential_issue",
+        "rationale": "Exploitation was not fully demonstrated or evidence is insufficient to confirm the vulnerability.",
+        "supported_by_evidence": false
+      },
+      "completeness_review": {
+        "is_complete": true,
+        "missing_required_fields": [],
+        "missing_conditional_fields": [],
+        "comments": []
+      },
+      "evidence_review": {
+        "is_sufficient": false,
+        "evidence_items_reviewed": [
+          "FND-000005-EVID-001"
+        ],
+        "supported_claims": [],
+        "unsupported_claims": [],
+        "missing_evidence": [
+          "Manual testing performed but successful exploitation not demonstrated"
+        ],
+        "comments": [
+          "Evidence shows manual testing but no successful exploitation \u2014 consider Potential Issue"
+        ]
+      },
+      "severity_review": {
+        "reported_severity": "low",
+        "suggested_severity": "medium",
+        "is_consistent": false,
+        "change_recommended": true,
+        "rationale": "CVSS 5.3 maps to 'medium', reported severity is 'low'. Mismatch flagged for human review."
+      },
+      "cvss_review": {
+        "reported_version": "3.1",
+        "reported_score": 5.3,
+        "reported_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+        "vector_is_valid": true,
+        "score_matches_vector": null,
+        "severity_matches_score": false,
+        "requires_manual_recalculation": false,
+        "comments": [
+          "CVSS score 5.3 (medium) does not match reported severity 'low'"
+        ]
+      },
+      "cwe_review": {
+        "reported_cwe": "CWE-204",
+        "is_relevant": true,
+        "suggested_cwe": null,
+        "rationale": "CWE CWE-204 keywords found in finding title."
+      },
+      "impact_review": {
+        "is_supported_by_evidence": true,
+        "is_proportionate": true,
+        "unsupported_impact_claims": [],
+        "comments": []
+      },
+      "recommendation_review": {
+        "addresses_root_cause": true,
+        "is_actionable": true,
+        "is_technically_relevant": true,
+        "missing_recommendations": [],
+        "comments": []
+      },
+      "consistency_review": {
+        "is_consistent": false,
+        "issues": [
+          "Reported severity 'low' does not match CVSS 5.3 (implies 'medium')"
+        ]
+      },
+      "retest_review": {
+        "applicable": null,
+        "reported_status": null,
+        "status_supported_by_evidence": null,
+        "missing_retest_evidence": [
+          "No retest performed"
+        ],
+        "comments": [
+          "Finding has not been retested \u2014 retest status is empty or not_retested"
+        ]
+      },
+      "review_comments": [
+        {
+          "comment_id": "RC-001",
+          "taxonomy_code": "EVID-004",
+          "category": "evidence",
+          "severity": "warning",
+          "field": "evidence",
+          "message": "Evidence shows manual testing but no successful exploitation \u2014 consider Potential Issue",
+          "evidence_reference": null,
+          "suggested_action": "evaluate_evidence_strength_for_classification"
+        },
+        {
+          "comment_id": "RC-002",
+          "taxonomy_code": "CLASS-001",
+          "category": "classification",
+          "severity": "warning",
+          "field": "classification",
+          "message": "Evidence does not support Confirmed Vulnerability \u2014 classified as Potential Issue",
+          "evidence_reference": null,
+          "suggested_action": "provide_additional_evidence_to_confirm"
+        },
+        {
+          "comment_id": "RC-003",
+          "taxonomy_code": "SEV-001",
+          "category": "severity",
+          "severity": "warning",
+          "field": "severity",
+          "message": "Severity mismatch: reported='low', CVSS 5.3 implies 'medium'",
+          "evidence_reference": null,
+          "suggested_action": "review_with_human"
+        },
+        {
+          "comment_id": "RC-004",
+          "taxonomy_code": "CVSS-002",
+          "category": "cvss",
+          "severity": "warning",
+          "field": "cvss.score",
+          "message": "CVSS score 5.3 (medium) does not match reported severity 'low'",
+          "evidence_reference": null,
+          "suggested_action": "review_with_human"
+        },
+        {
+          "comment_id": "RC-005",
+          "taxonomy_code": "RET-001",
+          "category": "retest",
+          "severity": "suggestion",
+          "field": "retest",
+          "message": "Finding has not been retested \u2014 retest status is empty or not_retested",
+          "evidence_reference": null,
+          "suggested_action": "schedule_retest"
+        },
+        {
+          "comment_id": "RC-006",
+          "taxonomy_code": "CONS-001",
+          "category": "consistency",
+          "severity": "warning",
+          "field": "severity",
+          "message": "Reported severity 'low' does not match CVSS 5.3 (implies 'medium')",
+          "evidence_reference": null,
+          "suggested_action": "review_with_human"
+        }
+      ],
+      "confidence": {
+        "overall_score": 0.54,
+        "level": "medium",
+        "basis": [
+          "Evidence is partial \u2014 some gaps exist",
+          "Classification has moderate support",
+          "All required sections are present and complete"
+        ],
+        "limitations": [
+          "CVSS score and reported severity are inconsistent",
+          "No retest has been performed"
+        ]
+      },
+      "human_escalation": {
+        "required": true,
+        "reasons": [
+          "Confidence score (0.54) is below escalation threshold (0.7)",
+          "CVSS-severity mismatch requires human review for final severity decision"
+        ],
+        "recommended_reviewer": "report_reviewer"
+      },
+      "traceability": {
+        "source_document_id": "DOC-000001",
+        "source_location": {
+          "section_title": "Email Enumeration Possible During User Registration",
+          "section_number": null,
+          "finding_number": 5,
+          "page_start": null,
+          "page_end": null
+        },
+        "input_schema_version": "0.2",
+        "output_schema_version": "0.1",
+        "model_version": null,
+        "knowledge_base_version": "1.0",
+        "ruleset_version": "1.0",
+        "reviewed_at": "2026-08-16T08:15:33.029300+00:00"
+      },
+      "_pipeline_meta": {
+        "elapsed_seconds": 0.0243,
+        "comment_count": 6,
+        "escalation_required": true,
+        "validation_issues": 0,
+        "kb_rules_retrieved": 36,
+        "kb_categories_matched": [
+          "classification_criteria",
+          "evidence_standards",
+          "remediation_guidance",
+          "severity_guidance",
+          "validation_requirements"
+        ]
+      }
+    },
+    "comparison": {
+      "slm_classification": "Information Disclosure",
+      "harness_classification": "potential_issue",
+      "slm_confidence": "High",
+      "harness_confidence": 0.54,
+      "harness_status": "human_review"
+    }
+  }
+]
