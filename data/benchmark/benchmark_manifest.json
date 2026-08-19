@@ -1,28 +1,36 @@
 {
-  "benchmark_version": "1.0",
+  "benchmark_version": "1.1",
   "created_at": "2026-08-15",
+  "last_updated": "2026-08-18",
   "source": {
-    "findings_jsonl": "data\\normalized\\DOC-000001-findings-normalized.jsonl",
+    "findings_jsonl": "data/normalized/DOC-000001-findings-normalized.jsonl",
     "engagement_id": "DOC-000001",
     "n_findings": 5
   },
-  "case_count": 34,
+  "case_count": 43,
   "cases_by_task_type": {
-    "client_qa": 7,
-    "evidence_check": 5,
-    "false_positive_detection": 3,
+    "client_qa": 9,
+    "evidence_check": 8,
+    "false_positive_detection": 4,
     "finding_review": 5,
     "hard_negative_potential_issue": 1,
     "remediation_review": 5,
-    "severity_review": 5,
+    "severity_review": 8,
     "unsupported_refusal": 3
   },
   "cases_by_difficulty": {
     "easy": 14,
-    "hard": 9,
-    "medium": 11
+    "hard": 15,
+    "medium": 14
   },
-  "hard_negative_count": 9,
+  "hard_negative_count": 18,
+  "hard_negatives_by_type": {
+    "scanner_only_high_severity_trap": 1,
+    "unknown": 9,
+    "unrelated_evidence": 3,
+    "unsupported_question": 2,
+    "wrong_severity": 3
+  },
   "schema_contract": "schemas/output_schema.json (v0.1)",
   "envelope_schema": {
     "case_id": "string",
@@ -34,11 +42,56 @@
     "metadata": "object"
   },
   "duplicates_detected": [],
-  "generation_strategy": "cross_task_expansion + hand_crafted_hard_negatives",
+  "generation_strategy": "cross_task_expansion + hand_crafted_hard_negatives + v11_hard_negative_expansion",
+  "changelog": [
+    {
+      "version": "1.1",
+      "date": "2026-08-18",
+      "changes": [
+        "Added 9 hard negative cases (4 types: scanner-only trap, unrelated evidence, wrong severity, unsupported question)",
+        "Total: 34 -> 43 cases",
+        "Hard negatives: 9 -> 18 (was 8, +1 scanner-only +3 unrelated evidence +3 wrong severity +2 unsupported question -1 existing FP overlap count correction)",
+        "New case IDs: BMC-FP-0004, BMC-EV-0006..0008, BMC-SV-0006..0008, BMC-QA-0008..0009"
+      ]
+    },
+    {
+      "version": "1.0",
+      "date": "2026-08-15",
+      "changes": [
+        "Initial 34 cases"
+      ]
+    }
+  ],
+  "failure_mode_counts": {
+    "failed_to_refuse": 7,
+    "hallucinated_answer": 7,
+    "hallucinated_cwe_relevance": 5,
+    "hallucinated_evidence": 13,
+    "hallucinated_exploitation": 2,
+    "hallucinated_manual_verification": 3,
+    "hallucinated_severity": 5,
+    "invalid_cvss_vector_validation": 5,
+    "leaked_redacted_data": 5,
+    "missed_cvss_severity_mismatch": 5,
+    "missed_generic_recommendation": 5,
+    "missed_no_exploit_marker": 1,
+    "missed_scanner_only_marker": 4,
+    "missed_severity_cvss_mismatch": 8,
+    "missed_unsupported_claim": 8,
+    "missing_review_comment": 5,
+    "refused_in_scope_question": 5,
+    "wrong_classification_label": 5,
+    "wrong_classification_label_confirmed": 5,
+    "wrong_cvss_score": 5,
+    "wrong_evidence_sufficiency": 8,
+    "wrong_root_cause_assessment": 5,
+    "wrong_severity_suggestion": 8
+  },
   "notes": [
     "Gold labels are rule-based, not human-validated.",
     "Test set is NOT frozen — only 1 engagement available (see data/dataset/test_set_freeze.json).",
-    "Baseline run is deferred to Colab on 10/08 (per Q2 = option a).",
-    "Regenerate with: python scripts/build_benchmark_v1.py"
+    "Regenerate v1 base with: python scripts/build_benchmark_v1.py",
+    "Regenerate v1.1 HN with: python scripts/build_hard_negatives_v11.py",
+    "Merge with: python scripts/merge_benchmark_v11.py"
   ]
 }
