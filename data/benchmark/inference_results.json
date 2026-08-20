@@ -1,0 +1,473 @@
+[
+  {
+    "case_id": "BMC-EV-0001",
+    "task_type": "evidence_check",
+    "generated_text": "{\n  \"status\": \"PASS\",\n  \"message\": \"Evidence supports the claim.\",\n  \"evidence_summary\": [],\n  \"claims\": [\n    {\n      \"id\": \"claim_1\",\n      \"type\": \"vulnerability_claim\",\n      \"text\": \"RabbitMQ credentials are hard-coded into the mobile application.\"\n    },\n    {\n      \"id\": \"claim_2\",\n      \"type\": \"exploitability_claim\",\n      \"text\": \"Credentials can be extracted from the APK without requiring privileged access.\"\n    },\n    {\n      \"id\": \"claim_3\",\n      \"type\": \"impact_claim\",\n      \"text\": \"Exposure of RabbitMQ credentials allows an attacker to gain unauthorized access to the backend messaging infrastructure.\"\n    },\n    {\n      \"id\": \"claim_4\",\n      \"type\": \"exploitation_claim\",\n      \"text\": \"Credentials can be used to authenticate to the RabbitMQ management interface.\"\n    },\n    {\n      \"id\": \"claim_5\",\n      \"type\": \"exploitation_claim\",\n      \"text\": \"Authenticated user can enumerate RabbitMQ resources.\"\n    }\n  ],\n  \"missing_evidence\": []\n}",
+    "parsed_output": {
+      "status": "PASS",
+      "message": "Evidence supports the claim.",
+      "evidence_summary": [],
+      "claims": [
+        {
+          "id": "claim_1",
+          "type": "vulnerability_claim",
+          "text": "RabbitMQ credentials are hard-coded into the mobile application."
+        },
+        {
+          "id": "claim_2",
+          "type": "exploitability_claim",
+          "text": "Credentials can be extracted from the APK without requiring privileged access."
+        },
+        {
+          "id": "claim_3",
+          "type": "impact_claim",
+          "text": "Exposure of RabbitMQ credentials allows an attacker to gain unauthorized access to the backend messaging infrastructure."
+        },
+        {
+          "id": "claim_4",
+          "type": "exploitation_claim",
+          "text": "Credentials can be used to authenticate to the RabbitMQ management interface."
+        },
+        {
+          "id": "claim_5",
+          "type": "exploitation_claim",
+          "text": "Authenticated user can enumerate RabbitMQ resources."
+        }
+      ],
+      "missing_evidence": []
+    },
+    "gold_output": {
+      "evidence_review": {
+        "is_sufficient": true,
+        "evidence_items_reviewed": [
+          "FND-000001-EVID-001"
+        ],
+        "supported_claims": [
+          "Hardcoded RabbitMQ Credentials in Mobile Application"
+        ],
+        "unsupported_claims": [],
+        "missing_evidence": [],
+        "comments": []
+      },
+      "review_comments": [],
+      "confidence": {
+        "overall_score": 0.85,
+        "level": "high",
+        "basis": [
+          "evidence_marker_check"
+        ],
+        "limitations": [
+          "Marker-based; may miss subtle exploitation language."
+        ]
+      }
+    },
+    "generation_time_sec": 99.21,
+    "error": null,
+    "eval": {
+      "json_valid": true,
+      "exact_match": false,
+      "structure_match": 0.0,
+      "field_matches": {
+        "evidence_review.is_sufficient": {
+          "gold": true,
+          "pred": "<missing>",
+          "match": false
+        },
+        "evidence_review.supported_claims": {
+          "gold": [
+            "Hardcoded RabbitMQ Credentials in Mobile Application"
+          ],
+          "pred": "<missing>",
+          "match": false
+        },
+        "evidence_review.unsupported_claims": {
+          "gold": [],
+          "pred": "<missing>",
+          "match": false
+        },
+        "evidence_review.missing_evidence": {
+          "gold": [],
+          "pred": "<missing>",
+          "match": false
+        },
+        "confidence.overall_score": {
+          "gold": 0.85,
+          "pred": "<missing>",
+          "match": false
+        },
+        "confidence.level": {
+          "gold": "high",
+          "pred": "<missing>",
+          "match": false
+        }
+      },
+      "classification_match": false,
+      "summary": "MISMATCH — predicted '<missing>' vs gold 'True'"
+    }
+  },
+  {
+    "case_id": "BMC-EV-0002",
+    "task_type": "evidence_check",
+    "generated_text": "{\n  \"status\": \"PASS\",\n  \"reason\": \"The evidence provided supports the claim made in the finding.\",\n  \"evidence_summary\": [],\n  \"unsupported_claims\": [],\n  \"missing_evidence\": []\n}",
+    "parsed_output": {
+      "status": "PASS",
+      "reason": "The evidence provided supports the claim made in the finding.",
+      "evidence_summary": [],
+      "unsupported_claims": [],
+      "missing_evidence": []
+    },
+    "gold_output": {
+      "evidence_review": {
+        "is_sufficient": false,
+        "evidence_items_reviewed": [
+          "FND-000002-EVID-001"
+        ],
+        "supported_claims": [],
+        "unsupported_claims": [
+          "Use of Symmetric JWT Signing Algorithm (HS256)"
+        ],
+        "missing_evidence": [
+          "Reproducible exploitation proof"
+        ],
+        "comments": []
+      },
+      "review_comments": [
+        {
+          "comment_id": "RC-001",
+          "taxonomy_code": "EVID-001",
+          "category": "evidence",
+          "severity": "warning",
+          "field": "evidence",
+          "message": "Evidence does not demonstrate exploitation.",
+          "evidence_reference": null,
+          "suggested_action": "Request reproduction proof."
+        }
+      ],
+      "confidence": {
+        "overall_score": 0.85,
+        "level": "high",
+        "basis": [
+          "evidence_marker_check"
+        ],
+        "limitations": [
+          "Marker-based; may miss subtle exploitation language."
+        ]
+      }
+    },
+    "generation_time_sec": 23.2,
+    "error": null,
+    "eval": {
+      "json_valid": true,
+      "exact_match": false,
+      "structure_match": 0.0,
+      "field_matches": {
+        "evidence_review.is_sufficient": {
+          "gold": false,
+          "pred": "<missing>",
+          "match": false
+        },
+        "evidence_review.supported_claims": {
+          "gold": [],
+          "pred": "<missing>",
+          "match": false
+        },
+        "evidence_review.unsupported_claims": {
+          "gold": [
+            "Use of Symmetric JWT Signing Algorithm (HS256)"
+          ],
+          "pred": "<missing>",
+          "match": false
+        },
+        "evidence_review.missing_evidence": {
+          "gold": [
+            "Reproducible exploitation proof"
+          ],
+          "pred": "<missing>",
+          "match": false
+        },
+        "confidence.overall_score": {
+          "gold": 0.85,
+          "pred": "<missing>",
+          "match": false
+        },
+        "confidence.level": {
+          "gold": "high",
+          "pred": "<missing>",
+          "match": false
+        }
+      },
+      "classification_match": false,
+      "summary": "MISMATCH — predicted '<missing>' vs gold 'False'"
+    }
+  },
+  {
+    "case_id": "BMC-EV-0003",
+    "task_type": "evidence_check",
+    "generated_text": "{\n  \"status\": \"PASS\",\n  \"message\": \"The evidence is sufficient to support the claim.\",\n  \"claims\": [],\n  \"missing_evidence\": []\n}",
+    "parsed_output": {
+      "status": "PASS",
+      "message": "The evidence is sufficient to support the claim.",
+      "claims": [],
+      "missing_evidence": []
+    },
+    "gold_output": {
+      "evidence_review": {
+        "is_sufficient": false,
+        "evidence_items_reviewed": [
+          "FND-000003-EVID-001"
+        ],
+        "supported_claims": [],
+        "unsupported_claims": [
+          "Root Detection Not Implemented"
+        ],
+        "missing_evidence": [
+          "Reproducible exploitation proof"
+        ],
+        "comments": []
+      },
+      "review_comments": [
+        {
+          "comment_id": "RC-001",
+          "taxonomy_code": "EVID-001",
+          "category": "evidence",
+          "severity": "warning",
+          "field": "evidence",
+          "message": "Evidence does not demonstrate exploitation.",
+          "evidence_reference": null,
+          "suggested_action": "Request reproduction proof."
+        }
+      ],
+      "confidence": {
+        "overall_score": 0.85,
+        "level": "high",
+        "basis": [
+          "evidence_marker_check"
+        ],
+        "limitations": [
+          "Marker-based; may miss subtle exploitation language."
+        ]
+      }
+    },
+    "generation_time_sec": 17.08,
+    "error": null,
+    "eval": {
+      "json_valid": true,
+      "exact_match": false,
+      "structure_match": 0.0,
+      "field_matches": {
+        "evidence_review.is_sufficient": {
+          "gold": false,
+          "pred": "<missing>",
+          "match": false
+        },
+        "evidence_review.supported_claims": {
+          "gold": [],
+          "pred": "<missing>",
+          "match": false
+        },
+        "evidence_review.unsupported_claims": {
+          "gold": [
+            "Root Detection Not Implemented"
+          ],
+          "pred": "<missing>",
+          "match": false
+        },
+        "evidence_review.missing_evidence": {
+          "gold": [
+            "Reproducible exploitation proof"
+          ],
+          "pred": "<missing>",
+          "match": false
+        },
+        "confidence.overall_score": {
+          "gold": 0.85,
+          "pred": "<missing>",
+          "match": false
+        },
+        "confidence.level": {
+          "gold": "high",
+          "pred": "<missing>",
+          "match": false
+        }
+      },
+      "classification_match": false,
+      "summary": "MISMATCH — predicted '<missing>' vs gold 'False'"
+    }
+  },
+  {
+    "case_id": "BMC-EV-0004",
+    "task_type": "evidence_check",
+    "generated_text": "{\n  \"status\": \"PASS\",\n  \"reason\": \"The evidence provided demonstrates that the application implements SSL pinning but allows it to be bypassed with runtime instrumentation.\",\n  \"recommendations\": [],\n  \"unsupported_claims\": [\"SSL pinning is implemented\"],\n  \"missing_evidence\": []\n}",
+    "parsed_output": {
+      "status": "PASS",
+      "reason": "The evidence provided demonstrates that the application implements SSL pinning but allows it to be bypassed with runtime instrumentation.",
+      "recommendations": [],
+      "unsupported_claims": [
+        "SSL pinning is implemented"
+      ],
+      "missing_evidence": []
+    },
+    "gold_output": {
+      "evidence_review": {
+        "is_sufficient": true,
+        "evidence_items_reviewed": [
+          "FND-000004-EVID-001"
+        ],
+        "supported_claims": [
+          "Weak SSL Pinning Implementation"
+        ],
+        "unsupported_claims": [],
+        "missing_evidence": [],
+        "comments": []
+      },
+      "review_comments": [],
+      "confidence": {
+        "overall_score": 0.85,
+        "level": "high",
+        "basis": [
+          "evidence_marker_check"
+        ],
+        "limitations": [
+          "Marker-based; may miss subtle exploitation language."
+        ]
+      }
+    },
+    "generation_time_sec": 29.06,
+    "error": null,
+    "eval": {
+      "json_valid": true,
+      "exact_match": false,
+      "structure_match": 0.0,
+      "field_matches": {
+        "evidence_review.is_sufficient": {
+          "gold": true,
+          "pred": "<missing>",
+          "match": false
+        },
+        "evidence_review.supported_claims": {
+          "gold": [
+            "Weak SSL Pinning Implementation"
+          ],
+          "pred": "<missing>",
+          "match": false
+        },
+        "evidence_review.unsupported_claims": {
+          "gold": [],
+          "pred": "<missing>",
+          "match": false
+        },
+        "evidence_review.missing_evidence": {
+          "gold": [],
+          "pred": "<missing>",
+          "match": false
+        },
+        "confidence.overall_score": {
+          "gold": 0.85,
+          "pred": "<missing>",
+          "match": false
+        },
+        "confidence.level": {
+          "gold": "high",
+          "pred": "<missing>",
+          "match": false
+        }
+      },
+      "classification_match": false,
+      "summary": "MISMATCH — predicted '<missing>' vs gold 'True'"
+    }
+  },
+  {
+    "case_id": "BMC-EV-0005",
+    "task_type": "evidence_check",
+    "generated_text": "{\n  \"status\": \"PASS\",\n  \"reason\": \"Evidence is sufficient to support the claim.\",\n  \"claims\": [],\n  \"missing_evidence\": []\n}",
+    "parsed_output": {
+      "status": "PASS",
+      "reason": "Evidence is sufficient to support the claim.",
+      "claims": [],
+      "missing_evidence": []
+    },
+    "gold_output": {
+      "evidence_review": {
+        "is_sufficient": false,
+        "evidence_items_reviewed": [
+          "FND-000005-EVID-001"
+        ],
+        "supported_claims": [],
+        "unsupported_claims": [
+          "Email Enumeration Possible During User Registration"
+        ],
+        "missing_evidence": [
+          "Reproducible exploitation proof"
+        ],
+        "comments": []
+      },
+      "review_comments": [
+        {
+          "comment_id": "RC-001",
+          "taxonomy_code": "EVID-001",
+          "category": "evidence",
+          "severity": "warning",
+          "field": "evidence",
+          "message": "Evidence does not demonstrate exploitation.",
+          "evidence_reference": null,
+          "suggested_action": "Request reproduction proof."
+        }
+      ],
+      "confidence": {
+        "overall_score": 0.85,
+        "level": "high",
+        "basis": [
+          "evidence_marker_check"
+        ],
+        "limitations": [
+          "Marker-based; may miss subtle exploitation language."
+        ]
+      }
+    },
+    "generation_time_sec": 18.11,
+    "error": null,
+    "eval": {
+      "json_valid": true,
+      "exact_match": false,
+      "structure_match": 0.0,
+      "field_matches": {
+        "evidence_review.is_sufficient": {
+          "gold": false,
+          "pred": "<missing>",
+          "match": false
+        },
+        "evidence_review.supported_claims": {
+          "gold": [],
+          "pred": "<missing>",
+          "match": false
+        },
+        "evidence_review.unsupported_claims": {
+          "gold": [
+            "Email Enumeration Possible During User Registration"
+          ],
+          "pred": "<missing>",
+          "match": false
+        },
+        "evidence_review.missing_evidence": {
+          "gold": [
+            "Reproducible exploitation proof"
+          ],
+          "pred": "<missing>",
+          "match": false
+        },
+        "confidence.overall_score": {
+          "gold": 0.85,
+          "pred": "<missing>",
+          "match": false
+        },
+        "confidence.level": {
+          "gold": "high",
+          "pred": "<missing>",
+          "match": false
+        }
+      },
+      "classification_match": false,
+      "summary": "MISMATCH — predicted '<missing>' vs gold 'False'"
+    }
+  }
+]
