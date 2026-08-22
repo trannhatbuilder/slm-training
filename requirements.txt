@@ -1,3 +1,7 @@
 ﻿python-docx
 jsonschema
 PyYAML
+torch
+transformers
+peft
+accelerate
